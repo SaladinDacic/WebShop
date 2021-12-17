@@ -1,0 +1,41 @@
+.Navbar {
+  // border: 2px solid red;
+  background-color: $color-gray-light;
+  margin: 0 auto;
+  &__primary {
+    width: $grid-width;
+    // width: 80%;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid $color-grey-dark;
+    &--logo {
+      font-size: $logo-size;
+    }
+    &--div {
+      display: flex;
+      align-items: center;
+      & i {
+        margin-left: 1rem;
+        font-size: $default-font-site;
+      }
+    }
+    &--div > i,
+    button {
+      cursor: pointer;
+    }
+  }
+  &__secondary {
+    width: 50%;
+    height: 2rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    &--tag {
+      letter-spacing: 0.2rem;
+      margin: 0 2rem;
+    }
+  }
+}

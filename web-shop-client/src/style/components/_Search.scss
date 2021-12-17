@@ -1,0 +1,24 @@
+.Search {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  height: 2.5rem;
+  &__input {
+    border-bottom-left-radius: 0.5rem;
+    border-top-left-radius: 0.5rem;
+    background-color: $color-white;
+    border: 1px solid $color-grey-dark;
+    height: 100%;
+    width: 20rem;
+  }
+  &__btn {
+    height: 105%;
+    border-bottom-right-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border: 1px solid $color-grey-dark;
+    background-color: $color-grey-dark;
+    border: node;
+    color: $color-white;
+    font-size: 1.1rem;
+    width: 5rem;
+  }
+}

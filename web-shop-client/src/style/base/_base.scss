@@ -1,0 +1,22 @@
+*,
+*::after,
+*::before {
+  /* selektuje sve elemente, plus sve pseudo elemente before i after */
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  /* font-size: 10px; */
+  font-size: 62.5%;
+  /* 16px*62.5% === 10px */
+  /* Omogućava da korisnik zooma i zoom outa našu stranicu */
+}
+
+body {
+  box-sizing: border-box; /* borders and paddings nisu promjenjeni zbog widtha i heighta box-a*/
+  background-color: $color-white;
+  margin: $site-margin-2;
+  border: 1px solid rgba($color-tertiary-light, 0.6);
+}
