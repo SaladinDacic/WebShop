@@ -1,14 +1,18 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Card from "../components/Card";
 import CardDetails from "../components/CardDetails";
 
 interface ListCardsProps {
-  allSellers: {}[] | undefined;
-  setAllSellers: React.Dispatch<React.SetStateAction<{}[] | undefined>>;
+  mySellers: {}[] | undefined;
+  setMySellers: React.Dispatch<React.SetStateAction<{}[] | undefined>>;
+  loggedIn: boolean;
 }
 
-const ListCards: React.FC<ListCardsProps> = ({ allSellers, setAllSellers }) => {
+const MyShop: React.FC<ListCardsProps> = ({
+  mySellers,
+  setMySellers,
+  loggedIn,
+}) => {
   const [productList, setProductList] = useState<{}[] | null>();
   const [detailCard, setDetailCard] = useState<{
     sellerId: string;
@@ -17,8 +21,8 @@ const ListCards: React.FC<ListCardsProps> = ({ allSellers, setAllSellers }) => {
   }>({ show: false, sellerId: "", productId: "" });
 
   useEffect(() => {
-    setProductList(allSellers);
-  }, [allSellers]);
+    setProductList(mySellers);
+  }, [mySellers, loggedIn]);
 
   const renderProductList = productList?.map((obj: any, i) => {
     return (
@@ -74,4 +78,4 @@ const ListCards: React.FC<ListCardsProps> = ({ allSellers, setAllSellers }) => {
   );
 };
 
-export default ListCards;
+export default MyShop;

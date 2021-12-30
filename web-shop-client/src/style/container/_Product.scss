@@ -1,0 +1,329 @@
+.Product {
+  margin: 7rem 0;
+  // border: 3px solid green;
+  min-height: $min-height-of-view-2;
+  &__MainBtn button {
+    // position: absolute;
+    color: $color-white;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    // padding-top: 1rem;
+    bottom: 4rem;
+    height: 4.5rem;
+    background-color: $color-grey-dark;
+    border-radius: 0.7rem;
+    width: 30rem;
+    cursor: pointer;
+  }
+  &__tabs {
+    // border: 3px solid lightblue;
+    height: 3rem;
+    max-width: $grid-width;
+    margin: 0 auto;
+    text-transform: uppercase;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    &--category {
+      max-width: 100%;
+      border-top: 0.3rem solid $color-black;
+      background-color: $color-gray-light;
+      height: 3rem;
+      text-align: center;
+      letter-spacing: 0.2rem;
+      padding: 0.3rem 2rem 0 2rem;
+      text-decoration: none;
+      color: $color-black;
+      &:not(.active) {
+        opacity: 0.3;
+      }
+    }
+  }
+  &__Routes--Category {
+    max-width: 100%;
+    display: grid;
+    width: $grid-width;
+    grid-template-columns: 50% 50%;
+    // gap: 4%;
+    color: $color-grey-dark;
+    margin: 3rem auto;
+    position: relative;
+    // align-items: center;
+    .Category__divs {
+      display: flex;
+      flex-direction: column;
+      // justify-content: center;
+      align-items: center;
+      // border: 2px solid red;
+      height: 18rem;
+    }
+    .Category__tags {
+      letter-spacing: 0.2rem;
+      font-weight: 400;
+      margin: 0 auto;
+      text-decoration: none;
+      text-align: start;
+      margin: 1rem 0.5rem;
+    }
+    .Category__ps {
+      margin: 1rem 0.5rem;
+      font-weight: 100;
+    }
+    .Category__btns {
+      position: absolute;
+      color: $color-white;
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+      padding-top: 0.5rem;
+      bottom: 4rem;
+      height: 3.6rem;
+      background-color: $color-grey-dark;
+      border-radius: 0.3rem;
+      width: 21.7%;
+      cursor: pointer;
+    }
+  }
+  .BasicInfo {
+    max-width: 100%;
+    color: $color-grey-dark;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &__radio {
+      width: 100%;
+      display: flex;
+      height: 3rem;
+      max-width: $grid-width;
+      margin: 0 auto;
+      text-transform: uppercase;
+      display: grid;
+      grid-template-columns: 50% 50%;
+      padding-bottom: 3%;
+      &--divs {
+        justify-self: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        border-top: 0.3rem solid $color-black;
+        background-color: $color-gray-light;
+        height: 3.6rem;
+        text-align: center;
+        letter-spacing: 0.2rem;
+        padding: 0.3rem 2rem 0.5rem 2rem;
+        text-decoration: none;
+        color: $color-black;
+      }
+    }
+    &__inputs {
+      margin-top: 2rem;
+      width: 70%;
+      display: grid;
+      grid-template-columns: 50% 50%;
+      letter-spacing: 0.2rem;
+      margin: 2rem 0;
+      color: $color-grey-dark;
+      &--div {
+        justify-self: center;
+        // border: 2px solid lightblue;
+        width: 95%;
+        input {
+          border-radius: 0.5rem;
+          background-color: $color-white;
+          border: 1px solid $color-grey-dark;
+          width: 100%;
+          padding-left: 3%;
+          height: 3rem;
+        }
+        select {
+          border-radius: 0.5rem;
+          background-color: $color-white;
+          border: 1px solid $color-grey-dark;
+          width: 100%;
+          padding-left: 3%;
+          height: 3rem;
+        }
+      }
+    }
+  }
+  .PriceImgDesc {
+    max-width: 100%;
+    color: $color-grey-dark;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &__inputs {
+      margin-top: 2rem;
+      width: 70%;
+      display: grid;
+      letter-spacing: 0.2rem;
+      margin: 2rem 0;
+      color: $color-grey-dark;
+      // border: 2px solid red;
+      &--div {
+        justify-self: center;
+        // border: 2px solid lightblue;
+        padding-left: 5%;
+        width: 95%;
+        input {
+          border-radius: 0.5rem;
+          background-color: $color-white;
+          border: 1px solid $color-grey-dark;
+          width: 100%;
+          padding-left: 3%;
+          height: 3rem;
+        }
+        &-text {
+          margin: 1rem;
+          display: grid;
+          grid-template-columns: 24% 24% 24% 24%;
+          gap: 1%;
+          h3 {
+            margin: 0 1rem;
+          }
+        }
+        &-number {
+          margin: 1rem;
+          display: grid;
+          grid-template-columns: 24% 24% 24% 24%;
+          gap: 1%;
+          h3 {
+            margin: 0 1rem;
+          }
+        }
+        &-file-new {
+          margin: 1rem;
+          display: grid;
+          grid-template-columns: 49% 10%;
+          // gap: 1%;
+          h3 {
+            margin: 0 1rem;
+          }
+          .file {
+            width: 100%;
+            max-height: 15rem;
+            overflow-y: scroll;
+            &__inputs {
+              margin-bottom: 0.5rem;
+            }
+            .moreInputs {
+              border: 1px solid $color-grey-dark;
+              position: sticky;
+              border-radius: 0.3rem;
+              padding: 0.3rem;
+              cursor: pointer;
+            }
+          }
+          .new {
+            width: 5rem;
+          }
+        }
+        &-textArea {
+          margin: 1rem;
+          display: flex;
+          textarea {
+            width: 55vw;
+            height: 10rem;
+          }
+        }
+      }
+    }
+  }
+  .Publish {
+    max-width: $grid-width;
+    margin: 0 auto;
+    display: flex;
+    height: 60rem;
+    background-color: $color-gray-light-2;
+    &__images {
+      // border: 2px solid lightblue;
+      padding: 1.5rem;
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      &--main {
+        // border: 2px solid red;
+        border: 2px solid $color-grey-dark;
+        background-color: white;
+        border-radius: 0.5rem;
+        align-self: center;
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          width: 70%;
+          height: 70%;
+        }
+      }
+      &--list {
+        margin-top: 2rem;
+        // border: 2px solid purple;
+        display: grid;
+        grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;
+        gap: 0.5%;
+        overflow-y: scroll;
+        img {
+          width: 6rem;
+          height: 6rem;
+          border-radius: 50%;
+          background-color: $color-white;
+        }
+      }
+    }
+    &__text {
+      // border: 3px solid yellow;
+      width: 48%;
+      letter-spacing: 0.1rem;
+      font-size: $default-font-site;
+      font-weight: 100;
+      color: $color-black-lighter;
+      display: flex;
+      flex-direction: column;
+      // justify-content: center;
+      align-items: center;
+      &--specs {
+        border-left: 4px groove $color-white;
+        // background-color: $color-gray-light;
+        border-radius: 0.3rem;
+        margin: 5rem 0 3rem 0;
+        width: 70%;
+        & > p::before {
+          content: "";
+          margin: 0 0.5rem 0 1rem;
+        }
+      }
+      &--desc {
+        padding: 2rem;
+        border: 2px solid $color-grey-dark;
+        background-color: white;
+        border-radius: 0.5rem;
+        width: 70%;
+        min-height: 30%;
+        margin-bottom: 2rem;
+        word-wrap: break-word;
+        overflow: scroll;
+        p {
+          width: 100%;
+        }
+      }
+      &--btn {
+        margin-bottom: 1.5rem;
+        justify-self: center;
+        max-width: 100%;
+        button {
+          max-width: 100%;
+        }
+      }
+    }
+  }
+}

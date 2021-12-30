@@ -10,7 +10,11 @@
 @import "components/Search";
 @import "components/Login";
 @import "components/Register";
+@import "components/CardDetails";
+@import "components/Footer";
+@import "components/SortFilter";
 
-@import "container/landing";
+@import "container/Landing";
 @import "container/ListCards";
 @import "container/Navbar";
+@import "container/Product";

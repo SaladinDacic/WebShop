@@ -1,0 +1,43 @@
+.SortFilter {
+  &__Category {
+    display: flex;
+    margin-left: 2rem;
+    &--icon {
+      padding-top: 0.3rem;
+      font-size: 1.4rem;
+      color: $color-grey-dark;
+    }
+    select {
+      text-transform: capitalize;
+      height: 1.5rem;
+      // max-width: 12rem;
+      outline: none;
+      color: #74646e;
+      // border: 1px solid green;
+      border: none;
+      // border-radius: 3rem;
+      // box-shadow: inset 1px 1px 2px #ddd8dc;
+      // background-color: transparent;
+      background-color: $color-gray-light;
+      color: #555;
+      margin: 0;
+      overflow: hidden;
+      // text-overflow: ellipsis;
+      white-space: nowrap;
+      letter-spacing: 0.2rem;
+      color: $color-grey-dark;
+      // display: inline-block;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      cursor: pointer;
+      &::-ms-expand {
+        /* For IE10 */
+        display: none;
+      }
+      &:hover {
+        color: rgba($color-grey-dark, 0.8);
+      }
+    }
+  }
+}

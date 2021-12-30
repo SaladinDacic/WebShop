@@ -6,9 +6,12 @@
     border-bottom-left-radius: 0.5rem;
     border-top-left-radius: 0.5rem;
     background-color: $color-white;
-    border: 1px solid $color-grey-dark;
+    border: 1px solid #c8bfc4;
+    box-shadow: inset 1px 1px 2px #ddd8dc;
     height: 100%;
     width: 20rem;
+    padding-left: 3%;
+    outline: none;
   }
   &__btn {
     height: 105%;

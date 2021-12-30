@@ -1,0 +1,10 @@
+.Landing {
+  // border: 7px solid green;
+  margin-top: 2rem;
+  // background-color: $color-gray-light;
+  overflow: visible;
+  &__ContentBody {
+    display: flex;
+    justify-content: center;
+  }
+}

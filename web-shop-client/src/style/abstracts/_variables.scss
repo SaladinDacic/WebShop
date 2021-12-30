@@ -33,6 +33,7 @@ $color-gray-light-2: #eee;
 $color-grey-dark: #777;
 $color-white: #fff;
 $color-black: #000;
+$color-black-lighter: rgb(58, 58, 58);
 
 // FONT
 $logo-size: 5rem;
@@ -47,9 +48,17 @@ $gutter-horizontal: 6rem;
 //PAGE variables
 $site-margin: 2rem;
 $site-margin-2: 0 2rem 2rem 2rem;
+$min-height-of-view: 90vh;
+$min-height-of-view-2: 70vh;
 
 //Box variables
 
-$login-box-width: 25vw;
+$login-box-width: 27vw;
 $login-box-height: 21rem;
 $register-box-height: 30rem;
+$border-radius-primary: 1rem;
+$border-radius-secondary: 0.3rem;
+
+//Footer
+$footer-height: 35rem;
+$footer-margin-top: 7rem;
