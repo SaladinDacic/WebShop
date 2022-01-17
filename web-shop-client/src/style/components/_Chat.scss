@@ -13,7 +13,8 @@
   &__nav {
     height: 10%;
     // background-color: $color-grey-dark;
-    background-color: $color-gray-light-2;
+    // background-color: $color-gray-light-2;
+    background: $details-gradient;
     position: relative;
     display: flex;
     justify-content: center;
@@ -175,7 +176,8 @@
   &__nav {
     height: 100%;
     // background-color: $color-grey-dark;
-    background-color: $color-gray-light-2;
+    // background-color: $color-gray-light-2;
+    background: $details-gradient;
     position: relative;
     display: flex;
     justify-content: center;

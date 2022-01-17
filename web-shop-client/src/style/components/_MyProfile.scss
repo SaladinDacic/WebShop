@@ -11,7 +11,8 @@
   // margin: 3rem auto;
   display: flex;
   max-height: 70%;
-  background-color: $color-gray-light-2;
+  // background-color: $color-gray-light-2;
+  background: $details-gradient;
   box-shadow: 0px 0px 22px 2px rgba(0, 0, 0, 0.66);
 
   &__images {
