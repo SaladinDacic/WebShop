@@ -6,7 +6,7 @@ interface RegisterProps {
   toggleShowLogin: boolean;
   setToggleShowRegister: React.Dispatch<SetStateAction<boolean>>;
   toggleShowRegister: boolean;
-  closeAllComponents: (toast: React.ReactText) => void;
+  closeAllComponents: (message: string) => void;
 }
 const Register: React.FC<RegisterProps> = ({
   setToggleShowLogin,
@@ -43,7 +43,7 @@ const Register: React.FC<RegisterProps> = ({
         },
         { withCredentials: true }
       );
-      closeAllComponents(toast.success("Welcome!!"));
+      closeAllComponents("welcome");
     } catch (err: any) {
       console.log(err);
       toast.error(err.message);

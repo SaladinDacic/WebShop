@@ -1,27 +1,33 @@
 .Card {
-  width: 95%;
+  width: 24rem;
+  height: 31rem;
   display: flex;
   flex-direction: column;
   margin: 1rem auto;
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  overflow: auto;
-  background-color: $color-gray-light;
+  border-radius: 1rem;
+  // padding: 0.5rem;
+  overflow: hidden;
+  background-color: rgba($color-gray-light, $alpha: 0.7);
   letter-spacing: 0.1rem;
   font-size: $default-font-site;
   font-weight: 100;
   color: $color-black-lighter;
   &__img {
-    border: 2px groove $color-white;
+    // border: 2px groove $color-white;
     padding: 0.5rem;
-    height: 33rem;
+    height: 73%;
     width: 100%;
     display: block;
     background-size: cover;
     border-radius: 3px;
+    background-color: rgba($color-gray-light, $alpha: 0.7);
   }
   &__heading {
     padding: 1rem;
-    border-bottom: 4px groove $color-white;
+    border-radius: 1rem;
+    // border-bottom: 4px groove $color-white;
+    .h4__tag {
+      cursor: pointer;
+    }
   }
 }

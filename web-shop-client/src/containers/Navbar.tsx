@@ -1,33 +1,72 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Login from "../components/Login";
 import Register from "../components/Register";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Search from "../components/Search";
-import { ToastContainer, Bounce } from "react-toastify";
+import { ToastContainer, Bounce, toast } from "react-toastify";
 import SortFilter from "../components/SortFilter";
+import { ProfileDetailContext } from "../context/ProfileDetailContext";
 
 interface NavbarProps {
   allSellers: {}[] | undefined;
+  mySellers: {}[] | undefined;
   setAllSellers: React.Dispatch<React.SetStateAction<{}[] | undefined>>;
+  setMySellers: React.Dispatch<React.SetStateAction<{}[] | undefined>>;
   loggedIn: boolean;
   setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Navbar: React.FC<NavbarProps> = ({
-  setAllSellers,
-  allSellers,
   loggedIn,
   setLoggedIn,
+  setMySellers,
+  mySellers,
 }) => {
+  const {
+    allSellers,
+    setAllSellers,
+    profileDetail,
+    setProfileDetail,
+    setDetailCard,
+    closeWindow,
+    setRerender,
+    rerender,
+  } = useContext(ProfileDetailContext);
+  const navigate = useNavigate();
   const [toggleShowLogin, setToggleShowLogin] = useState(false);
   const [toggleShowRegister, setToggleShowRegister] = useState(false);
-  const closeAllComponents = (toast: React.ReactText): void => {
-    setTimeout(() => {
-      setToggleShowLogin(false);
-      setToggleShowRegister(false);
-    }, 500);
+  const closeAllComponents = async (message = "") => {
+    if (message !== "") {
+      toast.success(message);
+      await setTimeout(() => {
+        setToggleShowLogin(false);
+        setToggleShowRegister(false);
+        setLoggedIn(!loggedIn);
+        setRerender(!rerender);
+        navigate("/");
+        window.location.reload();
+      }, 1200);
+    } else {
+      await setTimeout(() => {
+        setToggleShowLogin(false);
+        setToggleShowRegister(false);
+        // setRerender(!rerender);
+        // window.location.reload();
+        // navigate("/");
+      }, 500);
+    }
+
+    // console.log(message);
   };
 
+  const handleLogInData = () => {
+    // console.log(profileDetail);
+    setProfileDetail(
+      ({ show, sellerId }: { show: boolean; sellerId: string }) => {
+        return { sellerId: profileDetail.sellerId, show: true };
+      }
+    );
+  };
   return (
     <div className="Navbar">
       <div className="Navbar__primary">
@@ -35,7 +74,7 @@ const Navbar: React.FC<NavbarProps> = ({
         <div className="Navbar__primary--div">
           <ToastContainer
             draggable={true}
-            autoClose={4000}
+            autoClose={1200}
             transition={Bounce}
           />
           <Search allSellers={allSellers} setAllSellers={setAllSellers} />
@@ -43,6 +82,7 @@ const Navbar: React.FC<NavbarProps> = ({
           <i className="fas fa-clipboard-check"></i>
           <i
             onClick={() => {
+              handleLogInData();
               toggleShowRegister
                 ? setToggleShowRegister(!toggleShowRegister)
                 : setToggleShowLogin(!toggleShowLogin);
@@ -52,7 +92,6 @@ const Navbar: React.FC<NavbarProps> = ({
           {toggleShowLogin && (
             <Login
               loggedIn={loggedIn}
-              setLoggedIn={setLoggedIn}
               closeAllComponents={closeAllComponents}
               setToggleShowLogin={setToggleShowLogin}
               toggleShowLogin={toggleShowLogin}
@@ -72,30 +111,45 @@ const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
       <div className="Navbar__secondary">
-        <Link
-          to={"/addProduct/category"}
-          className="Navbar__secondary--tag a-tag add-product"
-        >
-          ++Add new product++
-        </Link>
-        <div className="Navbar__secondary--middleDiv">
-          <Link to={"/"} className="Navbar__secondary--tag a-tag">
-            Home
+        {loggedIn ? (
+          <Link
+            to={"/addProduct/category"}
+            className="Navbar__secondary--tag a-tag add-product"
+          >
+            Add new product
           </Link>
+        ) : (
+          <a
+            onClick={() => setToggleShowLogin(true)}
+            className="Navbar__secondary--tag a-tag add-product"
+          >
+            Add new product
+          </a>
+        )}
 
-          <Link to={"/popular"} className="Navbar__secondary--tag a-tag">
-            Popular
-          </Link>
-          <Link to={"/suggested"} className="Navbar__secondary--tag a-tag">
-            Suggested
-          </Link>
-        </div>
+        {/* <div className="Navbar__secondary--middleDiv"> */}
+        <Link to={"/"} className="Navbar__secondary--tag a-tag">
+          Home
+        </Link>
+
+        <Link to={"/popular"} className="Navbar__secondary--tag a-tag">
+          Popular
+        </Link>
+        <Link to={"/suggested"} className="Navbar__secondary--tag a-tag">
+          Suggested
+        </Link>
+        {/* </div> */}
         {loggedIn && (
           <Link to={"/myArticles"} className="Navbar__secondary--tag a-tag">
             My Shop
           </Link>
         )}
-        <SortFilter allSellers={allSellers} setAllSellers={setAllSellers} />
+        <SortFilter
+          mySellers={mySellers}
+          setMySellers={setMySellers}
+          allSellers={allSellers}
+          setAllSellers={setAllSellers}
+        />
       </div>
     </div>
   );

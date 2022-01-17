@@ -1,21 +1,25 @@
 .Login {
+  z-index: 10000;
   position: fixed;
   left: 50%;
-  top: 20%;
+  top: 30%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // border: 2px solid red;
-  width: $login-box-width;
+  min-width: $login-box-width;
   height: $login-box-height;
+  // border: 2px solid red;
+  // width: $login-box-width;
+  // height: $login-box-height;
   border-radius: $border-radius-primary;
   background-color: $color-gray-light-2;
   box-shadow: 0px 0px 22px 2px rgba(0, 0, 0, 0.66);
   color: $color-grey-dark;
   letter-spacing: 0.3rem;
   &__container {
+    // border: 15px solid green;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -48,24 +52,32 @@
   .fontAwesome {
     font-family: Arial, "Font Awesome 5 Free";
   }
-  .logout {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    // width: 27vw;
-    & > * {
-      margin-bottom: 2.5rem;
-    }
-    &__btn {
-      min-width: 13rem;
-      background-color: $color-gray-light-2;
-      border: 1px solid #c8bfc4;
-      box-shadow: inset 1px 1px 2px #ddd8dc;
-      outline: none;
-      border-radius: 10rem;
-      height: 3.5rem;
-      padding: 0 2rem;
-    }
+}
+.logout {
+  z-index: 10000;
+  position: fixed;
+  left: 50%;
+  top: 10%;
+  transform: translateX(-50%);
+  min-width: 92rem;
+  height: 65rem;
+  display: flex;
+  // flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  // width: 27vw;
+  & > * {
+    margin-bottom: 2.5rem;
+  }
+  &__btn {
+    // min-width: 13rem;
+
+    background-color: $color-gray-light-2;
+    border: 1px solid #c8bfc4;
+    box-shadow: inset 1px 1px 2px #ddd8dc;
+    outline: none;
+    border-radius: 10rem;
+    height: 3.5rem;
+    padding: 0 2rem;
   }
 }

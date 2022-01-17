@@ -20,6 +20,10 @@ var sellerSchema = new mongoose.Schema({
       default: 0,
       maximum : 5
     },
+    date:{
+      type:Date,
+      default: () => Date.now()
+    },
     products:[{ 
       date:{
         type:Date,

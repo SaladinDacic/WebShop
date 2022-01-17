@@ -1,6 +1,6 @@
-.CardDetails {
-  border: 2px solid lightblue;
-  z-index: 100;
+.SellerDetails {
+  // border: 2px solid lightblue;
+  z-index: 10;
   position: fixed;
   left: 50%;
   top: 50%;
@@ -8,19 +8,20 @@
   min-width: 92rem;
   // margin: 3rem auto;
   display: flex;
+  border-radius: $border-radius-primary;
   height: 65rem;
   background-color: $color-gray-light-2;
   box-shadow: 0px 0px 22px 2px rgba(0, 0, 0, 0.66);
   &__images {
     // border: 2px solid lightblue;
-    height: 100%;
     padding: 1.5rem;
     width: 50%;
     display: flex;
-    flex-direction: column;
+    overflow: hidden;
     &--main {
       // border: 2px solid red;
-      border: 0.3px solid $color-grey-dark;
+      // border: 2px solid $color-grey-dark;
+      padding: 1.5rem;
       border-radius: 0.5rem;
       background-color: $color-white;
       align-self: center;
@@ -34,24 +35,9 @@
         max-height: 70%;
       }
     }
-    &--list {
-      margin-top: 2rem;
-      transform: translateY(-1rem);
-      // border: 2px solid purple;
-      display: grid;
-      grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;
-      gap: 0.5%;
-      img {
-        width: 6rem;
-        height: 6rem;
-        border-radius: 50%;
-        background-color: $color-white;
-      }
-    }
   }
   &__text {
     // border: 3px solid yellow;
-    height: 100%;
     position: relative;
     width: 50%;
     letter-spacing: 0.1rem;
@@ -60,15 +46,18 @@
     color: $color-black-lighter;
     display: flex;
     flex-direction: column;
-
     // justify-content: center;
     align-items: center;
     &--specs {
-      // height: 100%;
-      width: 100%;
-      h3 {
+      i {
         margin-left: 1.3rem;
         cursor: pointer;
+        &:hover {
+          color: yellow;
+        }
+      }
+      h3 {
+        margin-left: 1.3rem;
       }
       border-left: 3px groove $color-white;
       // background-color: $color-gray-light;
@@ -97,12 +86,14 @@
     }
     &--btn {
       position: absolute;
-      bottom: 2rem;
-      margin-bottom: 1.5rem;
-      justify-self: center;
-      max-width: 100%;
+      bottom: 3rem;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       button {
-        // max-width: 50%;
+        font-size: 1.5rem;
+        // width: 100%;
         text-transform: uppercase;
         background-color: $color-gray-light-2;
         border: 1px solid #c8bfc4;

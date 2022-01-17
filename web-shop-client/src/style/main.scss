@@ -11,10 +11,16 @@
 @import "components/Login";
 @import "components/Register";
 @import "components/CardDetails";
-@import "components/Footer";
 @import "components/SortFilter";
+@import "components/SellerDetails";
+@import "components/SellerDetailProducts";
+@import "components/MyProfile";
+@import "components/EditProduct";
+@import "components/Chat";
 
 @import "container/Landing";
 @import "container/ListCards";
 @import "container/Navbar";
 @import "container/Product";
+@import "container/MyShop";
+@import "container/Footer";

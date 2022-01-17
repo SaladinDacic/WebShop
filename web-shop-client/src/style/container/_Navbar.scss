@@ -1,11 +1,17 @@
 .Navbar {
   position: fixed;
-  border-radius: 0.7rem;
+  // border-radius: 0.7rem;
   width: 100vw;
   top: 0;
   left: 0;
   z-index: 5;
-  background-color: $color-gray-light;
+  // background: linear-gradient(to bottom, #248dd2 0%, #d4d4d4 0%, #248dd2 100%);
+  background-color: #6cabd7;
+  // background-color: $color-gray-light;
+  // background-image: url("../../files/backGround.jpg");
+  // background-size: cover;
+  // background-position: bottom;
+
   margin: 0 auto;
   &__primary {
     max-width: $grid-width;
@@ -14,52 +20,72 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid $color-grey-dark;
+    border-bottom: 0.3px solid $color-gray-light-3;
     border-radius: 0.5rem;
     &--logo {
       font-size: $logo-size;
+      // color: $color-grey-dark;
+      color: $color-gray-light;
+      cursor: pointer;
+      &:hover {
+        color: $color-grey-dark-2;
+      }
     }
     &--div {
       display: flex;
       align-items: center;
       & i {
         margin-left: 1rem;
+        // color: $color-grey-dark;
+        color: $color-gray-light;
         font-size: $default-font-site;
+        cursor: pointer;
+        &:hover {
+          color: $color-grey-dark-2;
+        }
       }
-    }
-    &--div > i,
-    button {
-      cursor: pointer;
     }
   }
   &__secondary {
-    transform: translateX(-2.8vw);
-    width: 50%;
+    // transform: translateX(-2.8vw);
+    min-width: 57rem;
+    max-width: 70rem;
     height: 2.5rem;
     margin: 0 auto;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+
+    // word-spacing: 1rem;
+
     .add-product {
-      min-width: 17rem;
+      min-width: 13rem;
       // background-color: burlywood;
     }
-    &--middleDiv {
-      // min-width: 41rem;
-      // border: 1px solid black;
-      border-left: 1px solid $color-grey-dark;
-      border-right: 1px solid $color-grey-dark;
-      a.a-tag {
-        // background-color: chartreuse;
-        min-width: 5rem;
-        display: inline-block;
-      }
-    }
+    // &--middleDiv {
+    //   // min-width: 30rem;
+    //   // margin: 0 1rem;
+    //   // width: 35rem;
+    //   // border: 1px solid black;
+    //   // border-left: 0.5px solid $color-gray-light-3;
+    //   // border-right: 0.5px solid $color-gray-light-3;
+    //   display: flex;
+    //   justify-content: space-around;
+    //   a.a-tag {
+    //     // background-color: chartreuse;
+    //     margin: 0;
+    //     padding: 0;
+    //     min-width: 5rem;
+    //     display: inline-block;
+    //   }
+    // }
 
     &--tag {
+      // background-color: chartreuse;
       letter-spacing: 0.2rem;
-      margin: 0 2rem;
+      // min-width: 13rem;
+      // margin: 0 1rem;
       text-decoration: none;
-      color: $color-grey-dark;
+      color: $color-gray-light;
       &:hover {
         color: rgba($color-grey-dark, 0.8);
         // background-color: $color-gray-light-2;

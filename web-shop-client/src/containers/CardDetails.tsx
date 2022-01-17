@@ -1,5 +1,8 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { intitialDataSetDetailedCard } from "../api/api";
+import { ProductContext } from "../context/ProductContext";
+import { ProfileDetailContext } from "../context/ProfileDetailContext";
 interface CardDetailInterface {
   sellOrRent: string;
   sellOrDemand: string;
@@ -17,33 +20,19 @@ interface CardDetailInterface {
   used: boolean;
   desc: string;
 }
-interface CardDetailProps {
-  sellerId: string;
-  productId: string;
-  closeWindow: () => void;
-}
-const CardDetails: React.FC<CardDetailProps> = ({
-  sellerId,
-  productId,
-  closeWindow,
-}) => {
+
+const CardDetails: React.FC = () => {
+  const { detailCard, closeWindow } = useContext(ProfileDetailContext);
   const [mainImg, setMainImg] = useState(0);
   const [ad, setAd] = useState<CardDetailInterface>();
 
   useEffect(() => {
-    const intitialDataSet = async () => {
-      try {
-        let response = await axios.get(
-          `http://localhost:3001/api/seller/getProduct/${sellerId}/${productId}`,
-          { withCredentials: true }
-        );
-        setAd(response.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    intitialDataSet();
-  }, [sellerId, productId]);
+    intitialDataSetDetailedCard(
+      setAd,
+      detailCard.sellerId,
+      detailCard.productId
+    );
+  }, [detailCard.sellerId, detailCard.productId]);
 
   let renderImages;
   try {
@@ -63,22 +52,24 @@ const CardDetails: React.FC<CardDetailProps> = ({
       {ad ? (
         <div className="CardDetails__text">
           <div className="CardDetails__text--specs">
+            <h3>{detailCard.sellerName}</h3>
             {ad.sellOrDemand === "demand" ? (
               <p>
                 I am looking to{" "}
                 {` ${ad.sellOrRent === "sell" ? "buy" : "loan"} ${ad.brand} ${
                   ad.productName
-                } ${ad.year}`}{" "}
+                }`}{" "}
               </p>
             ) : (
               <p>
                 I am{" "}
                 {` ${ad.sellOrRent === "sell" ? "selling" : "renting"} ${
                   ad.brand
-                } ${ad.productName} ${ad.year}`}{" "}
+                } ${ad.productName}`}{" "}
               </p>
             )}
             <p>Product is: {ad.used ? "New" : "Used"}</p>
+            <p>Year: {ad.year} KM</p>
             <p>For: {ad.price} KM</p>
             <p>From: {ad.locationName}</p>
             <p>Category: {ad.category}</p>
@@ -92,10 +83,11 @@ const CardDetails: React.FC<CardDetailProps> = ({
           <div className="CardDetails__text--desc">
             <p>{ad.desc}</p>
           </div>
-          <div className="Product__MainBtn btn CardDetails__text--btn">
+          <div className="CardDetails__text--btn">
             <button onClick={closeWindow} type="submit">
               Close window
             </button>
+            <button type="submit">Chat with us</button>
           </div>
         </div>
       ) : null}

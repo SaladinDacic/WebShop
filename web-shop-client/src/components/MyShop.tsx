@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react";
-import Card from "../components/Card";
-import CardDetails from "../components/CardDetails";
+import React, { useState, useEffect, useContext } from "react";
+import Card from "./Card";
+import CardDetails from "../containers/CardDetails";
+import { ProfileDetailContext } from "../context/ProfileDetailContext";
 
 interface ListCardsProps {
-  mySellers: {}[] | undefined;
-  setMySellers: React.Dispatch<React.SetStateAction<{}[] | undefined>>;
-  loggedIn: boolean;
+  mySellers?: {}[] | undefined;
+  setMySellers?: React.Dispatch<React.SetStateAction<{}[] | undefined>>;
+  loggedIn?: boolean;
 }
 
 const MyShop: React.FC<ListCardsProps> = ({
@@ -13,12 +14,9 @@ const MyShop: React.FC<ListCardsProps> = ({
   setMySellers,
   loggedIn,
 }) => {
+  const { detailCard, closeWindow, setDetailCard } =
+    useContext(ProfileDetailContext);
   const [productList, setProductList] = useState<{}[] | null>();
-  const [detailCard, setDetailCard] = useState<{
-    sellerId: string;
-    productId: string;
-    show: boolean;
-  }>({ show: false, sellerId: "", productId: "" });
 
   useEffect(() => {
     setProductList(mySellers);
@@ -45,31 +43,22 @@ const MyShop: React.FC<ListCardsProps> = ({
     show: boolean;
     sellerId: string;
     productId: string;
+    sellerName: string;
   }) => {
     setDetailCard({
       sellerId: obj.sellerId,
       productId: obj.productId,
       show: true,
+      sellerName: obj.sellerName,
     });
   };
 
-  const closeWindow = () => {
-    setDetailCard((preVal) => {
-      return { ...preVal, show: !preVal.show };
-    });
-  };
   return (
-    <div className="ListCards">
-      <div className="ListCards__detail">
-        {detailCard.show ? (
-          <CardDetails
-            sellerId={detailCard.sellerId}
-            productId={detailCard.productId}
-            closeWindow={closeWindow}
-          />
-        ) : null}
+    <div className="MyShop">
+      <div className="MyShop__detail">
+        {detailCard.show ? <CardDetails /> : null}
       </div>
-      <div className="ListCards__list">
+      <div className="MyShop__list">
         {renderProductList}
         {renderProductList}
         {renderProductList}

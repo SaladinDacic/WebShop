@@ -9,32 +9,24 @@ const createWebToken= async (req, res, next)=>{
   const user = {name: username, password: password}
   const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
   console.log(`welcome ${username}`)
-  res.cookie("loggedUser", accessToken, {sameSite: "lax", httpOnly: true, secure: false})
+  res.cookie("loggedUser", accessToken, {maxAge: 7200000, sameSite: "lax", httpOnly: true, secure: false})
   res.json({accessToken:accessToken})
   next();
 };
 const authenticateToken= async (req, res, next)=>{
   const {loggedUser} = req.cookies
-  let access = false
-  try{
     jwt.verify(loggedUser, process.env.ACCESS_TOKEN_SECRET, async (err, user)=>{
-      // if(err) return res.status(403);
-      if(user.name===undefined) return res.status(404).then(data=>data).catch(err=>{res.status(404).send("no user")})
-        let response = await db.seller.findOne({name:user.name}).then(data=>data).catch(err=>{res.status(404).send("no user found with that name")})
+        let response = await db.seller.findOne({name:user.name})
         user.id = response._id
         req.user = user;
         access = true;
         next()
-        // if(access){next()}else{res.status(404).send("user not found")}
-      }).then(data=>data).catch(err=>{res.json({data:false})})
-  }catch(err){res.status(404).send("user not found")}
+      }).then(data=>{next()}).catch(err=>{ next()})
 }
   
 const logOut = (req, res, next)=>{
-  try{
-    res.clearCookie("loggedUser");
-    next();
-  }catch(err){res.status(420).send("can't delete loggedUser")}
+  res.clearCookie('loggedUser');
+    res.send('Cookie cleared');
 }
 
 const sellerRegister = async (req, res, next) =>{

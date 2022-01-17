@@ -1,8 +1,9 @@
 .Landing {
   // border: 7px solid green;
-  margin-top: 2rem;
+  margin: 2rem 0;
   // background-color: $color-gray-light;
   overflow: visible;
+  position: relative;
   &__ContentBody {
     display: flex;
     justify-content: center;

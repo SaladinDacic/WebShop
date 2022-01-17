@@ -1,15 +1,17 @@
-import React, { SetStateAction, useState } from "react";
+import React, { SetStateAction, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios";
-interface LoginProps {
+import MyProfile from "./MyProfile";
+import { ProfileDetailContext } from "../context/ProfileDetailContext";
+import { logIn, logOut } from "../api/api";
+export interface LoginProps {
   setToggleShowLogin: React.Dispatch<SetStateAction<boolean>>;
   toggleShowLogin: boolean;
   setToggleShowRegister: React.Dispatch<SetStateAction<boolean>>;
   toggleShowRegister: boolean;
-  closeAllComponents: (toast: React.ReactText) => void;
+  closeAllComponents: (message?: string) => void;
   loggedIn: boolean;
-  setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+  // setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const Login: React.FC<LoginProps> = ({
   setToggleShowRegister,
@@ -17,52 +19,40 @@ const Login: React.FC<LoginProps> = ({
   setToggleShowLogin,
   toggleShowLogin,
   closeAllComponents,
-  setLoggedIn,
   loggedIn,
 }: LoginProps) => {
+  const { profileDetail } = useContext(ProfileDetailContext);
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const handleChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     eval(`set${evt.target.name}`)(evt.target.value);
   };
 
-  const handleLogIn = async (evt: React.MouseEvent<HTMLButtonElement>) => {
+  const handleLogIn = () => {
     try {
-      let response = await axios.post(
-        "http://localhost:3001/api/seller/login",
-        {
-          username: userName,
-          password: password,
-        },
-        { withCredentials: true }
-      );
-      setLoggedIn(true);
-      closeAllComponents(toast.success("Welcome!!"));
+      logIn(userName, password);
+      closeAllComponents("welcome");
     } catch (err) {
-      // console.log(err);
-      setLoggedIn(false);
       toast.error("Not allowed: insert username and password!");
     }
   };
   const handleLogOut = async (evt: React.MouseEvent<HTMLButtonElement>) => {
     try {
-      let response = await axios.get(
-        "http://localhost:3001/api/seller/logOut"
-        // { withCredentials: true }
-      );
-      setLoggedIn(false);
-      closeAllComponents(toast.success("Bye!!"));
+      logOut();
+      closeAllComponents("bye");
     } catch (err) {
-      // console.log(err);
-      // setLoggedIn(false);
       toast.error("Can not logout user");
     }
   };
   return (
     <div>
-      <form className="Login">
+      <form
+        onSubmit={(evt) => {
+          evt.preventDefault();
+        }}
+      >
         {!loggedIn ? (
-          <>
+          <div className="Login">
             <h2 className="h2__tag">Login</h2>
             <div className="Login__container">
               <input
@@ -93,16 +83,15 @@ const Login: React.FC<LoginProps> = ({
             >
               Register instead?
             </a>
-          </>
+          </div>
         ) : (
           <div className="logout">
-            <h2 className="h2__tag">LogOut</h2>
-            <p className="p__tag">
-              Hope you enjoyed using our site, see you later.
-            </p>
-            <button onClick={handleLogOut} className="logout__btn">
-              Press to logout ":("
-            </button>
+            {profileDetail.show && (
+              <MyProfile
+                closeAllComponents={closeAllComponents}
+                handleLogOut={handleLogOut}
+              />
+            )}
           </div>
         )}
       </form>

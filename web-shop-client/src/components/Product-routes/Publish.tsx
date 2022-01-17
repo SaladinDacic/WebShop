@@ -1,7 +1,10 @@
 import axios from "axios";
 import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getSellers } from "../../api/api";
 
 import { ProductContext } from "../../context/ProductContext";
+import { ProfileDetailContext } from "../../context/ProfileDetailContext";
 const Publish: React.FC = () => {
   const [mainImg, setMainImg] = useState(0);
   const { ad } = useContext<{
@@ -23,6 +26,8 @@ const Publish: React.FC = () => {
       desc: string;
     };
   }>(ProductContext);
+  const { rerender, setRerender } = useContext(ProfileDetailContext);
+  let navigate = useNavigate();
 
   const handleSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -32,9 +37,13 @@ const Publish: React.FC = () => {
         ad,
         { withCredentials: true }
       );
+      setRerender(!rerender);
       console.log(response);
+      navigate("/");
     } catch (err) {
+      setRerender(!rerender);
       console.log(err);
+      navigate("/");
     }
   };
   let renderImages;

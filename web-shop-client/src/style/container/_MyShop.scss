@@ -1,0 +1,15 @@
+.MyShop {
+  width: $grid-width;
+  // border: 3px solid green;
+  // margin: 0 auto;
+  &__list {
+    z-index: 5;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    // margin: 0 auto;
+    transform: translateY(7rem);
+    z-index: 4;
+    min-height: $min-height-of-view;
+    padding-bottom: $footer-margin-top;
+  }
+}

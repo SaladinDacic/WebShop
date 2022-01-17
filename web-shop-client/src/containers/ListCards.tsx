@@ -1,7 +1,10 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Card from "../components/Card";
-import CardDetails from "../components/CardDetails";
+import EditProduct from "../components/EditProduct";
+import SellerDetail from "../components/SellerDetail";
+import { ProfileDetailContext } from "../context/ProfileDetailContext";
+import CardDetails from "./CardDetails";
 
 interface ListCardsProps {
   allSellers: {}[] | undefined;
@@ -9,23 +12,30 @@ interface ListCardsProps {
 }
 
 const ListCards: React.FC<ListCardsProps> = ({ allSellers, setAllSellers }) => {
+  const {
+    sellerDetail,
+    setSellerDetail,
+    detailCard,
+    setDetailCard,
+    editProduct,
+    setEditProduct,
+    closeWindow,
+  } = useContext(ProfileDetailContext);
   const [productList, setProductList] = useState<{}[] | null>();
-  const [detailCard, setDetailCard] = useState<{
-    sellerId: string;
-    productId: string;
-    show: boolean;
-  }>({ show: false, sellerId: "", productId: "" });
 
   useEffect(() => {
     setProductList(allSellers);
+    // console.log(allSellers);
   }, [allSellers]);
 
   const renderProductList = productList?.map((obj: any, i) => {
     return (
       <div onClick={() => handleClick(obj)} key={i}>
         <Card
+          sellerId={obj.sellerId}
+          setSellerDetail={setSellerDetail}
           key={i}
-          ShopName={obj.shopName}
+          ShopName={obj.sellerName}
           productName={obj.productName}
           brand={obj.brand}
           description={obj.desc}
@@ -38,32 +48,29 @@ const ListCards: React.FC<ListCardsProps> = ({ allSellers, setAllSellers }) => {
   });
 
   const handleClick = (obj: {
+    sellerName: string;
     show: boolean;
     sellerId: string;
     productId: string;
   }) => {
     setDetailCard({
+      sellerName: obj.sellerName,
       sellerId: obj.sellerId,
       productId: obj.productId,
       show: true,
     });
   };
 
-  const closeWindow = () => {
-    setDetailCard((preVal) => {
-      return { ...preVal, show: !preVal.show };
-    });
-  };
   return (
     <div className="ListCards">
       <div className="ListCards__detail">
-        {detailCard.show ? (
-          <CardDetails
-            sellerId={detailCard.sellerId}
-            productId={detailCard.productId}
-            closeWindow={closeWindow}
-          />
-        ) : null}
+        {detailCard.show && <CardDetails />}
+      </div>
+      <div className="ListCards__detail">
+        {sellerDetail.show && <SellerDetail />}
+      </div>
+      <div className="ListCards__detail">
+        {editProduct.show && <EditProduct />}
       </div>
       <div className="ListCards__list">
         {renderProductList}

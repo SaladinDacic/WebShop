@@ -1,7 +1,8 @@
 .Product {
   margin: 7rem 0;
+  width: $grid-width;
   // border: 3px solid green;
-  min-height: $min-height-of-view-2;
+  min-height: $min-height-of-view;
   &__MainBtn button {
     // position: absolute;
     color: $color-white;
@@ -20,7 +21,7 @@
   &__tabs {
     // border: 3px solid lightblue;
     height: 3rem;
-    max-width: $grid-width;
+    max-width: 100%;
     margin: 0 auto;
     text-transform: uppercase;
     display: grid;
@@ -36,14 +37,14 @@
       text-decoration: none;
       color: $color-black;
       &:not(.active) {
-        opacity: 0.3;
+        opacity: 0.5;
       }
     }
   }
   &__Routes--Category {
     max-width: 100%;
     display: grid;
-    width: $grid-width;
+    // width: $grid-width;
     grid-template-columns: 50% 50%;
     // gap: 4%;
     color: $color-grey-dark;
@@ -162,13 +163,14 @@
     align-items: center;
     &__inputs {
       margin-top: 2rem;
-      width: 70%;
+      width: 80%;
       display: grid;
       letter-spacing: 0.2rem;
       margin: 2rem 0;
       color: $color-grey-dark;
       // border: 2px solid red;
       &--div {
+        width: 100%;
         justify-self: center;
         // border: 2px solid lightblue;
         padding-left: 5%;
@@ -184,7 +186,7 @@
         &-text {
           margin: 1rem;
           display: grid;
-          grid-template-columns: 24% 24% 24% 24%;
+          grid-template-columns: 32% 32% 32%;
           gap: 1%;
           h3 {
             margin: 0 1rem;
@@ -193,7 +195,7 @@
         &-number {
           margin: 1rem;
           display: grid;
-          grid-template-columns: 24% 24% 24% 24%;
+          grid-template-columns: 32% 32% 32%;
           gap: 1%;
           h3 {
             margin: 0 1rem;
@@ -230,7 +232,7 @@
           margin: 1rem;
           display: flex;
           textarea {
-            width: 55vw;
+            width: 50rem;
             height: 10rem;
           }
         }
@@ -242,7 +244,8 @@
     margin: 0 auto;
     display: flex;
     height: 60rem;
-    background-color: $color-gray-light-2;
+    background-color: transparent;
+    // background-color: $color-gray-light;
     &__images {
       // border: 2px solid lightblue;
       padding: 1.5rem;
@@ -252,7 +255,8 @@
       &--main {
         // border: 2px solid red;
         border: 2px solid $color-grey-dark;
-        background-color: white;
+        background-color: $color-white;
+
         border-radius: 0.5rem;
         align-self: center;
         height: 100%;
@@ -305,7 +309,7 @@
       &--desc {
         padding: 2rem;
         border: 2px solid $color-grey-dark;
-        background-color: white;
+        background-color: $color-white;
         border-radius: 0.5rem;
         width: 70%;
         min-height: 30%;

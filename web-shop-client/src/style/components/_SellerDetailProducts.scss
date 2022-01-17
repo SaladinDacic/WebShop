@@ -1,0 +1,35 @@
+.SellerDetailProducts {
+  height: 100%;
+  width: 100%;
+  &__list {
+    z-index: 5;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    overflow-y: scroll;
+    height: 100%;
+    h3 {
+      margin: 0 auto;
+      width: 35rem;
+      transform: rotateZ(45deg) translate(-7%, 40%);
+      font-size: 3rem;
+      letter-spacing: 0.2rem;
+      color: $color-grey-dark;
+    }
+    // border: 3px solid green;
+    .Card {
+      cursor: pointer;
+      border: 1px solid $color-grey-dark;
+      width: 9rem;
+      height: 10.5rem;
+      &__img {
+        height: 5rem;
+        // border: 3px solid green;
+        // border-bottom: none;
+      }
+      &__heading {
+        padding: 0.2rem;
+        border-bottom: 4px groove $color-white;
+      }
+    }
+  }
+}

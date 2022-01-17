@@ -10,6 +10,28 @@ const getSeller = async (req,res,next)=>{
     next()
   }
 }
+const getSellerById = async (req,res,next)=>{
+  let {id} = req.params
+  try{
+    let sellerData = await db.seller.findById(id).then(data=>data).catch(err=>{throw new Error(err)})
+    res.json(sellerData)
+    // next()
+  }catch(err){
+    res.status(404).json({data:{name:""}})
+    // next()
+  }
+}
+const deleteSellerById = async (req,res,next)=>{
+  let {id} = req.params
+  try{
+    let sellerData = await db.seller.findByIdAndDelete(id).then(data=>data).catch(err=>{throw new Error(err)})
+    res.json(sellerData)
+    // next()
+  }catch(err){
+    res.status(404).send("not found")
+    // next()
+  }
+}
 
 const getMySeller = async (req, res, next)=>{
 
@@ -90,12 +112,12 @@ const pushProductToSeller = async (req, res, next) =>{
   try{
     let sellerObj = await db.seller.findByIdAndUpdate(sellerId, {$push:{products: {productName, category, sellOrDemand, job, service, year, locationName, make, model, kilometers, used, sellOrRent, holds, sold, price, brand, imgSrc, desc}}})
     res.json(sellerObj)
-  }catch(err){console.log(err)}
+  }catch(err){res.status(404)}
   try{
     let data = await db.seller.findById(sellerId)
-    await db.seller.findByIdAndUpdate(sellerId, {products: unique(data.products, "productName")})
-  }catch(err){console.log(err)}
-  next();
+    let newData = await db.seller.findByIdAndUpdate(sellerId, {products: unique(data.products, "productName")}, {returnOriginal: false}).then(data=>data)
+
+  }catch(err){res.status(404)}
 }
 
 const sellerUpdateProduct = async (req, res, next) =>{
@@ -103,13 +125,13 @@ const sellerUpdateProduct = async (req, res, next) =>{
   var {sellerId, productId, productName, category, sellOrDemand, job, service, year, locationName, make, model, kilometers, used, sellOrRent, holds, sold, price, brand, imgSrc, desc} = req.body
   try{
     let data = await db.seller.findOne({id: sellerId,"products._id":productId}).then(data=>data).catch(err=>{throw new Error(err)})
-    var productId; var productName; var category; var sellOrDemand; var job; var service;var year;var  locationName;var  make;var model;var kilometers;var used;var sellOrRent;var holds;var sold;var price;var brand;var imgSrc;var desc;
-    let checkArr = [productId, productName, category, sellOrDemand, job, service, year, locationName, make, model, kilometers, used, sellOrRent, holds, sold, price, brand, imgSrc, desc];
-    let checkObj = {productId, productName, category, sellOrDemand, job, service, year, locationName, make, model, kilometers, used, sellOrRent, holds, sold, price, brand, imgSrc, desc};
+    var productId; var productName; var category; var sellOrDemand; var job; var service;var year;var  locationName;var  make;var model;var kilometers;var used;var sellOrRent;var holds;var sold;var price;var brand;var imgSrc;var desc;var date;
+    let checkArr = [productId, productName, category, sellOrDemand, job, service, year, locationName, make, model, kilometers, used, sellOrRent, holds, sold, price, brand, imgSrc, desc, date];
+    let checkObj = {productId, productName, category, sellOrDemand, job, service, year, locationName, make, model, kilometers, used, sellOrRent, holds, sold, price, brand, imgSrc, desc, date};
     for(let i = 0; i<checkArr.length; i++){
       checkProperty(checkArr[i], Object.keys(checkObj)[i], data, productId);
     }
-    await db.seller.findOneAndUpdate({id: sellerId,"products._id":productId}, {"$set":
+    let printData = await db.seller.findOneAndUpdate({id: sellerId,"products._id":productId}, {"$set":
     {
       "products.$.holds":holds, 
       "products.$.used":used, 
@@ -130,16 +152,25 @@ const sellerUpdateProduct = async (req, res, next) =>{
       "products.$.imgSrc":imgSrc,
       "products.$.desc":desc,
       "products.$.date":date
-    }}).then(data=>data).catch(err=>{throw new Error(err)})
-    // console.log(productId, holds, sold, price, brand, category)
-    next();
+    }},{ returnOriginal: false }).then(data=>data)
+    res.json(printData)
+    // next();
+  }catch(err){
+    res.status(404).send("not found")
+  }
+}
+
+const deleteProduct = async (req, res, next)=>{
+  const {sellerId, productId} = req.body
+  try{
+    let data = await db.seller.findByIdAndUpdate(sellerId, {$pull:{products: {"_id": productId}}}).then(data=>data);
+    res.json(data)
   }catch(err){
     res.status(404).send("not found")
   }
 }
     
-    
-    module.exports = {getProduct, getMySeller, getSeller, pushProductToSeller, sellerUpdateProduct, getFullSellerList};
+module.exports = {deleteSellerById,getSellerById, getProduct, getMySeller, getSeller, pushProductToSeller, sellerUpdateProduct, getFullSellerList, deleteProduct};
     
     
     function unique(arrOfObj, prop){
