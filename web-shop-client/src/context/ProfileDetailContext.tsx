@@ -31,6 +31,12 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
     show: boolean;
     sellerId: string;
   }>({ show: false, sellerId: "" });
+  const [detailCard, setDetailCard] = useState<{
+    sellerId: string;
+    productId: string;
+    show: boolean;
+    sellerName: string;
+  }>({ show: false, sellerId: "", productId: "", sellerName: "" });
   const [editProduct, setEditProduct] = useState<{
     sellerId: string;
     productId: string;
@@ -41,12 +47,6 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
     show: boolean;
     sellerId: string;
   }>({ show: false, sellerId: "" });
-  const [detailCard, setDetailCard] = useState<{
-    sellerId: string;
-    productId: string;
-    show: boolean;
-    sellerName: string;
-  }>({ show: false, sellerId: "", productId: "", sellerName: "" });
   const [loggedSellerInfo, setLoggedSellerInfo] = useState<
     | {
         sellerId: string;

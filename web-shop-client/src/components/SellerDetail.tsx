@@ -29,7 +29,7 @@ const SellerDetail: React.FC = () => {
     setSoldAndHold({ sold: allSold, hold: allHolds });
 
     setTimeout(async () => {
-      // console.log(await thisSellerIsLoggedIn(filteredSellersData[0].sellerId));
+      console.log(filteredSellersData);
       setItsMe(await thisSellerIsLoggedIn(filteredSellersData[0].sellerId));
     }, 0);
   }, []);
@@ -77,7 +77,7 @@ const SellerDetail: React.FC = () => {
     <div className="SellerDetails">
       <div className="SellerDetails__images">
         <div className="SellerDetails__images--main">
-          <SellerDetailProducts />
+          <SellerDetailProducts itsMe={itsMe} currentSeller={currentSeller} />
         </div>
         <div className="SellerDetails__images--list"></div>
       </div>

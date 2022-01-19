@@ -3,31 +3,35 @@ import { ProfileDetailContext } from "../context/ProfileDetailContext";
 import Card from "./Card";
 
 export interface SellerDetailProps {
-  allSellers: {}[] | undefined;
-  setAllSellers: React.Dispatch<React.SetStateAction<{}[] | undefined>>;
-  closeWindow: () => void;
+  currentSeller?: any[] | undefined;
+  itsMe?: boolean;
 }
 
-export interface ListCardsProps {
-  sellerName: string;
-  sellerId: string;
-  productId: string;
-  closeWindow: () => void;
-}
-
-const SellerDetailProducts: React.FC = () => {
-  const { allSellers, editProduct, setEditProduct, profileDetail, mySellers } =
+const SellerDetailProducts: React.FC<SellerDetailProps> = ({
+  currentSeller,
+  itsMe,
+}) => {
+  const { setDetailCard, setEditProduct, mySellers } =
     useContext(ProfileDetailContext);
   const [productList, setProductList] = useState<any[] | null>();
 
   useEffect(() => {
-    console.log(mySellers);
-    setProductList(mySellers);
-  }, [mySellers]);
+    // console.log({ mySellers: mySellers, currentSeller: currentSeller });
+    if (currentSeller) {
+      setProductList(currentSeller);
+    } else {
+      setProductList(mySellers);
+    }
+  }, [currentSeller]);
 
   const handleClick = (evt: React.MouseEvent<HTMLDivElement>, key: number) => {
+    let funcName = "setEditProduct";
+    console.log(itsMe);
+    if (!itsMe) {
+      funcName = "setDetailCard";
+    }
     if (productList) {
-      setEditProduct({
+      eval(funcName)({
         sellerName: productList[key].sellerName,
         sellerId: productList[key].sellerId,
         productId: productList[key].productId,

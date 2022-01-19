@@ -6,6 +6,7 @@ import Search from "../components/Search";
 import { ToastContainer, Bounce, toast } from "react-toastify";
 import SortFilter from "../components/SortFilter";
 import { ProfileDetailContext } from "../context/ProfileDetailContext";
+import Basket from "../components/Basket";
 
 interface NavbarProps {
   allSellers: {}[] | undefined;
@@ -33,6 +34,7 @@ const Navbar: React.FC<NavbarProps> = ({
     rerender,
   } = useContext(ProfileDetailContext);
   const navigate = useNavigate();
+  const [toggleShowBasket, setToggleShowBasket] = useState(false);
   const [toggleShowLogin, setToggleShowLogin] = useState(false);
   const [toggleShowRegister, setToggleShowRegister] = useState(false);
   const closeAllComponents = async (message = "") => {
@@ -78,8 +80,13 @@ const Navbar: React.FC<NavbarProps> = ({
             transition={Bounce}
           />
           <Search allSellers={allSellers} setAllSellers={setAllSellers} />
-          <i className="fas fa-shopping-cart"></i>
           <i className="fas fa-clipboard-check"></i>
+          <i
+            onClick={() => {
+              setToggleShowBasket(!toggleShowBasket);
+            }}
+            className="fas fa-shopping-cart"
+          ></i>
           <i
             onClick={() => {
               handleLogInData();
@@ -89,6 +96,12 @@ const Navbar: React.FC<NavbarProps> = ({
             }}
             className="fas fa-user-tie"
           ></i>
+          {toggleShowBasket && (
+            <Basket
+              toggleShowBasket={toggleShowBasket}
+              setToggleShowBasket={setToggleShowBasket}
+            />
+          )}
           {toggleShowLogin && (
             <Login
               loggedIn={loggedIn}

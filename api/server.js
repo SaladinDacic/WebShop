@@ -6,7 +6,8 @@ const cors = require("cors")
 const admin = require("./routes/admin")
 const seller = require("./routes/seller")
 const customer = require("./routes/customer")
-const product = require("./routes/product");
+const basket = require("./routes/basket");
+
 const { Server } = require("http");
 
 
@@ -51,7 +52,7 @@ io.on('connection', (socket) => {
 app.use("/api/admin", admin);
 app.use("/api/seller", seller);
 app.use("/api/customer", customer);
-app.use("/api/product", product);
+app.use("/api/basket", basket);
 
 // ___________________________________________________________
 // ______________________LISTEN PORT_________________________

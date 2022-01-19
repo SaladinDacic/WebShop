@@ -1,5 +1,6 @@
 .Chat {
-  border-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
   width: 35rem;
   height: 44rem;
   position: fixed;
@@ -20,7 +21,8 @@
     justify-content: center;
     align-items: center;
     h3:hover {
-      color: rgb(255, 177, 74);
+      // color: rgb(255, 177, 74);
+      color: black;
       cursor: pointer;
     }
     &--logo {
@@ -40,9 +42,11 @@
         cursor: pointer;
         &:first-child:hover {
           color: rgb(255, 177, 74);
+          font-size: 1.8rem;
         }
         &:last-child:hover {
           color: red;
+          font-size: 1.8rem;
         }
       }
       // border: 1px solid red;
@@ -71,7 +75,9 @@
     height: 60%;
     position: relative;
     border-radius: 1rem;
-    background-color: $color-gray-light-2;
+    // background-color: $color-gray-light-2;
+    background: $details-gradient-2;
+
     overflow-y: scroll;
     overscroll-behavior-y: contain;
     scroll-snap-type: y proximity;
@@ -162,7 +168,8 @@
   }
 }
 .Chat-hide {
-  border-radius: 1rem;
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
   width: 35rem;
   height: 5rem;
   position: fixed;
@@ -183,7 +190,8 @@
     justify-content: center;
     align-items: center;
     h3:hover {
-      color: rgb(131, 218, 0);
+      // color: rgb(131, 218, 0);
+      color: black;
       cursor: pointer;
     }
     &--logo {
@@ -203,9 +211,11 @@
         cursor: pointer;
         &:first-child:hover {
           color: rgb(131, 218, 0);
+          font-size: 1.8rem;
         }
         &:last-child:hover {
           color: red;
+          font-size: 1.8rem;
         }
       }
       // border: 1px solid red;

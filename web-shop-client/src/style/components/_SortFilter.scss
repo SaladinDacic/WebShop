@@ -20,8 +20,10 @@
       .options {
         // border: 1px solid green;
         font-size: 1.6rem;
-        background-color: $color-grey-dark;
-        // background-color: $color-gray-light;
+        // background-color: $details-gradient-2;
+        color: rgba($color-grey-dark, 0.7);
+        // background-color: $color-grey-dark;
+        background-color: $color-gray-light;
       }
       font-size: 1.4rem;
       height: 2rem;
@@ -59,8 +61,8 @@
         display: none;
       }
       &:hover {
-        color: $color-gray-light;
-        // color: rgba($color-grey-dark, 0.8);
+        // color: $color-gray-light;
+        color: rgba($color-grey-dark, 0.8);
       }
     }
   }

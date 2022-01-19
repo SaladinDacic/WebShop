@@ -52,7 +52,7 @@ const authenticationLogin = async (req, res, next) =>{
 
     const adminUser = await db.admin.findOne({name:username}).then(data=>data).catch(err=>{throw new Error(err)})
     const sellerUser = await db.seller.findOne({name:username}).then(data=>data).catch(err=>{throw new Error(err)})
-    const customerUser = await db.customer.findOne({name:username}).then(data=>data).catch(err=>{throw new Error(err)})
+    // const customerUser = await db.customer.findOne({name:username}).then(data=>data).catch(err=>{throw new Error(err)})
     
     const uncrypt= async (user)=>{ 
       await bcrypt.compare(password, user.password, (err, truthy)=>{
@@ -71,9 +71,9 @@ const authenticationLogin = async (req, res, next) =>{
       uncrypt(adminUser)
     }else if(sellerUser !== null){
       uncrypt(sellerUser)
-    }else if(customerUser !== null){
+    }/* else if(customerUser !== null){
       uncrypt(customerUser)
-    }else{
+    } */else{
       throw new Error("not allowed")
     }
     

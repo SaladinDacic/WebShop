@@ -24,6 +24,8 @@ var sellerSchema = new mongoose.Schema({
       type:Date,
       default: () => Date.now()
     },
+    likes:[String],
+    sells:[String],
     products:[{ 
       date:{
         type:Date,

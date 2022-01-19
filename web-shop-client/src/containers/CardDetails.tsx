@@ -22,17 +22,27 @@ interface CardDetailInterface {
 }
 
 const CardDetails: React.FC = () => {
-  const { detailCard, closeWindow } = useContext(ProfileDetailContext);
+  const { detailCard, closeWindow, thisSellerIsLoggedIn, setHideChat } =
+    useContext(ProfileDetailContext);
   const [mainImg, setMainImg] = useState(0);
   const [ad, setAd] = useState<CardDetailInterface>();
-
+  const [itsMe, setItsMe] = useState(false);
   useEffect(() => {
     intitialDataSetDetailedCard(
       setAd,
       detailCard.sellerId,
       detailCard.productId
     );
+    setTimeout(async () => {
+      // console.log(await thisSellerIsLoggedIn(filteredSellersData[0].sellerId));
+      setItsMe(await thisSellerIsLoggedIn(detailCard.sellerId));
+      // console.log("došlo");
+    }, 0);
   }, [detailCard.sellerId, detailCard.productId]);
+
+  const handleChat = () => {
+    setHideChat(false);
+  };
 
   let renderImages;
   try {
@@ -87,7 +97,11 @@ const CardDetails: React.FC = () => {
             <button onClick={closeWindow} type="submit">
               Close window
             </button>
-            <button type="submit">Chat with us</button>
+            {!itsMe && (
+              <button onClick={handleChat} type="button">
+                Chat with us
+              </button>
+            )}
           </div>
         </div>
       ) : null}

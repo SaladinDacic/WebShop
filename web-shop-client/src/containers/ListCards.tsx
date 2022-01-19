@@ -76,6 +76,9 @@ const ListCards: React.FC<ListCardsProps> = ({ allSellers, setAllSellers }) => {
         {renderProductList}
         {renderProductList}
         {renderProductList}
+        {renderProductList}
+        {renderProductList}
+        {renderProductList}
       </div>
     </div>
   );
