@@ -22,8 +22,13 @@ interface CardDetailInterface {
 }
 
 const CardDetails: React.FC = () => {
-  const { detailCard, closeWindow, thisSellerIsLoggedIn, setHideChat } =
-    useContext(ProfileDetailContext);
+  const {
+    detailCard,
+    closeWindow,
+    thisSellerIsLoggedIn,
+    setHideChat,
+    loggedSellerInfo,
+  } = useContext(ProfileDetailContext);
   const [mainImg, setMainImg] = useState(0);
   const [ad, setAd] = useState<CardDetailInterface>();
   const [itsMe, setItsMe] = useState(false);
@@ -44,6 +49,9 @@ const CardDetails: React.FC = () => {
     setHideChat(false);
   };
 
+  const handleAddToCart = () => {
+    loggedSellerInfo as { sellerName: string; sellerId: string };
+  };
   let renderImages;
   try {
     renderImages = ad?.imgSrc.map((link, i) => {
@@ -94,14 +102,19 @@ const CardDetails: React.FC = () => {
             <p>{ad.desc}</p>
           </div>
           <div className="CardDetails__text--btn">
+            {!itsMe && (
+              <>
+                <button onClick={handleAddToCart} type="button">
+                  Chat with us
+                </button>
+                <button onClick={handleChat} type="button">
+                  Add to Cart
+                </button>
+              </>
+            )}
             <button onClick={closeWindow} type="submit">
               Close window
             </button>
-            {!itsMe && (
-              <button onClick={handleChat} type="button">
-                Chat with us
-              </button>
-            )}
           </div>
         </div>
       ) : null}

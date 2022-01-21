@@ -63,6 +63,7 @@ export const ProductProvider: React.FC = (props: any) => {
         setBasicInfoTab,
         setPidTab,
         ad,
+        setAd,
       }}
     >
       {props.children}

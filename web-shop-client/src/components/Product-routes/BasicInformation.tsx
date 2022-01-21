@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const BasicInformation = () => {
   const { basicInfoTab, setBasicInfoTab } = useContext(ProductContext);
+  const formRef = useRef() as React.MutableRefObject<HTMLFormElement>;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,7 +50,7 @@ const BasicInformation = () => {
     );
   };
 
-  const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (evt: React.MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     let sellOrDemand;
     radio === "radio1" ? (sellOrDemand = "sell") : (sellOrDemand = "demand");
@@ -260,7 +261,8 @@ const BasicInformation = () => {
 
   return (
     <form
-      onSubmit={handleSubmit}
+      ref={formRef}
+      // onSubmit={handleSubmit}
       className="Product__Routes--BasicInfo BasicInfo"
     >
       <div className="BasicInfo__radio">
@@ -344,7 +346,17 @@ const BasicInformation = () => {
         </div>
       </div>
       <div className="Product__MainBtn btn">
-        <button type="submit">Next</button>
+        <button
+          onClick={() => {
+            navigate("/addProduct/category");
+          }}
+          type="submit"
+        >
+          Back
+        </button>
+        <button onClick={handleSubmit} type="submit">
+          Next
+        </button>
       </div>
     </form>
   );

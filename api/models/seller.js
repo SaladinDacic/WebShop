@@ -24,8 +24,23 @@ var sellerSchema = new mongoose.Schema({
       type:Date,
       default: () => Date.now()
     },
-    likes:[String],
+    likes:[
+      {
+        name: {
+          type: String,
+          required: "Category name cannot be blank!"
+        },
+        importance: {
+          type: Number,
+          maximum : 10
+        }
+      }
+    ],
     sells:[String],
+    limit: {
+      type: Number,
+      maximum : 100
+    },
     products:[{ 
       date:{
         type:Date,

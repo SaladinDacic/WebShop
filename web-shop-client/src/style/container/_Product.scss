@@ -1,22 +1,28 @@
 .Product {
-  margin: 7rem 0;
+  // margin: 7rem 0;
   width: $grid-width;
   // border: 3px solid green;
   min-height: $min-height-of-view;
   &__MainBtn button {
-    // position: absolute;
-    color: $color-white;
     text-transform: uppercase;
-    text-align: center;
-    font-size: 2rem;
-    font-weight: 700;
-    // padding-top: 1rem;
-    bottom: 4rem;
-    height: 4.5rem;
-    background-color: $color-grey-dark;
-    border-radius: 0.7rem;
+    color: $color-grey-dark;
+    letter-spacing: 0.3rem;
+    margin: 2rem 2.5rem 0 2.5rem;
+    color: $color-grey-dark;
+    font-weight: 100;
     width: 30rem;
+    background-color: $color-gray-light-2;
+    border: 1px solid #c8bfc4;
+    box-shadow: inset 1px 1px 2px #ddd8dc;
+    outline: none;
+    border-radius: 10rem;
+    height: 3.5rem;
+    padding: 0 2rem;
     cursor: pointer;
+    &:hover {
+      letter-spacing: 0.2rem;
+      font-weight: 900;
+    }
   }
   &__tabs {
     // border: 3px solid lightblue;
@@ -72,19 +78,27 @@
       font-weight: 100;
     }
     .Category__btns {
-      position: absolute;
-      color: $color-white;
+      margin-top: 2rem;
       text-transform: uppercase;
-      text-align: center;
-      font-size: 1.3rem;
-      font-weight: 700;
-      padding-top: 0.5rem;
-      bottom: 4rem;
-      height: 3.6rem;
-      background-color: $color-grey-dark;
-      border-radius: 0.3rem;
-      width: 21.7%;
+      color: $color-grey-dark;
+      letter-spacing: 0.3rem;
+
+      color: $color-grey-dark;
+      font-weight: 100;
+      width: 40%;
+      min-width: 15rem;
+      background-color: $color-gray-light-2;
+      border: 1px solid #c8bfc4;
+      box-shadow: inset 1px 1px 2px #ddd8dc;
+      outline: none;
+      border-radius: 10rem;
+      height: 3.5rem;
+      padding: 0 2rem;
       cursor: pointer;
+      &:hover {
+        letter-spacing: 0.2rem;
+        font-weight: 900;
+      }
     }
   }
   .BasicInfo {
@@ -248,11 +262,14 @@
     // background-color: $color-gray-light;
     &__images {
       // border: 2px solid lightblue;
-      padding: 1.5rem;
       width: 50%;
+      padding: 1.5rem;
       display: flex;
       flex-direction: column;
       &--main {
+        max-width: 100%;
+        // overflow: scroll;
+        max-height: 82%;
         // border: 2px solid red;
         border: 2px solid $color-grey-dark;
         background-color: $color-white;
@@ -265,8 +282,8 @@
         justify-content: center;
         align-items: center;
         img {
-          width: 70%;
-          height: 70%;
+          max-width: 100%;
+          max-height: 100%;
         }
       }
       &--list {
@@ -275,7 +292,7 @@
         display: grid;
         grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;
         gap: 0.5%;
-        overflow-y: scroll;
+        overflow: scroll;
         img {
           width: 6rem;
           height: 6rem;
@@ -321,11 +338,12 @@
         }
       }
       &--btn {
+        display: flex;
         margin-bottom: 1.5rem;
         justify-self: center;
         max-width: 100%;
         button {
-          max-width: 100%;
+          max-width: 60%;
         }
       }
     }

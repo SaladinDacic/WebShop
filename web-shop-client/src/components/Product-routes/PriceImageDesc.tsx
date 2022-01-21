@@ -30,8 +30,8 @@ const PriceImageDesc: React.FC = () => {
   });
 
   useEffect(() => {
-    /* if (Object.keys(pidTab).length !== 0) {
-      // setBaseObj(pidTab);
+    if (Object.keys(pidTab).length !== 0) {
+      setBaseObj(pidTab);
       pidTab.imgSrc.forEach((val: number, i: number) => {
         if (val === 99999) {
           console.log("ignore this line");
@@ -42,13 +42,11 @@ const PriceImageDesc: React.FC = () => {
           setNumOfImgInputs([0]);
         }
       });
-    } */
+    }
     setBaseObj((oldObj) => {
       return {
         ...oldObj,
-        imgSrc: [
-          "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Antu_insert-image.svg/1200px-Antu_insert-image.svg.png",
-        ],
+        imgSrc: [],
       };
     });
   }, []);
@@ -111,7 +109,7 @@ const PriceImageDesc: React.FC = () => {
         className="file"
         type="text"
         placeholder="sugested"
-        defaultValue={baseObj.imgSrc[i]}
+        // defaultValue={baseObj.imgSrc[i]}
       />
     );
   });
@@ -233,6 +231,13 @@ const PriceImageDesc: React.FC = () => {
         </div>
       </div>
       <div className="Product__MainBtn btn">
+        <button
+          onClick={() => {
+            navigate("/addProduct/basic-information");
+          }}
+        >
+          Back
+        </button>
         <button type="submit">Next</button>
       </div>
     </form>

@@ -5,11 +5,13 @@ import Card from "./Card";
 export interface SellerDetailProps {
   currentSeller?: any[] | undefined;
   itsMe?: boolean;
+  fromMyProfile?: boolean;
 }
 
 const SellerDetailProducts: React.FC<SellerDetailProps> = ({
   currentSeller,
   itsMe,
+  fromMyProfile,
 }) => {
   const { setDetailCard, setEditProduct, mySellers } =
     useContext(ProfileDetailContext);
@@ -27,7 +29,7 @@ const SellerDetailProducts: React.FC<SellerDetailProps> = ({
   const handleClick = (evt: React.MouseEvent<HTMLDivElement>, key: number) => {
     let funcName = "setEditProduct";
     console.log(itsMe);
-    if (!itsMe) {
+    if (!itsMe && !fromMyProfile) {
       funcName = "setDetailCard";
     }
     if (productList) {
@@ -63,8 +65,8 @@ const SellerDetailProducts: React.FC<SellerDetailProps> = ({
         {productList?.length !== 0 ? (
           <>
             {renderProductList}
-            {renderProductList}
-            {renderProductList}
+            {/* {renderProductList}
+            {renderProductList} */}
           </>
         ) : (
           <h3>Product list is empty</h3>

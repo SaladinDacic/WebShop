@@ -106,7 +106,7 @@ const pushProductToSeller = async (req, res, next) =>{
   let foundSeller = await db.seller.findOne({name})
   let sellerId = foundSeller._id
 
-  if(imgSrc===undefined){var imgSrc = [
+  if(imgSrc===undefined | imgSrc.lengt===0){var imgSrc = [
     "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Antu_insert-image.svg/1200px-Antu_insert-image.svg.png",
   ]}
   try{

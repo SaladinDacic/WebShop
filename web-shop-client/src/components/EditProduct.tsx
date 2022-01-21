@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   deleteProduct,
-  getSellers,
   intitialDataSetDetailedCard,
   updateProduct,
 } from "../api/api";
@@ -24,17 +23,8 @@ interface EditProductInterface {
   desc: string;
 }
 const EditProduct: React.FC = () => {
-  const {
-    editProduct,
-    closeWindow,
-    mySellers,
-    setMySellers,
-    allSellers,
-    setAllSellers,
-    setEditProduct,
-    rerender,
-    setRerender,
-  } = useContext(ProfileDetailContext);
+  const { editProduct, closeWindow, setEditProduct, rerender, setRerender } =
+    useContext(ProfileDetailContext);
   const [ad, setAd] = useState<EditProductInterface>();
   const [mainImg, setMainImg] = useState(0);
   const [imageArr, setImageArr] = useState<string[]>([]);

@@ -9,6 +9,8 @@ const SellerDetail: React.FC = () => {
     setSellerDetail,
     setHideChat,
     thisSellerIsLoggedIn,
+    createClickedSellerInfo,
+    clickedSellerInfo,
   } = useContext(ProfileDetailContext);
   const [currentSeller, setCurrentSeller] = useState<any[]>();
   const [soldAndHold, setSoldAndHold] =
@@ -29,8 +31,10 @@ const SellerDetail: React.FC = () => {
     setSoldAndHold({ sold: allSold, hold: allHolds });
 
     setTimeout(async () => {
-      console.log(filteredSellersData);
+      // console.log(filteredSellersData);
       setItsMe(await thisSellerIsLoggedIn(filteredSellersData[0].sellerId));
+      // console.log(sellerDetail.sellerId);
+      createClickedSellerInfo(sellerDetail.sellerId);
     }, 0);
   }, []);
 
@@ -66,6 +70,15 @@ const SellerDetail: React.FC = () => {
     }
   };
 
+  let renderSells = () => {
+    let sellsString = "";
+    clickedSellerInfo?.sells.forEach((val: string) => {
+      sellsString = sellsString.concat(` ${val},`);
+    });
+    // console.log(clickedSellerInfo);
+    return sellsString;
+  };
+
   let arrayRotate = (arr: []) => {
     let newArr = [];
     while (arr.length !== 0) {
@@ -94,10 +107,9 @@ const SellerDetail: React.FC = () => {
             {currentSeller &&
               arrayRotate(currentSeller[0].date.split("-")).join(" ")}
           </p>
+          <h4>Sells:</h4>
+          {renderSells()}
         </div>
-        <br />
-        <br />
-        <br />
         <br />
         <br />
         <br />

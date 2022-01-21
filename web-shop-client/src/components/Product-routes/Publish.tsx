@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getSellers } from "../../api/api";
 
@@ -7,7 +7,7 @@ import { ProductContext } from "../../context/ProductContext";
 import { ProfileDetailContext } from "../../context/ProfileDetailContext";
 const Publish: React.FC = () => {
   const [mainImg, setMainImg] = useState(0);
-  const { ad } = useContext<{
+  const { ad, setAd } = useContext<{
     ad: {
       sellOrRent: string;
       sellOrDemand: string;
@@ -25,10 +25,24 @@ const Publish: React.FC = () => {
       used: boolean;
       desc: string;
     };
+    setAd: React.Dispatch<React.SetStateAction<{}>>;
   }>(ProductContext);
   const { rerender, setRerender } = useContext(ProfileDetailContext);
   let navigate = useNavigate();
 
+  // useEffect(() => {
+  //   console.log("hitt", ad.imgSrc.length);
+  //   if (ad.imgSrc.length === 0) {
+  //     setAd((oldObj) => {
+  //       return {
+  //         ...oldObj,
+  //         imgSrc: [
+  //           "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Antu_insert-image.svg/1200px-Antu_insert-image.svg.png",
+  //         ],
+  //       };
+  //     });
+  //   }
+  // }, []);
   const handleSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     try {
@@ -37,13 +51,17 @@ const Publish: React.FC = () => {
         ad,
         { withCredentials: true }
       );
+      setAd({});
       setRerender(!rerender);
       console.log(response);
       navigate("/");
+      window.location.reload();
     } catch (err) {
+      setAd({});
       setRerender(!rerender);
       console.log(err);
       navigate("/");
+      window.location.reload();
     }
   };
   let renderImages;
@@ -93,6 +111,13 @@ const Publish: React.FC = () => {
           <p>{ad.desc}</p>
         </div>
         <div className="Product__MainBtn btn Publish__text--btn">
+          <button
+            onClick={() => {
+              navigate("/addProduct/price-image-desc");
+            }}
+          >
+            Back
+          </button>
           <button type="submit">Publish</button>
         </div>
       </div>

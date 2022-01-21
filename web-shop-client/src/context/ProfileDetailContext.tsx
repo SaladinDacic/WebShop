@@ -53,6 +53,19 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
         rating: number;
         sellerName: string;
         date: string;
+        likes: {}[];
+        sells: string[];
+      }
+    | undefined
+  >(undefined);
+  const [clickedSellerInfo, setClickedSellerInfo] = useState<
+    | {
+        sellerId: string;
+        rating: number;
+        sellerName: string;
+        date: string;
+        likes: {}[];
+        sells: string[];
       }
     | undefined
   >(undefined);
@@ -72,10 +85,35 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
     try {
       let response1 = await getSellerById(id);
       let response2 = await getLoggedUserName();
-      // console.log(response1.data.name === response2.data.name);
+      // console.log(response1.data, response2.data);
       return response1.data.name === response2.data.name;
     } catch (err) {
       return false;
+    }
+  };
+
+  const createClickedSellerInfo = async (id: string) => {
+    try {
+      let response = await getSellerById(id);
+      // console.log(response.data);
+      let info = response.data as {
+        id: string;
+        rating: number;
+        name: string;
+        date: string;
+        likes: {}[];
+        sells: string[];
+      };
+      setClickedSellerInfo({
+        sellerId: id,
+        rating: info.rating,
+        date: info.date,
+        sellerName: info.name,
+        likes: info.likes.slice(0, 4),
+        sells: info.sells.slice(0, 4),
+      });
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -90,18 +128,22 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
       (async function provideLoggedSellerInfo() {
         try {
           let response = await getSellerById(sellerId);
+          // console.log(response.data);
           let info = response.data as {
             sellerId: string;
             rating: number;
             name: string;
             date: string;
+            likes: {}[];
+            sells: string[];
           };
-          // console.log(info.name);
           setLoggedSellerInfo({
             sellerId,
             rating: info.rating,
             date: info.date,
             sellerName: info.name,
+            likes: info.likes.slice(0, 4),
+            sells: info.sells.slice(0, 4),
           });
         } catch (err) {
           console.log(err);
@@ -134,6 +176,8 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
         setHideChat,
         thisSellerIsLoggedIn,
         loggedSellerInfo,
+        createClickedSellerInfo,
+        clickedSellerInfo,
       }}
     >
       {children}

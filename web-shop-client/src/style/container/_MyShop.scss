@@ -2,10 +2,10 @@
   width: $grid-width;
   // width: $grid-width-2;
   // border: 3px solid green;
-  // margin: 0 auto;
+  margin: 0 2rem;
   &__list {
     z-index: 5;
-    columns: 4 100px;
+    columns: 4;
     column-gap: 1rem;
     div {
       margin: 0 1rem 1rem 0;
@@ -13,7 +13,7 @@
       min-width: 80%;
     }
     margin: 0 auto;
-    transform: translateY(8rem);
+    transform: translateY(1rem);
     z-index: 4;
     min-height: $min-height-of-view;
     padding-bottom: $footer-margin-top;

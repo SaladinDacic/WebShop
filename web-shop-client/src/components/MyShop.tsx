@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import Card from "./Card";
-import CardDetails from "../containers/CardDetails";
+import CardDetails from "./CardDetails";
 import { ProfileDetailContext } from "../context/ProfileDetailContext";
+import EditProduct from "./EditProduct";
 
 interface ListCardsProps {
   mySellers?: {}[] | undefined;
@@ -14,8 +15,13 @@ const MyShop: React.FC<ListCardsProps> = ({
   setMySellers,
   loggedIn,
 }) => {
-  const { detailCard, closeWindow, setDetailCard } =
-    useContext(ProfileDetailContext);
+  const {
+    detailCard,
+    closeWindow,
+    setDetailCard,
+    editProduct,
+    setEditProduct,
+  } = useContext(ProfileDetailContext);
   const [productList, setProductList] = useState<{}[] | null>();
 
   useEffect(() => {
@@ -45,7 +51,7 @@ const MyShop: React.FC<ListCardsProps> = ({
     productId: string;
     sellerName: string;
   }) => {
-    setDetailCard({
+    setEditProduct({
       sellerId: obj.sellerId,
       productId: obj.productId,
       show: true,
@@ -55,13 +61,14 @@ const MyShop: React.FC<ListCardsProps> = ({
 
   return (
     <div className="MyShop">
-      <div className="MyShop__detail">
-        {detailCard.show ? <CardDetails /> : null}
+      <div className="MyShop__detail">{detailCard.show && <CardDetails />}</div>
+      <div className="ListCards__detail">
+        {editProduct.show && <EditProduct />}
       </div>
       <div className="MyShop__list">
         {renderProductList}
-        {renderProductList}
-        {renderProductList}
+        {/* {renderProductList}
+        {renderProductList} */}
       </div>
     </div>
   );

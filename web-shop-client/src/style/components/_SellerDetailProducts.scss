@@ -3,32 +3,47 @@
   width: 100%;
   &__list {
     z-index: 5;
-    display: grid;
-    grid-template-columns: 25% 25% 25% 25%;
-    overflow-y: scroll;
+    // display: grid;
+    // grid-template-columns: 24% 24% 24% 24%;
+    // grid-gap: 1%;
+    // overflow-y: scroll;
     height: 100%;
-    h3 {
-      margin: 0 auto;
-      width: 35rem;
-      transform: rotateZ(45deg) translate(-7%, 40%);
-      font-size: 3rem;
-      letter-spacing: 0.2rem;
-      color: $color-grey-dark;
-    }
+    width: 100%;
+    columns: 4;
+    // h3 {
+    //   margin: 0 auto;
+    //   width: 35rem;
+    //   transform: rotateZ(45deg) translate(-7%, 40%);
+    //   font-size: 3rem;
+    //   letter-spacing: 0.2rem;
+    //   color: $color-grey-dark;
+    // }
     // border: 3px solid green;
     .Card {
+      display: inline-block;
       cursor: pointer;
       border: 1px solid $color-grey-dark;
       width: 9rem;
-      height: 10.5rem;
+      // height: 11rem;
+      padding-top: 0;
       &__img {
-        height: 5rem;
-        // border: 3px solid green;
+        min-width: 6rem;
         // border-bottom: none;
       }
       &__heading {
         padding: 0.2rem;
-        border-bottom: 4px groove $color-white;
+        // border-bottom: 4px groove $color-white;
+        h4 {
+          margin: -0.4rem 0;
+          max-width: 7rem;
+          height: 1.7rem;
+          overflow: hidden;
+          // border: 3px solid green;
+          text-overflow: ellipsis;
+        }
+        p {
+          margin: -0.1rem 0;
+        }
       }
     }
   }

@@ -2,6 +2,9 @@ import React, { useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 const Product: React.FC = () => {
+  const handleDisableLink = (evt: React.MouseEvent<HTMLAnchorElement>) => {
+    evt.preventDefault();
+  };
   let navigate = useNavigate();
   useEffect(() => {
     navigate("/addProduct/category");
@@ -10,29 +13,33 @@ const Product: React.FC = () => {
     <div className="Product">
       <div className="Product__tabs">
         <NavLink
+          onClick={handleDisableLink}
           to={"/addProduct/category"}
           className={"Product__tabs--category"}
         >
-          Kategorija
+          Category
         </NavLink>
         <NavLink
+          onClick={handleDisableLink}
           to={"/addProduct/basic-information"}
           className="Product__tabs--category"
         >
-          Osnovni podaci
+          Basic info
         </NavLink>
         <NavLink
+          onClick={handleDisableLink}
           to={"/addProduct/price-image-desc"}
           className="Product__tabs--category"
         >
-          Cijena, slike i opis
+          Price, Image & Desc
         </NavLink>
-        <a
-          // to={"/addProduct/publish"}
+        <NavLink
+          onClick={handleDisableLink}
+          to={"/addProduct/publish"}
           className="Product__tabs--category"
         >
-          Objavi
-        </a>
+          Publish
+        </NavLink>
       </div>
       <div className="Product__Routes">
         <Outlet />

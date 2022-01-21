@@ -7,34 +7,12 @@ const MyProfile: React.FC<{
   handleLogOut: (evt: React.MouseEvent<HTMLButtonElement>) => void;
   closeAllComponents: (message?: string) => void;
 }> = ({ handleLogOut, closeAllComponents }) => {
-  const {
-    loggedSellerInfo,
-    mySellers,
-    allSellers,
-    profileDetail,
-    setProfileDetail,
-  } = useContext(ProfileDetailContext);
+  const { loggedSellerInfo, profileDetail, setProfileDetail } =
+    useContext(ProfileDetailContext);
   const [currentSeller, setCurrentSeller] = useState<any[]>();
   const [soldAndHold, setSoldAndHold] =
     useState<{ sold: number; hold: number }>();
-
-  /*   useEffect(() => {
-    if (profileDetail.show) {
-      let allSold = 0;
-      let allHolds = 0;
-      let filteredSellersData = mySellers?.filter((obj: any) => {
-        return obj.sellerId === profileDetail.sellerId;
-      });
-      setCurrentSeller(filteredSellersData);
-
-      filteredSellersData?.forEach((obj: any) => {
-        allSold = allSold + obj.sold;
-        allHolds = allHolds + obj.holds;
-      });
-      setSoldAndHold({ sold: allSold, hold: allHolds });
-      console.log(filteredSellersData);
-    }
-  }, []); */
+  const [fromMyProfile, setFromMyProfile] = useState(true);
 
   const handleClick = async (evt: React.MouseEvent<HTMLButtonElement>) => {
     console.log(loggedSellerInfo && loggedSellerInfo.sellerId);
@@ -65,7 +43,22 @@ const MyProfile: React.FC<{
       return stars;
     }
   };
-
+  let renderLikes = () => {
+    let likesString = "";
+    loggedSellerInfo.likes.forEach((val: { name: string }) => {
+      likesString = likesString.concat(` ${val.name},`);
+    });
+    console.log(likesString);
+    return likesString;
+  };
+  let renderSells = () => {
+    let sellsString = "";
+    loggedSellerInfo.sells.forEach((val: string) => {
+      sellsString = sellsString.concat(` ${val},`);
+    });
+    console.log(sellsString);
+    return sellsString;
+  };
   let arrayRotate = (arr: []) => {
     let newArr = [];
     while (arr.length !== 0) {
@@ -77,7 +70,7 @@ const MyProfile: React.FC<{
     <div className="MyProfile">
       <div className="MyProfile__images">
         <div className="MyProfile__images--main">
-          <SellerDetailProducts />
+          <SellerDetailProducts fromMyProfile={fromMyProfile} />
         </div>
         <div className="MyProfile__images--list"></div>
       </div>
@@ -97,7 +90,9 @@ const MyProfile: React.FC<{
                   arrayRotate(loggedSellerInfo.date.split("-")).join(" ")}
               </p>
               <h4>Likes:</h4>
-              <p>pc, game, car, diary</p>
+              {renderLikes()}
+              <h4>Sells:</h4>
+              {renderSells()}
             </div>
           }
         </div>

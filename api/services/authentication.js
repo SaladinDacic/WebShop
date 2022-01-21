@@ -30,19 +30,21 @@ const logOut = (req, res, next)=>{
 }
 
 const sellerRegister = async (req, res, next) =>{
+  const {username, password, email, sells, likes} = req.body
   try{
-    const {username, password, email} = req.body
     // const salt = await bcrypt.genSalt() //može se zamjeniti samo sa brojem 10 u hash funkciji
     const hashedPassword = await bcrypt.hash(password, 10)
       const newUser = await db.seller.create({
         name:username,
         email:email,
         password:hashedPassword,
-        products:[]
+        sells:sells,
+        likes:likes
       }).then(data=>data).catch(err=>{throw new Error(err)})
       res.json(newUser);
-      next();
-  }catch(err){res.status(500).send()}
+      return
+      // next();
+  }catch(err){res.status(500).send("can't set new user")}
 }
 
 

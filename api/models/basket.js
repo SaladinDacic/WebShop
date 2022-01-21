@@ -3,17 +3,14 @@ var mongoose = require("mongoose");
 var basketSchema = new mongoose.Schema({
         sellerId:{
           type: String,
-          unique: true,
-          required: "Name cannot be blank!"},
+          required: "SellerId cannot be blank!"},
         customerId:{
           type: String,
-          unique: true,
-          required: "Name cannot be blank!"
+          required: "CustomerId cannot be blank!"
         },
         productId:{
           type: String,
-          unique: true,
-          required: "Name cannot be blank!"
+          required: "ProductId cannot be blank!"
         },
         date:{
           type:Date,

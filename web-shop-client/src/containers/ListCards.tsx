@@ -4,7 +4,7 @@ import Card from "../components/Card";
 import EditProduct from "../components/EditProduct";
 import SellerDetail from "../components/SellerDetail";
 import { ProfileDetailContext } from "../context/ProfileDetailContext";
-import CardDetails from "./CardDetails";
+import CardDetails from "../components/CardDetails";
 
 interface ListCardsProps {
   allSellers: {}[] | undefined;
@@ -18,6 +18,7 @@ const ListCards: React.FC<ListCardsProps> = ({ allSellers, setAllSellers }) => {
     detailCard,
     setDetailCard,
     editProduct,
+    loggedSellerInfo,
     setEditProduct,
     closeWindow,
   } = useContext(ProfileDetailContext);
@@ -53,12 +54,21 @@ const ListCards: React.FC<ListCardsProps> = ({ allSellers, setAllSellers }) => {
     sellerId: string;
     productId: string;
   }) => {
-    setDetailCard({
-      sellerName: obj.sellerName,
-      sellerId: obj.sellerId,
-      productId: obj.productId,
-      show: true,
-    });
+    if (obj.sellerId === loggedSellerInfo.sellerId) {
+      setEditProduct({
+        sellerName: obj.sellerName,
+        sellerId: obj.sellerId,
+        productId: obj.productId,
+        show: true,
+      });
+    } else {
+      setDetailCard({
+        sellerName: obj.sellerName,
+        sellerId: obj.sellerId,
+        productId: obj.productId,
+        show: true,
+      });
+    }
   };
 
   return (
@@ -74,11 +84,11 @@ const ListCards: React.FC<ListCardsProps> = ({ allSellers, setAllSellers }) => {
       </div>
       <div className="ListCards__list">
         {renderProductList}
+        {/* {renderProductList}
         {renderProductList}
         {renderProductList}
         {renderProductList}
-        {renderProductList}
-        {renderProductList}
+        {renderProductList} */}
       </div>
     </div>
   );
