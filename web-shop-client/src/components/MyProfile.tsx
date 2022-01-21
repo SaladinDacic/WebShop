@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { ProfileDetailContext } from "../context/ProfileDetailContext";
+import { ProfileDetailContext } from "../context/MainContext";
 
 import SellerDetailProducts from "./SellerDetailProducts";
 

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { getLoggedUserName } from "../api/api";
-import { ProfileDetailContext } from "../context/ProfileDetailContext";
+import { ProfileDetailContext } from "../context/MainContext";
 
 const Chat: React.FC = () => {
   const socket = io("http://localhost:3001");

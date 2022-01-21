@@ -4,7 +4,7 @@ import {
   intitialDataSetDetailedCard,
   updateProduct,
 } from "../api/api";
-import { ProfileDetailContext } from "../context/ProfileDetailContext";
+import { ProfileDetailContext } from "../context/MainContext";
 interface EditProductInterface {
   sellOrRent: string;
   sellOrDemand: string;

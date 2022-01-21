@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Search from "../components/Search";
 import { ToastContainer, Bounce, toast } from "react-toastify";
 import SortFilter from "../components/SortFilter";
-import { ProfileDetailContext } from "../context/ProfileDetailContext";
+import { ProfileDetailContext } from "../context/MainContext";
 import Basket from "../components/Basket";
 
 interface NavbarProps {

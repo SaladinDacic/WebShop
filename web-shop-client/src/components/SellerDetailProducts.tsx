@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ReactElement, useContext } from "react";
-import { ProfileDetailContext } from "../context/ProfileDetailContext";
+import { ProfileDetailContext } from "../context/MainContext";
 import Card from "./Card";
 
 export interface SellerDetailProps {

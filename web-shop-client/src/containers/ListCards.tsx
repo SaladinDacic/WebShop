@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 import Card from "../components/Card";
 import EditProduct from "../components/EditProduct";
 import SellerDetail from "../components/SellerDetail";
-import { ProfileDetailContext } from "../context/ProfileDetailContext";
+import { ProfileDetailContext } from "../context/MainContext";
 import CardDetails from "../components/CardDetails";
 
 interface ListCardsProps {

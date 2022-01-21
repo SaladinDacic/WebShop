@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { intitialDataSetDetailedCard } from "../api/api";
 import { ProductContext } from "../context/ProductContext";
-import { ProfileDetailContext } from "../context/ProfileDetailContext";
+import { ProfileDetailContext } from "../context/MainContext";
 interface CardDetailInterface {
   sellOrRent: string;
   sellOrDemand: string;

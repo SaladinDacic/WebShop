@@ -8,7 +8,7 @@ const {authenticateToken} = require("../services/authentication");
 // db.seller.findByIdAndUpdate("61b8f1f9c40e19560da04f74", {$push:{baskets: {basketId:"61b8f18886d8e59adc39c263", basketName: "switch", holds: 100}}}).then(data=>data)
 // db.seller.findOneAndUpdate({"baskets.basketId":"61b8f18886d8e59adc39c263"}, {"$set":{"baskets.$.holds":200}}).then(data=>data)
 
-// db.basket.findByIdAndDelete("61e5ed57d94f7114261a0bdb").then(data=>data)
+// db.basket.findByIdAndDelete("61e87dfb8809d1a9fbb2c398").then(data=>data)
 
 
 router.get('/', (req, res) => {

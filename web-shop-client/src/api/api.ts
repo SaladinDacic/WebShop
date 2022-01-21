@@ -78,6 +78,31 @@ const getSellerById = async (id: string | undefined) => {
   return response;
 }
 
+const getCustomerBasketById = async (id: string) => {
+  let response = await axios.get(
+    `http://localhost:3001/api/basket/customer/${id}`,
+    { withCredentials: true }
+  );
+  // console.log(response)
+  return response;
+}
+const getSellerBasketById = async (id: string) => {
+  let response = await axios.get(
+    `http://localhost:3001/api/basket/seller/${id}`,
+    { withCredentials: true }
+  );
+  // console.log(response)
+  return response;
+}
+const getProduct = async (sellerId: string, productId: string) => {
+  // localhost:3001/api/seller/getProduct/61e5a443b09123931f5a42e0/61e891eaaea9b3c9e2b24ff5
+  let response = await axios.get(
+    `http://localhost:3001/api/seller/getProduct/${sellerId}/${productId}`,
+    { withCredentials: true }
+  );
+  // console.log(response)
+  return response;
+}
 
 const intitialDataSetDetailedCard = async (setAd: any, sellerId: any, productId: any) => {
   try {
@@ -110,4 +135,4 @@ const logOut = async () => {
 }
 
 
-export { getSellerById, deleteProduct, getSellers, getLoggedUserName, intitialDataSetDetailedCard, logIn, logOut, updateProduct };
+export { getProduct, getSellerBasketById, getCustomerBasketById, getSellerById, deleteProduct, getSellers, getLoggedUserName, intitialDataSetDetailedCard, logIn, logOut, updateProduct };

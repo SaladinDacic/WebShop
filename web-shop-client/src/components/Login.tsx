@@ -2,7 +2,7 @@ import React, { SetStateAction, useContext, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MyProfile from "./MyProfile";
-import { ProfileDetailContext } from "../context/ProfileDetailContext";
+import { ProfileDetailContext } from "../context/MainContext";
 import { logIn, logOut } from "../api/api";
 export interface LoginProps {
   setToggleShowLogin: React.Dispatch<SetStateAction<boolean>>;

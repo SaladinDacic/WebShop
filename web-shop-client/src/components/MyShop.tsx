@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Card from "./Card";
 import CardDetails from "./CardDetails";
-import { ProfileDetailContext } from "../context/ProfileDetailContext";
+import { ProfileDetailContext } from "../context/MainContext";
 import EditProduct from "./EditProduct";
 
 interface ListCardsProps {

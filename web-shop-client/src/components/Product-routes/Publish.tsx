@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { getSellers } from "../../api/api";
 
 import { ProductContext } from "../../context/ProductContext";
-import { ProfileDetailContext } from "../../context/ProfileDetailContext";
+import { ProfileDetailContext } from "../../context/MainContext";
 const Publish: React.FC = () => {
   const [mainImg, setMainImg] = useState(0);
   const { ad, setAd } = useContext<{

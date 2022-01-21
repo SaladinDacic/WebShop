@@ -13,7 +13,7 @@ import Publish from "../components/Product-routes/Publish";
 import { ProductProvider } from "../context/ProductContext";
 import MyShop from "../components/MyShop";
 
-import { ProfileDetailProvider } from "../context/ProfileDetailContext";
+import { ProfileDetailProvider } from "../context/MainContext";
 const Landing: React.FC = () => {
   const [allSellers, setAllSellers] = useState<{}[] | undefined>(undefined);
   const [mySellers, setMySellers] = useState<any[] | undefined>(undefined);
