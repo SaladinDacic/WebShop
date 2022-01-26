@@ -72,7 +72,7 @@ const Navbar: React.FC<NavbarProps> = ({
   return (
     <div className="Navbar">
       <div className="Navbar__primary">
-        <i className="Navbar__primary--logo fab fa-shopware"></i>
+        <Link to={"/"} className="Navbar__primary--logo fab fa-shopware" />
         <div className="Navbar__primary--div">
           <ToastContainer
             draggable={true}

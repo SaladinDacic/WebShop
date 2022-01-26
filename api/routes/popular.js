@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../models');
-const [admin,seller,customer, product] = require("./initial");
+const [admin,seller,popular, product] = require("./initial");
 // db.admin.insertMany([admin]).then(data=>data);
 
-// db.seller.create({
+// db.popular.create({
 //   name:"Saladin",
 //   email:"saladindacic@gmail.com",
 //   intrested:["game", "pc", "tools"]
@@ -17,7 +17,7 @@ const [admin,seller,customer, product] = require("./initial");
 
 
 router.get('/', (req, res) => {
-	db.customer.find().then(customer=>{res.json(customer)})
+	db.popular.find().then(popular=>{res.json(popular)})
 });
 
 router.get("/:id", (req, res)=>{

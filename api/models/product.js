@@ -6,11 +6,23 @@ var productSchema = new mongoose.Schema({
         {
           type: String,
           enum: [
-            "fruit", "vegetable", "dairy", "meat", 
-            "vehicle", "console", "game", "house", 
-            "apartment", "smartphone", "pc",
-            "work", "productivity", "pool", "tools",
-            "forHouse"
+            "Category",
+    "fruit",
+    "vegetable",
+    "dairy",
+    "meat",
+    "vehicle",
+    "console",
+    "game",
+    "house",
+    "apartment",
+    "smartphone",
+    "pc",
+    "work",
+    "category",
+    "pool",
+    "tools",
+    "forHouse",
           ]
         }
 })

@@ -13,6 +13,7 @@ mongoose.connect('mongodb://localhost:27017/webshop', {useNewUrlParser: true,
 mongoose.Promise = Promise;
 module.exports.admin = require("./admin");
 module.exports.seller = require("./seller");
-// module.exports.customer = require("./customer");
+module.exports.popular = require("./popular");
+
 // module.exports.product = require("./product");
 module.exports.basket = require("./basket");
