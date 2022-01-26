@@ -4,6 +4,7 @@ import EditProduct from "../components/EditProduct";
 import SellerDetail from "../components/SellerDetail";
 import { ProfileDetailContext } from "../context/MainContext";
 import CardDetails from "../components/CardDetails";
+import { getAllPopular } from "../api/api";
 
 interface PopularProps {
   allSellers: {}[] | undefined;
@@ -24,44 +25,38 @@ const Popular: React.FC<PopularProps> = ({ allSellers, setAllSellers }) => {
   const sellersRef = useRef(allSellers);
 
   useEffect(() => {
-    if (loggedSellerInfo !== undefined) {
-      if (sellersRef.current === undefined) sellersRef.current = allSellers;
+    (async function providePopular() {
+      await getAllPopular().then((data) => {
+        let popularCategoriesArr = data
+          .map((obj: { category: string }) => {
+            return obj.category;
+          })
+          .slice(0, 10);
 
-      let likesString = "";
-      loggedSellerInfo.likes.forEach((val: { name: string }) => {
-        likesString = likesString.concat(` ${val.name},`);
-      });
-      let strArr: string[] = [];
-      likesString.split("").forEach((val) => {
-        if (val !== " ") {
-          strArr.push(val);
+        if (loggedSellerInfo !== undefined) {
+          if (sellersRef.current === undefined) sellersRef.current = allSellers;
+
+          console.log(popularCategoriesArr);
+          var categorizedSellers: {}[] = [];
+
+          popularCategoriesArr.forEach((category: string) => {
+            var data: {}[] = [];
+            if (sellersRef.current !== undefined)
+              data = [
+                ...sellersRef.current.filter((obj: any) => {
+                  return obj.category === category;
+                }),
+              ];
+            if (data !== undefined) {
+              categorizedSellers = [...categorizedSellers, ...data];
+            }
+          });
+          // console.log(categorizedSellers);
+          sellersRef.current = unique(categorizedSellers, "productId");
+          setProductList(sellersRef.current);
         }
       });
-      let compressedString = strArr.join("");
-      const categoriesArr = compressedString
-        .split(",")
-        .filter((str: string) => {
-          if (str !== "") return true;
-        });
-
-      var categorizedSellers: {}[] = [];
-
-      categoriesArr.forEach((category: string) => {
-        var data: {}[] = [];
-        if (sellersRef.current !== undefined)
-          data = [
-            ...sellersRef.current.filter((obj: any) => {
-              return obj.category === category;
-            }),
-          ];
-        if (data !== undefined) {
-          categorizedSellers = [...categorizedSellers, ...data];
-        }
-      });
-      console.log(categorizedSellers);
-      sellersRef.current = unique(categorizedSellers, "productId");
-      setProductList(sellersRef.current);
-    }
+    })();
   }, []);
 
   // useEffect(() => {

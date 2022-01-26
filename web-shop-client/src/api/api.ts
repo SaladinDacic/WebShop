@@ -105,7 +105,6 @@ const getProduct = async (sellerId: string, productId: string) => {
   return response;
 }
 
-
 const addProductToBasket = async (sellerId: string, productId: string, pieces: number = 1) => {
   // localhost:3001/api/seller/getProduct/61e5a443b09123931f5a42e0/61e891eaaea9b3c9e2b24ff5
   let response = await axios.post(
@@ -148,6 +147,13 @@ const updateProductShipping = async (sellerId: string, productId: string, shippi
   // console.log(response)
 }
 
+const getAllPopular = async () => {
+  let response = await axios.get(
+    `http://localhost:3001/api/popular`,
+  );
+  return response.data
+}
+
 const intitialDataSetDetailedCard = async (setAd: any, sellerId: any, productId: any) => {
   try {
     let response = await axios.get(
@@ -179,4 +185,4 @@ const logOut = async () => {
 }
 
 
-export { addProductToBasket, unAcceptProductSell, acceptProductSell, updateProductShipping, getProduct, getSellerBasketById, getCustomerBasketById, getSellerById, deleteProduct, getSellers, getLoggedUserName, intitialDataSetDetailedCard, logIn, logOut, updateProduct };
+export { getAllPopular, addProductToBasket, unAcceptProductSell, acceptProductSell, updateProductShipping, getProduct, getSellerBasketById, getCustomerBasketById, getSellerById, deleteProduct, getSellers, getLoggedUserName, intitialDataSetDetailedCard, logIn, logOut, updateProduct };

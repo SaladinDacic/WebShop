@@ -26,7 +26,8 @@ var popularSchema = new mongoose.Schema({
     },
     value:{
       type: Number,
-      required: "Must provide value"
+      required: "Must provide value",
+      default: 1
     }
 })
 

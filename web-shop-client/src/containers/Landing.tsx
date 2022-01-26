@@ -15,6 +15,7 @@ import MyShop from "../components/MyShop";
 
 import { ProfileDetailProvider } from "../context/MainContext";
 import Suggested from "./Suggested";
+import Popular from "./Popular";
 const Landing: React.FC = () => {
   const [allSellers, setAllSellers] = useState<{}[] | undefined>(undefined);
   const [mySellers, setMySellers] = useState<any[] | undefined>(undefined);
@@ -114,6 +115,17 @@ const Landing: React.FC = () => {
                 element={
                   <ProductProvider>
                     <Suggested
+                      setAllSellers={setAllSellers}
+                      allSellers={allSellers}
+                    />
+                  </ProductProvider>
+                }
+              />
+              <Route
+                path="/popular"
+                element={
+                  <ProductProvider>
+                    <Popular
                       setAllSellers={setAllSellers}
                       allSellers={allSellers}
                     />

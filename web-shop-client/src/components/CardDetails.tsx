@@ -34,6 +34,7 @@ const CardDetails: React.FC = () => {
   const [ad, setAd] = useState<CardDetailInterface>();
   const [itsMe, setItsMe] = useState(false);
   useEffect(() => {
+    //hvata podatke iz baze i koristi sedAd dispatcher da set-a ad u ovoj i editProduct komponenti
     intitialDataSetDetailedCard(
       setAd,
       detailCard.sellerId,
