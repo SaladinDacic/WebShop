@@ -1,7 +1,5 @@
-import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
-import { intitialDataSetDetailedCard } from "../api/api";
-import { ProductContext } from "../context/ProductContext";
+import { increasePopularity, intitialDataSetDetailedCard } from "../api/api";
 import { ProfileDetailContext } from "../context/MainContext";
 interface CardDetailInterface {
   sellOrRent: string;
@@ -27,7 +25,6 @@ const CardDetails: React.FC = () => {
     closeWindow,
     thisSellerIsLoggedIn,
     setHideChat,
-    loggedSellerInfo,
     setCustomerBasketToBuy,
   } = useContext(ProfileDetailContext);
   const [mainImg, setMainImg] = useState(0);
@@ -39,9 +36,11 @@ const CardDetails: React.FC = () => {
       setAd,
       detailCard.sellerId,
       detailCard.productId
-    );
+    ).then(async (data) => {
+      increasePopularity(data.category);
+    });
+
     setTimeout(async () => {
-      // console.log(await thisSellerIsLoggedIn(filteredSellersData[0].sellerId));
       setItsMe(await thisSellerIsLoggedIn(detailCard.sellerId));
       // console.log("došlo");
     }, 0);

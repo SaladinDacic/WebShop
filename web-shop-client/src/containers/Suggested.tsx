@@ -25,7 +25,7 @@ const Suggested: React.FC<SuggestedProps> = ({ allSellers, setAllSellers }) => {
 
   useEffect(() => {
     if (loggedSellerInfo !== undefined) {
-      if (sellersRef.current === undefined) sellersRef.current = allSellers;
+      sellersRef.current = allSellers;
 
       let likesString = "";
       loggedSellerInfo.likes.forEach((val: { name: string }) => {
@@ -62,7 +62,7 @@ const Suggested: React.FC<SuggestedProps> = ({ allSellers, setAllSellers }) => {
       sellersRef.current = unique(categorizedSellers, "productId");
       setProductList(sellersRef.current);
     }
-  }, []);
+  }, [allSellers]);
 
   // useEffect(() => {
   // }, []);

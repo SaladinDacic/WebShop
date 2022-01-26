@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../models');
-const [admin,seller,popular, product] = require("./initial");
+const {increasePopularity} = require("../controller/popular");
 // db.admin.insertMany([admin]).then(data=>data);
 
 // db.popular.create({
@@ -19,13 +19,7 @@ router.get('/', (req, res) => {
 	db.popular.find().then(popular=>{res.json(popular)})
 });
 
-router.get("/:id", (req, res)=>{
-  res.send(req.body)
-})
-
-router.post('/', (req, res) => {
-  res.send(req.body)
-});
+router.post('/increasePopularity', increasePopularity);
 
 router.put('/:id', (req, res) => {
   res.send(req.body)

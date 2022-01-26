@@ -153,6 +153,13 @@ const getAllPopular = async () => {
   );
   return response.data
 }
+const increasePopularity = async (category: string) => {
+  let response = await axios.post(
+    `http://localhost:3001/api/popular/increasePopularity`, { category: category },
+    { withCredentials: true }
+  );
+  return response.data
+}
 
 const intitialDataSetDetailedCard = async (setAd: any, sellerId: any, productId: any) => {
   try {
@@ -161,6 +168,7 @@ const intitialDataSetDetailedCard = async (setAd: any, sellerId: any, productId:
       { withCredentials: true }
     );
     setAd(response.data);
+    return response.data
   } catch (err) {
     console.log(err);
   }
@@ -185,4 +193,4 @@ const logOut = async () => {
 }
 
 
-export { getAllPopular, addProductToBasket, unAcceptProductSell, acceptProductSell, updateProductShipping, getProduct, getSellerBasketById, getCustomerBasketById, getSellerById, deleteProduct, getSellers, getLoggedUserName, intitialDataSetDetailedCard, logIn, logOut, updateProduct };
+export { increasePopularity, getAllPopular, addProductToBasket, unAcceptProductSell, acceptProductSell, updateProductShipping, getProduct, getSellerBasketById, getCustomerBasketById, getSellerById, deleteProduct, getSellers, getLoggedUserName, intitialDataSetDetailedCard, logIn, logOut, updateProduct };

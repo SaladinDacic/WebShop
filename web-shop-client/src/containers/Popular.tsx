@@ -27,16 +27,19 @@ const Popular: React.FC<PopularProps> = ({ allSellers, setAllSellers }) => {
   useEffect(() => {
     (async function providePopular() {
       await getAllPopular().then((data) => {
-        let popularCategoriesArr = data
+        let newData = bubbleUp(data) as any;
+        // console.log(newData);
+
+        let popularCategoriesArr = newData
           .map((obj: { category: string }) => {
             return obj.category;
           })
           .slice(0, 10);
 
         if (loggedSellerInfo !== undefined) {
-          if (sellersRef.current === undefined) sellersRef.current = allSellers;
+          sellersRef.current = allSellers;
 
-          console.log(popularCategoriesArr);
+          // console.log(popularCategoriesArr);
           var categorizedSellers: {}[] = [];
 
           popularCategoriesArr.forEach((category: string) => {
@@ -57,7 +60,7 @@ const Popular: React.FC<PopularProps> = ({ allSellers, setAllSellers }) => {
         }
       });
     })();
-  }, []);
+  }, [allSellers]);
 
   // useEffect(() => {
   // }, []);
@@ -143,4 +146,21 @@ function unique(arrOfObj: {}[], prop: string) {
     }
   });
   return newArr;
+}
+
+function bubbleUp(arr: { value: number }[]) {
+  let noSwaps;
+  for (let i = arr.length - 1; i >= 0; i--) {
+    noSwaps = true;
+    for (let j = 0; j < i; j++) {
+      if (arr[j].value < arr[j + 1].value) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        noSwaps = false;
+      }
+    }
+    if (noSwaps) {
+      break;
+    }
+  }
+  return arr;
 }
