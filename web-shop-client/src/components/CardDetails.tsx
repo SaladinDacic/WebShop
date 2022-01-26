@@ -28,6 +28,7 @@ const CardDetails: React.FC = () => {
     thisSellerIsLoggedIn,
     setHideChat,
     loggedSellerInfo,
+    setCustomerBasketToBuy,
   } = useContext(ProfileDetailContext);
   const [mainImg, setMainImg] = useState(0);
   const [ad, setAd] = useState<CardDetailInterface>();
@@ -50,7 +51,33 @@ const CardDetails: React.FC = () => {
   };
 
   const handleAddToCart = () => {
-    loggedSellerInfo as { sellerName: string; sellerId: string };
+    // loggedSellerInfo as { sellerName: string; sellerId: string };
+    if (ad) {
+      setCustomerBasketToBuy(
+        (
+          oldArr: {
+            sellerId: string;
+            productId: string;
+            pieces: number;
+            price: number;
+            productName: string;
+            imgSrc: string;
+          }[]
+        ) => {
+          return [
+            ...oldArr,
+            {
+              sellerId: detailCard.sellerId,
+              productId: detailCard.productId,
+              pieces: ad.holds,
+              price: ad.price,
+              productName: ad.productName,
+              imgSrc: ad.imgSrc[0],
+            },
+          ];
+        }
+      );
+    }
   };
   let renderImages;
   try {
@@ -104,10 +131,10 @@ const CardDetails: React.FC = () => {
           <div className="CardDetails__text--btn">
             {!itsMe && (
               <>
-                <button onClick={handleAddToCart} type="button">
+                <button onClick={handleChat} type="button">
                   Chat with us
                 </button>
-                <button onClick={handleChat} type="button">
+                <button onClick={handleAddToCart} type="button">
                   Add to Cart
                 </button>
               </>

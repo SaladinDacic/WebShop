@@ -94,6 +94,7 @@ const getSellerBasketById = async (id: string) => {
   // console.log(response)
   return response;
 }
+
 const getProduct = async (sellerId: string, productId: string) => {
   // localhost:3001/api/seller/getProduct/61e5a443b09123931f5a42e0/61e891eaaea9b3c9e2b24ff5
   let response = await axios.get(
@@ -102,6 +103,49 @@ const getProduct = async (sellerId: string, productId: string) => {
   );
   // console.log(response)
   return response;
+}
+
+
+const addProductToBasket = async (sellerId: string, productId: string, pieces: number = 1) => {
+  // localhost:3001/api/seller/getProduct/61e5a443b09123931f5a42e0/61e891eaaea9b3c9e2b24ff5
+  let response = await axios.post(
+    `http://localhost:3001/api/basket/addProductToBasket`, { sellerId, productId, pieces },
+    { withCredentials: true }
+  );
+  // console.log(response)
+  return response;
+}
+const acceptProductSell = async (sellerId: string, productId: string) => {
+  // localhost:3001/api/seller/getProduct/61e5a443b09123931f5a42e0/61e891eaaea9b3c9e2b24ff5
+  let response = await axios.post(
+    `http://localhost:3001/api/basket/acceptProductSell`, { sellerId, productId },
+    { withCredentials: true }
+  );
+  // console.log(response)
+  return response;
+}
+const unAcceptProductSell = async (sellerId: string, productId: string) => {
+  // localhost:3001/api/seller/getProduct/61e5a443b09123931f5a42e0/61e891eaaea9b3c9e2b24ff5
+  let response = await axios.post(
+    `http://localhost:3001/api/basket/unAcceptProductSell`, { sellerId, productId },
+    { withCredentials: true }
+  );
+  // console.log(response)
+  return response;
+}
+const updateProductShipping = async (sellerId: string, productId: string, shipping: "home" | "sent" | "traveling" | "arrived") => {
+
+  try {
+    let response = await axios.post(
+      `http://localhost:3001/api/basket/updateProductShipping`, { sellerId, productId, shipping },
+      { withCredentials: true }
+    );
+
+    return response;
+  } catch (err) {
+    console.log("err")
+  }
+  // console.log(response)
 }
 
 const intitialDataSetDetailedCard = async (setAd: any, sellerId: any, productId: any) => {
@@ -135,4 +179,4 @@ const logOut = async () => {
 }
 
 
-export { getProduct, getSellerBasketById, getCustomerBasketById, getSellerById, deleteProduct, getSellers, getLoggedUserName, intitialDataSetDetailedCard, logIn, logOut, updateProduct };
+export { addProductToBasket, unAcceptProductSell, acceptProductSell, updateProductShipping, getProduct, getSellerBasketById, getCustomerBasketById, getSellerById, deleteProduct, getSellers, getLoggedUserName, intitialDataSetDetailedCard, logIn, logOut, updateProduct };

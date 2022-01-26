@@ -18,7 +18,7 @@ var basketSchema = new mongoose.Schema({
         },
         shipping:{
           type: String,
-          enum:["home", "sent", "arrived"],
+          enum:["home", "sent","traveling", "arrived"],
           default: "home"
         },
         accepted:{type: Boolean, default: false},

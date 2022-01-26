@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
-import { getLoggedUserName, getSellerById } from "../api/api";
+import { getLoggedUserName, getProduct, getSellerById } from "../api/api";
 
 export const ProfileDetailContext = createContext<any | null>(null);
 
@@ -47,6 +47,18 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
     show: boolean;
     sellerId: string;
   }>({ show: false, sellerId: "" });
+  const [productDetailArr, setProductDetailArr] = useState<{}[]>();
+
+  const [customerBasketToBuy, setCustomerBasketToBuy] = useState<
+    {
+      sellerId: string;
+      productId: string;
+      pieces: number;
+      price: number;
+      productName: string;
+      imgSrc: string;
+    }[]
+  >([]);
   const [loggedSellerInfo, setLoggedSellerInfo] = useState<
     | {
         sellerId: string;
@@ -66,6 +78,7 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
         date: string;
         likes: {}[];
         sells: string[];
+        email: string;
       }
     | undefined
   >(undefined);
@@ -103,6 +116,7 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
         date: string;
         likes: {}[];
         sells: string[];
+        email: string;
       };
       setClickedSellerInfo({
         sellerId: id,
@@ -111,10 +125,29 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
         sellerName: info.name,
         likes: info.likes.slice(0, 4),
         sells: info.sells.slice(0, 4),
+        email: info.email,
       });
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const createProductDetailArr = async (
+    sellerId: string,
+    productIdArr: string[]
+  ) => {
+    productIdArr.forEach(async function (id) {
+      getProduct(sellerId, id).then((response) => {
+        setProductDetailArr((oldArr) => {
+          if (oldArr !== undefined) {
+            return unique([...oldArr, response.data], "_id");
+          } else {
+            return [response.data];
+          }
+        });
+      });
+    });
+    // console.log(array);
   };
 
   useEffect(() => {
@@ -178,9 +211,30 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
         loggedSellerInfo,
         createClickedSellerInfo,
         clickedSellerInfo,
+        createProductDetailArr,
+        productDetailArr,
+
+        customerBasketToBuy,
+        setCustomerBasketToBuy,
       }}
     >
       {children}
     </ProfileDetailContext.Provider>
   );
 };
+
+function unique(arrOfObj: {}[], prop: string) {
+  let newArr: {}[] = [];
+  arrOfObj.forEach((val: any) => {
+    if (
+      undefined ===
+      newArr.find(
+        (value: any) =>
+          JSON.stringify(value[prop]) === JSON.stringify(val[prop])
+      )
+    ) {
+      newArr.push(val);
+    }
+  });
+  return newArr;
+}
