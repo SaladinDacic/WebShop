@@ -54,7 +54,10 @@ const ListCards: React.FC<ListCardsProps> = ({ allSellers, setAllSellers }) => {
     sellerId: string;
     productId: string;
   }) => {
-    if (obj.sellerId === loggedSellerInfo.sellerId) {
+    if (
+      loggedSellerInfo !== undefined &&
+      obj.sellerId === loggedSellerInfo.sellerId
+    ) {
       setEditProduct({
         sellerName: obj.sellerName,
         sellerId: obj.sellerId,

@@ -123,7 +123,7 @@ const Navbar: React.FC<NavbarProps> = ({
           )}
         </div>
       </div>
-      <div className="Navbar__secondary">
+      <div id={`${!loggedIn && "loggedIn"}`} className="Navbar__secondary">
         {loggedIn ? (
           <Link
             to={"/addProduct/category"}
@@ -148,14 +148,16 @@ const Navbar: React.FC<NavbarProps> = ({
         <Link to={"/popular"} className="Navbar__secondary--tag a-tag">
           Popular
         </Link>
-        <Link to={"/suggested"} className="Navbar__secondary--tag a-tag">
-          Suggested
-        </Link>
         {/* </div> */}
         {loggedIn && (
-          <Link to={"/myArticles"} className="Navbar__secondary--tag a-tag">
-            My Shop
-          </Link>
+          <>
+            <Link to={"/suggested"} className="Navbar__secondary--tag a-tag">
+              Suggested
+            </Link>
+            <Link to={"/myArticles"} className="Navbar__secondary--tag a-tag">
+              My Shop
+            </Link>
+          </>
         )}
         <SortFilter
           mySellers={mySellers}

@@ -46,10 +46,15 @@
       }
     }
   }
+  #loggedIn {
+    min-width: 42rem;
+    max-width: 67rem;
+    // background-color: chartreuse;
+  }
   &__secondary {
     // transform: translateX(-2.8vw);
     min-width: 57rem;
-    max-width: 70rem;
+    max-width: 85rem;
     height: 2.5rem;
     margin: 0.5rem auto;
     display: flex;
