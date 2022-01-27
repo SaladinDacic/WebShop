@@ -43,7 +43,7 @@ io.on('connection', (socket) => {
   })
   socket.on("send-message", (messageData, room)=>{
     socket.broadcast.to(room).emit("get-message-fromRoom", messageData )
-    console.log("došlo je do ovdje", room)
+    console.log("universal chat mode", room)
   })
 });
 

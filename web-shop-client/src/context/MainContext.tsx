@@ -48,6 +48,7 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
     sellerId: string;
   }>({ show: false, sellerId: "" });
   const [productDetailArr, setProductDetailArr] = useState<{}[]>();
+  const [chatWithMe, setChatWithMe] = useState<string | undefined>();
 
   const [customerBasketToBuy, setCustomerBasketToBuy] = useState<
     {
@@ -213,9 +214,10 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
         clickedSellerInfo,
         createProductDetailArr,
         productDetailArr,
-
         customerBasketToBuy,
         setCustomerBasketToBuy,
+        chatWithMe,
+        setChatWithMe,
       }}
     >
       {children}

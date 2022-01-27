@@ -1,16 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { io } from "socket.io-client";
 import { getLoggedUserName } from "../api/api";
 import { ProfileDetailContext } from "../context/MainContext";
+import { v4 as uuidv4 } from "uuid";
 
 const Chat: React.FC = () => {
   const socket = io("http://localhost:3001");
-  const { hideChat, setHideChat, setRerender, rerender } =
+  const { hideChat, setHideChat, chatWithMe, setChatWithMe } =
     useContext(ProfileDetailContext);
 
   const [loggedIn, setLoggedIn] = useState(false);
   const [userId, setUserId] = useState("unLoggedId");
-  const [userName, setUserName] = useState("guest");
+  const [userName, setUserName] = useState(uuidv4());
   const [joined, setJoined] = useState(false);
   const [chatObj, setChatObj] = useState<{ [key: string]: string }>({ "": "" });
   const [chatArrObj, setChatArrObj] = useState<
@@ -25,16 +26,13 @@ const Chat: React.FC = () => {
   const [textAreaInput, setTextAreaInput] = useState("");
 
   const handleChange = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    if (evt.target.value.length !== 0) {
-      setTextAreaInput(evt.target.value);
-    }
+    setTextAreaInput(evt.target.value);
   };
 
   const pushToChat = (
     arr: [obj: { [key: string]: string }, chater: string]
   ) => {
     let date = new Date();
-    // let stringDate = JSON.stringify(date.toDateString());
     let stringTime = JSON.stringify(date.toTimeString())
       .split(" ")[0]
       .split('"')[1];
@@ -45,7 +43,20 @@ const Chat: React.FC = () => {
       time: stringTime,
       chater: arr[1],
     });
-    setChatArrObj([...newArrOfObj]);
+    console.log(unique([...newArrOfObj], "chater", "name", "time", "message"));
+    let filteredNewArr = unique(
+      [...newArrOfObj],
+      "chater",
+      "name",
+      "time",
+      "message"
+    ) as {
+      message: string;
+      name: string;
+      time: string;
+      chater: string;
+    }[];
+    setChatArrObj([...filteredNewArr]);
   };
 
   const renderChat = () => {
@@ -77,10 +88,13 @@ const Chat: React.FC = () => {
     if (textAreaInput.length !== 0) {
       socket.emit(
         "send-message",
-        { message: textAreaInput, name: userName },
-        userId
+        {
+          message: textAreaInput,
+          name: loggedIn ? userName : "anonymous",
+        },
+        chatWithMe ? chatWithMe : loggedIn ? userId : "anonymous"
       );
-      pushToChat([{ [userName]: textAreaInput }, "first"]);
+      pushToChat([{ [loggedIn ? userName : "Me"]: textAreaInput }, "first"]);
 
       // console.log(chatArrObj);
     }
@@ -89,17 +103,16 @@ const Chat: React.FC = () => {
   socket.on(
     "get-message-fromRoom",
     (messageData: { message: string; name: string }) => {
-      const textMsgArr = Object.values(chatObj);
-      // if (textMsgArr[0] !== textAreaInput) {
-      // console.log({ [messageData.name]: messageData.message });
       setChatObj({ [messageData.name]: messageData.message });
-      // }
     }
   );
 
   useEffect(() => {
     const textMsgArr = Object.values(chatObj);
-    if (textMsgArr[0] !== textAreaInput) {
+    if (
+      textMsgArr[0] !== textAreaInput &&
+      chatObj[userName] == textMsgArr[textMsgArr.length]
+    ) {
       pushToChat([chatObj, "second"]);
     }
     setTextAreaInput("");
@@ -111,15 +124,13 @@ const Chat: React.FC = () => {
       if (data.name !== undefined) {
         // console.log(data);
         setUserName(data.name);
-        setUserId(data.Id);
+        console.log(data);
+        setUserId(data.sellerId);
         setLoggedIn(true);
-        socket.emit("join-room", data.Id);
+        socket.emit("join-room", data.sellerId);
         setJoined(true);
-        // window.location.reload();
       } else {
         setLoggedIn(false);
-
-        // window.location.reload();
       }
     })();
     if (chatArrObj.length === 0) {
@@ -133,6 +144,13 @@ const Chat: React.FC = () => {
       setJoined(true);
     }
   }, [loggedIn]);
+
+  useEffect(() => {
+    if (chatWithMe !== undefined) {
+      socket.emit("join-room", chatWithMe);
+    }
+  }, [chatWithMe]);
+
   return (
     <div className={`${hideChat ? "Chat-hide" : "Chat"}`}>
       <nav className={`${hideChat ? "Chat-hide__nav" : "Chat__nav"}`}>
@@ -171,7 +189,7 @@ const Chat: React.FC = () => {
         <>
           <div className="Chat__header">
             <div className="Chat__header--chater">
-              <h3>{userName}</h3>
+              <h3>{loggedIn ? userName : "guest"}</h3>
               <p>I am here to help you</p>
             </div>
           </div>
@@ -194,21 +212,27 @@ const Chat: React.FC = () => {
 
 export default React.memo(Chat);
 
-/* const [firstChater, setFirstChater] = useState<{}[]>([
-  { admin: "Hi how can i help you, ask me anything" },
-  { admin: "don't wory, you just need to folow these instructions" },
-]);
-const [secondChater, setSecondChater] = useState<{}[]>([
-  { TrusT: "I need to ad some products into my shop" },
-  { TrusT: "I tried to ad but stuck into implementation" },
-]); */
-
-/*   const switchInput = () => {
-    let firstLength = Math.floor(Math.random() * firstChater.length);
-    let secondLength = Math.floor(Math.random() * secondChater.length);
-    let randomChoise = [
-      [firstChater[firstLength], "first"],
-      [secondChater[secondLength], "second"],
-    ][Math.floor(Math.random() * 2)];
-    return randomChoise as [obj: { [key: string]: string }, chater: string];
-  }; */
+function unique(
+  arrOfObj: {}[],
+  prop: string,
+  prop2: string,
+  prop3: string,
+  prop4: string
+) {
+  let newArr: {}[] = [];
+  arrOfObj.forEach((val: any) => {
+    if (
+      undefined ===
+      newArr.find(
+        (value: any) =>
+          JSON.stringify(value[prop]) === JSON.stringify(val[prop]) &&
+          JSON.stringify(value[prop2]) === JSON.stringify(val[prop2]) &&
+          JSON.stringify(value[prop3]) === JSON.stringify(val[prop3]) &&
+          JSON.stringify(value[prop4]) === JSON.stringify(val[prop4])
+      )
+    ) {
+      newArr.push(val);
+    }
+  });
+  return newArr;
+}

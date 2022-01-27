@@ -48,7 +48,20 @@ const MyProfile: React.FC<{
     loggedSellerInfo.likes.forEach((val: { name: string }) => {
       likesString = likesString.concat(` ${val.name},`);
     });
-    console.log(likesString);
+
+    if (likesString !== undefined) {
+      let newArrOfStrin: any = [];
+      likesString.split(",").forEach((word: string) => {
+        if (word.length !== 0) {
+          if (isAlphaNumeric(word)) newArrOfStrin.push(word);
+          else newArrOfStrin.push(word.slice(1));
+        }
+      });
+      let newStrin = bubbleUp(newArrOfStrin).join(", ");
+      return newStrin;
+    }
+
+    // console.log(likesString);
     return likesString;
   };
   let renderSells = () => {
@@ -56,7 +69,19 @@ const MyProfile: React.FC<{
     loggedSellerInfo.sells.forEach((val: string) => {
       sellsString = sellsString.concat(` ${val},`);
     });
-    console.log(sellsString);
+
+    if (sellsString !== undefined) {
+      let newArrOfStrin: any = [];
+      sellsString.split(",").forEach((word: string) => {
+        if (word.length !== 0) {
+          if (isAlphaNumeric(word)) newArrOfStrin.push(word);
+          else newArrOfStrin.push(word.slice(1));
+        }
+      });
+      let newStrin = bubbleUp(newArrOfStrin).join(", ");
+      return newStrin;
+    }
+
     return sellsString;
   };
   let arrayRotate = (arr: []) => {
@@ -126,3 +151,32 @@ const MyProfile: React.FC<{
 };
 
 export default MyProfile;
+
+function bubbleUp(arr: string[]) {
+  let noSwaps;
+  for (let i = arr.length - 1; i >= 0; i--) {
+    noSwaps = true;
+    for (let j = 0; j < i; j++) {
+      if (arr[j][0] > arr[j + 1][0]) {
+        [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+        noSwaps = false;
+      }
+    }
+    if (noSwaps) {
+      break;
+    }
+  }
+  return arr;
+}
+
+function isAlphaNumeric(char: string) {
+  var code = char.charCodeAt(0);
+  if (
+    !(code > 47 && code < 58) && // ako kod nije numeric (0-9)
+    !(code > 64 && code < 91) && // ako kod nije upper alpha (A-Z)
+    !(code > 96 && code < 123) // ako kod nije lower alpha (a-z)
+  ) {
+    return false; // reci da nije alpha-numeric
+  }
+  return true; // u suprotnom reci da jeste
+}

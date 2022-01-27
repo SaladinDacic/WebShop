@@ -26,6 +26,8 @@ const CardDetails: React.FC = () => {
     thisSellerIsLoggedIn,
     setHideChat,
     setCustomerBasketToBuy,
+    chatWithMe,
+    setChatWithMe,
   } = useContext(ProfileDetailContext);
   const [mainImg, setMainImg] = useState(0);
   const [ad, setAd] = useState<CardDetailInterface>();
@@ -37,7 +39,7 @@ const CardDetails: React.FC = () => {
       detailCard.sellerId,
       detailCard.productId
     ).then(async (data) => {
-      increasePopularity(data.category);
+      // increasePopularity(data.category);
     });
 
     setTimeout(async () => {
@@ -48,6 +50,7 @@ const CardDetails: React.FC = () => {
 
   const handleChat = () => {
     setHideChat(false);
+    setChatWithMe(detailCard.sellerId);
   };
 
   const handleAddToCart = () => {
