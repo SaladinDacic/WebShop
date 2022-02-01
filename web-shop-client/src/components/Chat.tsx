@@ -92,7 +92,7 @@ const Chat: React.FC = () => {
           message: textAreaInput,
           name: loggedIn ? userName : "anonymous",
         },
-        chatWithMe ? chatWithMe : loggedIn ? userId : "anonymous"
+        chatWithMe ? chatWithMe : loggedIn ? userId : userId
       );
       pushToChat([{ [loggedIn ? userName : "Me"]: textAreaInput }, "first"]);
 
@@ -103,10 +103,12 @@ const Chat: React.FC = () => {
   socket.on(
     "get-message-fromRoom",
     (messageData: { message: string; name: string }) => {
+      console.log(messageData.message);
       setChatObj({ [messageData.name]: messageData.message });
     }
   );
 
+  //handle messages that are comming to client
   useEffect(() => {
     const textMsgArr = Object.values(chatObj);
     if (

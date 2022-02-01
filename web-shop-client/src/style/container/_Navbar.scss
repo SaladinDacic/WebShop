@@ -51,12 +51,15 @@
     &--div {
       display: flex;
       align-items: center;
+      // position: relative;
+
       & i {
         margin-left: 1rem;
         // color: $color-grey-dark;
         color: $color-gray-light;
         font-size: $default-font-site;
         cursor: pointer;
+
         &:hover {
           color: $color-grey-dark-2;
         }

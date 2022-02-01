@@ -153,6 +153,7 @@ const getAllPopular = async () => {
   );
   return response.data
 }
+
 const increasePopularity = async (category: string) => {
   let response = await axios.post(
     `http://localhost:3001/api/popular/increasePopularity`, { category: category },
@@ -191,6 +192,21 @@ const logOut = async () => {
     { withCredentials: true }
   );
 }
+const upload = async (data: File) => {
+  return await axios.post(
+    `http://localhost:3001/api/upload`,
+    data,
+    { withCredentials: true }
+  )
+    .then((data) => data);
+}
+const deleteImages = async (arrayOfLinks: string[]) => {
+  return await axios.post(
+    `http://localhost:3001/api/images/deletion`,
+    arrayOfLinks,
+    { withCredentials: true }
+  )
+    .then((data) => data);
+}
 
-
-export { increasePopularity, getAllPopular, addProductToBasket, unAcceptProductSell, acceptProductSell, updateProductShipping, getProduct, getSellerBasketById, getCustomerBasketById, getSellerById, deleteProduct, getSellers, getLoggedUserName, intitialDataSetDetailedCard, logIn, logOut, updateProduct };
+export { deleteImages, upload, increasePopularity, getAllPopular, addProductToBasket, unAcceptProductSell, acceptProductSell, updateProductShipping, getProduct, getSellerBasketById, getCustomerBasketById, getSellerById, deleteProduct, getSellers, getLoggedUserName, intitialDataSetDetailedCard, logIn, logOut, updateProduct };

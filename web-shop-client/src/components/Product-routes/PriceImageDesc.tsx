@@ -1,12 +1,20 @@
 import React, { useContext, useState, useEffect } from "react";
 import { ProductContext } from "../../context/ProductContext";
 import { useNavigate } from "react-router-dom";
+import { Line } from "rc-progress";
+import axios from "axios";
+import _ from "lodash";
 
 const PriceImageDesc: React.FC = () => {
   const { pidTab, setPidTab } = useContext(ProductContext);
   const navigate = useNavigate();
   const [numOfImgInputs, setNumOfImgInputs] = useState([0]);
+  const [imageFiles, setImageFiles] = useState<
+    React.ChangeEvent<HTMLInputElement> | undefined
+  >() as any;
 
+  const [progress, setProgress] = useState(0);
+  const [isUploading, setIsUploading] = useState(false);
   const [baseObj, setBaseObj] = useState<{
     price?: number;
     holds: number;
@@ -51,6 +59,39 @@ const PriceImageDesc: React.FC = () => {
     });
   }, []);
 
+  const handleUploadFile = async (evt: React.MouseEvent<HTMLButtonElement>) => {
+    evt.stopPropagation();
+    evt.preventDefault();
+    const formData = new FormData();
+    _.forEach(imageFiles, (file) => {
+      formData.append("files", file);
+    });
+    setIsUploading(true);
+    await axios({
+      method: "post",
+      url: `http://localhost:3001/api/upload`,
+      data: formData,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      onUploadProgress: ({ loaded, total }) => {
+        setProgress((loaded / total) * 100);
+        // console.log("uload_evt", (loaded / total) * 100);
+      },
+    }).then((res) => {
+      console.log(res.data.arr);
+      setIsUploading(false);
+      // setUploadedImagesArr(res.data.arr);
+      if (res.data.arr.length !== 0) {
+        setBaseObj((oldObj) => {
+          return { ...oldObj, imgSrc: [...oldObj.imgSrc, ...res.data.arr] };
+        });
+      } else {
+        setProgress(0);
+      }
+    });
+  };
+
   const handleUsed = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setBaseObj((oldObj) => {
       return { ...oldObj, used: !oldObj.used };
@@ -89,7 +130,6 @@ const PriceImageDesc: React.FC = () => {
       return { ...oldObj, [evt.target.name]: evt.target.value };
     });
   };
-
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     try {
@@ -99,20 +139,19 @@ const PriceImageDesc: React.FC = () => {
       console.log("can't set property", err);
     }
   };
-
-  const renderInputs = numOfImgInputs.map((num, i) => {
-    return (
-      <input
-        key={i}
-        onChange={handleImage}
-        name="imgSrc"
-        className="file"
-        type="text"
-        placeholder="sugested"
-        // defaultValue={baseObj.imgSrc[i]}
-      />
-    );
-  });
+  // const renderInputs = numOfImgInputs.map((num, i) => {
+  //   return (
+  //     <input
+  //       key={i}
+  //       onChange={handleImage}
+  //       name="imgSrc"
+  //       className="file"
+  //       type="text"
+  //       placeholder="sugested"
+  //       // defaultValue={baseObj.imgSrc[i]}
+  //     />
+  //   );
+  // });
   return (
     <form
       onSubmit={handleSubmit}
@@ -184,10 +223,43 @@ const PriceImageDesc: React.FC = () => {
           <div className="PriceImgDesc__inputs--div-file-new">
             <div className="file">
               <div className="file__inputs">
-                <h3>Image </h3>
-                {renderInputs}
+                {/* <h3>Image </h3> */}
+                <div className="upload__arrOfImgs">
+                  {baseObj.imgSrc.map((imgLink: string, i: number) => {
+                    return (
+                      <div
+                        key={i}
+                        className="upload__arrOfImgs--oneImageDiv"
+                        style={{ backgroundImage: `url(${imgLink})` }}
+                      ></div>
+                    );
+                  })}
+                </div>
+                <br />
+                <div className="upload__progress">
+                  <Line percent={progress} trailWidth={1.5} strokeWidth={2} />
+                  <h3>{progress}%</h3>
+                </div>
+                <br />
+                <div className="upload">
+                  <input
+                    className="upload__input"
+                    onChange={(evt) => {
+                      if (evt.target.files !== null) {
+                        setImageFiles(evt.target.files);
+                      }
+                    }}
+                    type="file"
+                    multiple
+                    name="files"
+                  />
+                </div>
+                <button className="upload__button" onClick={handleUploadFile}>
+                  upload
+                </button>
+                {/* {renderInputs} */}
               </div>
-              <a
+              {/* <a
                 className="moreInputs"
                 onClick={() => {
                   setNumOfImgInputs((preVal) => {
@@ -196,8 +268,8 @@ const PriceImageDesc: React.FC = () => {
                 }}
               >
                 More img?
-              </a>
-              <a
+              </a> */}
+              {/* <a
                 className="moreInputs"
                 onClick={(evt) => {
                   handleImageDeletion(evt);
@@ -211,7 +283,7 @@ const PriceImageDesc: React.FC = () => {
                 }}
               >
                 X
-              </a>
+              </a> */}
             </div>
             <div className="new">
               <h3>New</h3>

@@ -27,13 +27,35 @@
     background-color: rgba($color-gray-light, $alpha: 0.7);
 
     overflow: hidden;
+    cursor: pointer;
   }
   &__heading {
     padding: 1rem;
-    // border-radius: 1rem;
-    // border-bottom: 4px groove $color-white;
     .h4__tag {
       cursor: pointer;
+      position: relative;
+      &:hover {
+        &::before {
+          font-size: 1rem;
+          padding: 0.2rem;
+          z-index: 100;
+          position: absolute;
+          left: 5.5rem;
+          bottom: -0.7rem;
+          content: "Open details about this seller";
+          display: flex;
+          text-align: center;
+          display: block;
+          margin: 0 auto;
+          padding: auto;
+          background-color: rgba($color: $color-white, $alpha: 0.8);
+          border-radius: 1rem;
+          height: 5rem;
+          width: 7rem;
+          cursor: default;
+          pointer-events: none;
+        }
+      }
     }
   }
 }

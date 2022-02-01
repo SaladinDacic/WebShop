@@ -49,7 +49,7 @@ export const ProductProvider: React.FC = (props: any) => {
       }
     | {}
   >({});
-
+  const [deleteAllImagesFromBase, setDeleteAllImagesFromBase] = useState(true);
   useEffect(() => {
     setAd({ sellOrRent: categoryTab, ...basicInfoTab, ...pidTab });
   }, [categoryTab, basicInfoTab, pidTab]);

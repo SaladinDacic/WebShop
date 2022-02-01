@@ -1,14 +1,43 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { deleteImages } from "../api/api";
+import { ProductContext } from "../context/ProductContext";
 
 const Product: React.FC = () => {
   const handleDisableLink = (evt: React.MouseEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
   };
+  const { ad, setAd } = useContext<{
+    ad: {
+      sellOrRent: string;
+      sellOrDemand: string;
+      productName: string;
+      category: string;
+      year: number;
+      locationName: string;
+      price: number;
+      holds: number;
+      sold: number;
+      brand: string;
+      make: string;
+      model: string;
+      imgSrc: string[];
+      used: boolean;
+      desc: string;
+    };
+    setAd: React.Dispatch<React.SetStateAction<{}>>;
+  }>(ProductContext);
   let navigate = useNavigate();
   useEffect(() => {
     navigate("/addProduct/category");
+
+    return () => {
+      if (ad.imgSrc !== undefined && ad.imgSrc.length !== 0) {
+        deleteImages(ad.imgSrc);
+      }
+    };
   }, []);
+
   return (
     <div className="Product">
       <div className="Product__tabs">

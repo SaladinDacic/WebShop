@@ -9,7 +9,30 @@
     // justify-content: center;
     // align-items: center;
     // border: 1px solid green;
-
+    cursor: pointer;
+    position: relative;
+    &:hover {
+      &::before {
+        font-size: 1rem;
+        padding: 0.2rem;
+        z-index: 100;
+        position: absolute;
+        left: 9rem;
+        bottom: -0.7rem;
+        content: "Filter product by category";
+        display: flex;
+        text-align: center;
+        display: block;
+        margin: 0 auto;
+        padding: auto;
+        background-color: rgba($color: $color-white, $alpha: 0.7);
+        border-radius: 1rem;
+        height: 3rem;
+        width: 7rem;
+        cursor: default;
+        pointer-events: none;
+      }
+    }
     &--icon {
       padding-top: 0.3rem;
       font-size: 1.4rem;
