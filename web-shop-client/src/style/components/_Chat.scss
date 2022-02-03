@@ -169,6 +169,7 @@
   }
 }
 .Chat-hide {
+  z-index: 100000000000;
   border-top-right-radius: 1rem;
   border-top-left-radius: 1rem;
   width: 35rem;

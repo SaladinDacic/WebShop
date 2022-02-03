@@ -4,6 +4,7 @@ import EditProduct from "../components/EditProduct";
 import SellerDetail from "../components/SellerDetail";
 import { ProfileDetailContext } from "../context/MainContext";
 import CardDetails from "../components/CardDetails";
+import Masonry from "react-masonry-component";
 
 interface SuggestedProps {
   allSellers: {}[] | undefined;
@@ -120,14 +121,14 @@ const Suggested: React.FC<SuggestedProps> = ({ allSellers, setAllSellers }) => {
       <div className="Suggested__detail">
         {editProduct.show && <EditProduct />}
       </div>
-      <div className="Suggested__list">
+      <Masonry className="Suggested__list">
         {renderProductList}
         {/* {renderProductList}
         {renderProductList}
         {renderProductList}
         {renderProductList}
         {renderProductList} */}
-      </div>
+      </Masonry>
     </div>
   );
 };

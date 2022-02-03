@@ -2,7 +2,7 @@
   &__Category {
     position: relative;
     display: flex;
-    // margin-left: 1rem;
+
     min-height: 2rem;
     overflow: visible;
     // z-index: 0;
@@ -14,11 +14,11 @@
     &:hover {
       &::before {
         font-size: 1rem;
-        padding: 0.2rem;
+        padding: 0.3rem;
         z-index: 100;
         position: absolute;
-        left: 9rem;
-        bottom: -0.7rem;
+        left: 0.2rem;
+        bottom: 2rem;
         content: "Filter product by category";
         display: flex;
         text-align: center;
@@ -33,47 +33,97 @@
         pointer-events: none;
       }
     }
-    &--icon {
-      padding-top: 0.3rem;
-      font-size: 1.4rem;
-      color: $color-gray-light;
-      // color: $color-grey-dark;
+    min-width: 20rem;
+    display: flex;
+    justify-content: space-between;
+    &--Filter {
+      &-icon {
+        padding-top: 0.3rem;
+        font-size: 1.4rem;
+        color: $color-gray-light;
+        // color: $color-grey-dark;
+      }
+      select {
+        .options {
+          font-size: 1.6rem;
+          color: rgba($color-grey-dark, 0.7);
+          background-color: $color-gray-light;
+        }
+        font-size: 1.3rem;
+        height: 2rem;
+        transform: translateY(-0.3rem);
+        text-transform: capitalize;
+        // max-width: clamp(4rem, 8rem, 12rem);
+        // max-width: clamp(4rem, 30%, 12rem);
+        // width: min-content;
+        // width: fit-content;
+        max-width: 8rem;
+        display: inline-block;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        margin: 0;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        letter-spacing: 0.2rem;
+        color: $color-white;
+        font-weight: 600;
+        // color: $color-gray-light;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        cursor: pointer;
+        &::-ms-expand {
+          display: none;
+        }
+        &:hover {
+          color: rgba($color-grey-dark, 0.8);
+        }
+      }
     }
-    select {
-      .options {
-        font-size: 1.6rem;
-        color: rgba($color-grey-dark, 0.7);
-        background-color: $color-gray-light;
+    &--Sort {
+      &-icon {
+        padding-top: 0.3rem;
+        font-size: 1.4rem;
+        color: $color-gray-light;
+        // color: $color-grey-dark;
       }
-      font-size: 1.3rem;
-      height: 2rem;
-      transform: translateY(-0.3rem);
-      text-transform: capitalize;
-      // max-width: clamp(4rem, 8rem, 12rem);
-      // max-width: clamp(4rem, 30%, 12rem);
-      // width: min-content;
-      // width: fit-content;
-      max-width: 8rem;
-      display: inline-block;
-      outline: none;
-      border: none;
-      background-color: transparent;
-      margin: 0;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      letter-spacing: 0.2rem;
-      color: $color-white;
-      font-weight: 600;
-      // color: $color-gray-light;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-      cursor: pointer;
-      &::-ms-expand {
-        display: none;
-      }
-      &:hover {
-        color: rgba($color-grey-dark, 0.8);
+      select {
+        .options {
+          font-size: 1.6rem;
+          color: rgba($color-grey-dark, 0.7);
+          background-color: $color-gray-light;
+        }
+        font-size: 1.3rem;
+        height: 2rem;
+        transform: translateY(-0.3rem);
+        text-transform: capitalize;
+        // max-width: clamp(4rem, 8rem, 12rem);
+        // max-width: clamp(4rem, 30%, 12rem);
+        // width: min-content;
+        // width: fit-content;
+        max-width: 8rem;
+        display: inline-block;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        margin: 0;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        letter-spacing: 0.2rem;
+        color: $color-white;
+        font-weight: 600;
+        // color: $color-gray-light;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        cursor: pointer;
+        &::-ms-expand {
+          display: none;
+        }
+        &:hover {
+          color: rgba($color-grey-dark, 0.8);
+        }
       }
     }
   }

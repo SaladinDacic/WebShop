@@ -5,6 +5,7 @@ import SellerDetail from "../components/SellerDetail";
 import { ProfileDetailContext } from "../context/MainContext";
 import CardDetails from "../components/CardDetails";
 import { getAllPopular } from "../api/api";
+import Masonry from "react-masonry-component";
 
 interface PopularProps {
   allSellers: {}[] | undefined;
@@ -118,14 +119,14 @@ const Popular: React.FC<PopularProps> = ({ allSellers, setAllSellers }) => {
       <div className="Popular__detail">
         {editProduct.show && <EditProduct />}
       </div>
-      <div className="Popular__list">
+      <Masonry className="Popular__list">
         {renderProductList}
         {/* {renderProductList}
         {renderProductList}
         {renderProductList}
         {renderProductList}
         {renderProductList} */}
-      </div>
+      </Masonry>
     </div>
   );
 };

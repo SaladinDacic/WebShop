@@ -31,11 +31,11 @@ const Product: React.FC = () => {
   useEffect(() => {
     navigate("/addProduct/category");
 
-    return () => {
+    /*   return () => {
       if (ad.imgSrc !== undefined && ad.imgSrc.length !== 0) {
         deleteImages(ad.imgSrc);
       }
-    };
+    }; */
   }, []);
 
   return (

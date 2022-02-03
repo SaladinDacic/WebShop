@@ -1,4 +1,4 @@
-import axios from "axios";
+import Masonry from "react-masonry-component";
 import React, { useState, useEffect, useContext } from "react";
 import Card from "../components/Card";
 import EditProduct from "../components/EditProduct";
@@ -73,7 +73,6 @@ const ListCards: React.FC<ListCardsProps> = ({ allSellers, setAllSellers }) => {
       });
     }
   };
-
   return (
     <div className="ListCards">
       <div className="ListCards__detail">
@@ -85,14 +84,14 @@ const ListCards: React.FC<ListCardsProps> = ({ allSellers, setAllSellers }) => {
       <div className="ListCards__detail">
         {editProduct.show && <EditProduct />}
       </div>
-      <div className="ListCards__list">
+      <Masonry elementType="ul" className="ListCards__list">
         {renderProductList}
         {/* {renderProductList}
         {renderProductList}
         {renderProductList}
         {renderProductList}
         {renderProductList} */}
-      </div>
+      </Masonry>
     </div>
   );
 };

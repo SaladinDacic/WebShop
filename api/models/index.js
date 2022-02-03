@@ -15,5 +15,5 @@ module.exports.admin = require("./admin");
 module.exports.seller = require("./seller");
 module.exports.popular = require("./popular");
 
-// module.exports.product = require("./product");
 module.exports.basket = require("./basket");
+module.exports.ratingSeller = require("./ratingSeller");

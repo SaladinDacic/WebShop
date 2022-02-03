@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { getRatingOfSeller } from "../api/api";
 import { ProfileDetailContext } from "../context/MainContext";
 
 import SellerDetailProducts from "./SellerDetailProducts";
@@ -13,6 +14,28 @@ const MyProfile: React.FC<{
   const [soldAndHold, setSoldAndHold] =
     useState<{ sold: number; hold: number }>();
   const [fromMyProfile, setFromMyProfile] = useState(true);
+  const [renderStarsElement, setRenderStarsElement] = useState<Element | any>();
+
+  useEffect(() => {
+    if (loggedSellerInfo) {
+      console.log(loggedSellerInfo);
+      getRatingOfSeller(loggedSellerInfo.sellerId).then((response) => {
+        let value = response.data.rating;
+        const stars = [1, 2, 3, 4, 5].map((val, i) => {
+          let newVal = Math.floor(value);
+          if (i < newVal) {
+            return <i key={i} className="fas fa-star"></i>;
+          } else if (Math.floor(value) < value) {
+            value = Math.floor(value);
+            return <i key={i} className="fas fa-star-half-alt"></i>;
+          } else {
+            return <i key={i} className="far fa-star"></i>;
+          }
+        });
+        setRenderStarsElement(stars);
+      });
+    }
+  }, []);
 
   const handleClick = async (evt: React.MouseEvent<HTMLButtonElement>) => {
     console.log(loggedSellerInfo && loggedSellerInfo.sellerId);
@@ -102,7 +125,7 @@ const MyProfile: React.FC<{
 
       <div className="MyProfile__text">
         <div className="MyProfile__text--specs">
-          {renderStars()}
+          {renderStarsElement}
           <br />
 
           <br />

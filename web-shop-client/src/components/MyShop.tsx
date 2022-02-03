@@ -1,3 +1,4 @@
+import Masonry from "react-masonry-component";
 import React, { useState, useEffect, useContext } from "react";
 import Card from "./Card";
 import CardDetails from "./CardDetails";
@@ -65,11 +66,11 @@ const MyShop: React.FC<ListCardsProps> = ({
       <div className="ListCards__detail">
         {editProduct.show && <EditProduct />}
       </div>
-      <div className="MyShop__list">
+      <Masonry className="MyShop__list">
         {renderProductList}
         {/* {renderProductList}
         {renderProductList} */}
-      </div>
+      </Masonry>
     </div>
   );
 };

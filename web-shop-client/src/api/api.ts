@@ -18,8 +18,29 @@ interface updateProductInterfaceProp {
   sellerId: string,
   imgSrc: string[]
 }
+const updateSellerData = async (sellerId: string, obj: { rating?: number, sells?: string[], likes?: {}[] }) => {
+  let response = await axios.put(
+    `http://localhost:3001/api/seller/updateSellerData/${sellerId}`, obj,
+    { withCredentials: true }
+  );
+  return response
+}
+const getRatingOfSeller = async (sellerId: string) => {
+  let response = await axios.get(
+    `http://localhost:3001/api/ratingSeller/getRatingOfSeller/${sellerId}`
+  );
+  // console.log(response)
+  return response
+}
+const addRatingToSeller = async (obj: { sellerId: string, rating: number }) => {
+  let response = await axios.post(
+    `http://localhost:3001/api/ratingSeller/addRatingToSeller`, { sellerId: obj.sellerId, rating: obj.rating },
+    { withCredentials: true }
+  );
+  return response
+}
+
 const updateProduct = async (obj: updateProductInterfaceProp) => {
-  // console.log(obj)
   let response = await axios.put(
     `http://localhost:3001/api/seller/${obj.sellerId}`, obj
   );
@@ -209,4 +230,4 @@ const deleteImages = async (arrayOfLinks: string[]) => {
     .then((data) => data);
 }
 
-export { deleteImages, upload, increasePopularity, getAllPopular, addProductToBasket, unAcceptProductSell, acceptProductSell, updateProductShipping, getProduct, getSellerBasketById, getCustomerBasketById, getSellerById, deleteProduct, getSellers, getLoggedUserName, intitialDataSetDetailedCard, logIn, logOut, updateProduct };
+export { addRatingToSeller, getRatingOfSeller, updateSellerData, deleteImages, upload, increasePopularity, getAllPopular, addProductToBasket, unAcceptProductSell, acceptProductSell, updateProductShipping, getProduct, getSellerBasketById, getCustomerBasketById, getSellerById, deleteProduct, getSellers, getLoggedUserName, intitialDataSetDetailedCard, logIn, logOut, updateProduct };

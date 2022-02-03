@@ -1,4 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
+import {
+  addRatingToSeller,
+  getRatingOfSeller,
+  updateSellerData,
+} from "../api/api";
 import { ProfileDetailContext } from "../context/MainContext";
 import SellerDetailProducts from "./SellerDetailProducts";
 
@@ -16,26 +21,76 @@ const SellerDetail: React.FC = () => {
   const [soldAndHold, setSoldAndHold] =
     useState<{ sold: number; hold: number }>();
   const [itsMe, setItsMe] = useState(false);
+  const [renderStarsElement, setRenderStarsElement] = useState<Element | any>();
+
   useEffect(() => {
-    let allSold = 0;
-    let allHolds = 0;
-    let filteredSellersData = allSellers?.filter((obj: any) => {
-      return obj.sellerId === sellerDetail.sellerId;
-    });
-    setCurrentSeller(filteredSellersData);
+    (async function callYourself() {
+      let allSold = 0;
+      let allHolds = 0;
+      let filteredSellersData = allSellers?.filter((obj: any) => {
+        return obj.sellerId === sellerDetail.sellerId;
+      });
+      setCurrentSeller(filteredSellersData);
 
-    filteredSellersData?.forEach((obj: any) => {
-      allSold = allSold + obj.sold;
-      allHolds = allHolds + obj.holds;
-    });
-    setSoldAndHold({ sold: allSold, hold: allHolds });
+      filteredSellersData?.forEach((obj: any) => {
+        allSold = allSold + obj.sold;
+        allHolds = allHolds + obj.holds;
+      });
+      setSoldAndHold({ sold: allSold, hold: allHolds });
 
-    setTimeout(async () => {
-      // console.log(filteredSellersData);
-      setItsMe(await thisSellerIsLoggedIn(filteredSellersData[0].sellerId));
-      // console.log(sellerDetail.sellerId);
-      createClickedSellerInfo(sellerDetail.sellerId);
-    }, 0);
+      let meOnWait = await thisSellerIsLoggedIn(
+        filteredSellersData[0].sellerId
+      );
+      setTimeout(async () => {
+        // console.log(meOnWait);
+        setItsMe(meOnWait);
+        // console.log(sellerDetail.sellerId);
+        createClickedSellerInfo(sellerDetail.sellerId);
+      }, 0);
+
+      if (filteredSellersData) {
+        // console.log(filteredSellersData[0].sellerId);
+        getRatingOfSeller(filteredSellersData[0].sellerId).then((response) => {
+          let value = response.data.rating;
+          const stars = [1, 2, 3, 4, 5].map((val, i) => {
+            let newVal = Math.floor(value);
+            if (i < newVal) {
+              return (
+                <i
+                  onClick={(evt) => {
+                    handleStarClick(evt, i, filteredSellersData, meOnWait);
+                  }}
+                  key={i}
+                  className="fas fa-star"
+                ></i>
+              );
+            } else if (Math.floor(value) < value) {
+              value = Math.floor(value);
+              return (
+                <i
+                  onClick={(evt) => {
+                    handleStarClick(evt, i, filteredSellersData, meOnWait);
+                  }}
+                  key={i}
+                  className="fas fa-star-half-alt"
+                ></i>
+              );
+            } else {
+              return (
+                <i
+                  onClick={(evt) => {
+                    handleStarClick(evt, i, filteredSellersData, meOnWait);
+                  }}
+                  key={i}
+                  className="far fa-star"
+                ></i>
+              );
+            }
+          });
+          setRenderStarsElement(stars);
+        });
+      }
+    })();
   }, []);
 
   const handleClick = (evt: React.MouseEvent<HTMLButtonElement>) => {
@@ -49,25 +104,27 @@ const SellerDetail: React.FC = () => {
       }
     );
   };
+  const handleStarClick = async (
+    evt: React.MouseEvent<HTMLElement>,
+    i: number,
+    filteredSellersData: any,
+    meOnWait: boolean
+  ) => {
+    setTimeout(async () => {
+      console.log(!meOnWait, filteredSellersData);
+      if (!meOnWait && filteredSellersData) {
+        console.log("stiglo");
+        console.log(
+          await addRatingToSeller({
+            sellerId: filteredSellersData[0].sellerId,
+            rating: i + 1,
+          })
+        );
+      }
+    }, 100);
+  };
   const handleChat = () => {
     setHideChat(false);
-  };
-  let renderStars = () => {
-    if (currentSeller) {
-      let value = currentSeller[0].rating;
-      const stars = [1, 2, 3, 4, 5].map((val, i) => {
-        let newVal = Math.floor(value);
-        if (i < newVal) {
-          return <i key={i} className="fas fa-star"></i>;
-        } else if (Math.floor(value) < value) {
-          value = Math.floor(value);
-          return <i key={i} className="fas fa-star-half-alt"></i>;
-        } else {
-          return <i key={i} className="far fa-star"></i>;
-        }
-      });
-      return stars;
-    }
   };
 
   let renderSells = () => {
@@ -110,7 +167,7 @@ const SellerDetail: React.FC = () => {
 
       <div className="SellerDetails__text">
         <div className="SellerDetails__text--specs">
-          {renderStars()}
+          {renderStarsElement}
           <br />
 
           <br />

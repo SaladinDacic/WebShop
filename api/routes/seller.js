@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../models');
-const {deleteSellerById, getSellerById, deleteProduct,pushProductToSeller, sellerUpdateProduct, getFullSellerList, getSeller, getMySeller, getProduct} = require("../controller/seller");
+const {updateSellerData, deleteSellerById, getSellerById, deleteProduct,pushProductToSeller, sellerUpdateProduct, getFullSellerList, getSeller, getMySeller, getProduct} = require("../controller/seller");
 const {authenticationLogin, sellerRegister, createWebToken, authenticateToken, logOut} = require("../services/authentication");
 
 
@@ -27,8 +27,10 @@ router.post("/register", sellerRegister, (req,res)=>{
 router.post("/login", authenticationLogin, createWebToken)
 router.post("/addproduct", authenticateToken, pushProductToSeller)
 
+
 //PUT
 router.put("/:id", sellerUpdateProduct)
+router.put("/updateSellerData/:sellerId", authenticateToken, updateSellerData)
 
 //DELETE
 router.put("/", deleteProduct)

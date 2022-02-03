@@ -1,3 +1,4 @@
+const { parse } = require('dotenv');
 const db = require('../models');
 
 const getSeller = async (req,res,next)=>{
@@ -47,6 +48,25 @@ const getMySeller = async (req, res, next)=>{
     next()
   }
 }
+const updateSellerData = async (req, res, next)=>{
+
+  let {sellerId} = req.params;
+  let obj = req.body;
+  try{
+    let sellerData = await db.seller.findOne({"_id":sellerId}).then(data=>data).catch(err=>{throw new Error(err)})
+    console.log(sellerData.name)
+
+    if(sellerData.name === req.user.name){
+      let updateSellerData = await db.seller.findByIdAndUpdate(sellerId, obj).then(data=>data).catch(err=>{throw new Error(err)})
+      res.json(updateSellerData)
+      next()
+    }else throw new Error("User is not logged in")
+  }catch(err){
+    res.status(404)/* .send("cant fetch data") */
+    next()
+  }
+}
+
 
 const getProduct = async( req, res, next)=>{
   try{
@@ -170,7 +190,7 @@ const deleteProduct = async (req, res, next)=>{
   }
 }
     
-module.exports = {deleteSellerById,getSellerById, getProduct, getMySeller, getSeller, pushProductToSeller, sellerUpdateProduct, getFullSellerList, deleteProduct};
+module.exports = {updateSellerData, deleteSellerById, getSellerById, getProduct, getMySeller, getSeller, pushProductToSeller, sellerUpdateProduct, getFullSellerList, deleteProduct};
     
     
     function unique(arrOfObj, prop){
