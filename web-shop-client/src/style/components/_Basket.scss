@@ -18,7 +18,7 @@
     // background-color: rgba($color: $color-gray-light, $alpha: 0.7);
     background-color: $color-gray-light;
     // background: $details-gradient;
-    position: relative;
+    // position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,7 +31,7 @@
     &--logo {
       position: absolute;
       // top: 2rem;
-      left: 6%;
+      // left: 6%;
       // border: 2px solid $color-grey-dark;
       // border-radius: 1rem;
       color: $color-grey-dark !important;

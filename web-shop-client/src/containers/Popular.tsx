@@ -29,36 +29,32 @@ const Popular: React.FC<PopularProps> = ({ allSellers, setAllSellers }) => {
     (async function providePopular() {
       await getAllPopular().then((data) => {
         let newData = bubbleUp(data) as any;
-        // console.log(newData);
-
         let popularCategoriesArr = newData
           .map((obj: { category: string }) => {
             return obj.category;
           })
           .slice(0, 10);
 
-        if (loggedSellerInfo !== undefined) {
-          sellersRef.current = allSellers;
+        // if (loggedSellerInfo !== undefined) {
+        sellersRef.current = allSellers;
+        var categorizedSellers: {}[] = [];
 
-          // console.log(popularCategoriesArr);
-          var categorizedSellers: {}[] = [];
-
-          popularCategoriesArr.forEach((category: string) => {
-            var data: {}[] = [];
-            if (sellersRef.current !== undefined)
-              data = [
-                ...sellersRef.current.filter((obj: any) => {
-                  return obj.category === category;
-                }),
-              ];
-            if (data !== undefined) {
-              categorizedSellers = [...categorizedSellers, ...data];
-            }
-          });
-          // console.log(categorizedSellers);
-          sellersRef.current = unique(categorizedSellers, "productId");
-          setProductList(sellersRef.current);
-        }
+        popularCategoriesArr.forEach((category: string) => {
+          var data: {}[] = [];
+          if (sellersRef.current !== undefined)
+            data = [
+              ...sellersRef.current.filter((obj: any) => {
+                return obj.category === category;
+              }),
+            ];
+          if (data !== undefined) {
+            categorizedSellers = [...categorizedSellers, ...data];
+          }
+        });
+        // console.log(categorizedSellers);
+        sellersRef.current = unique(categorizedSellers, "productId");
+        setProductList(sellersRef.current);
+        // }
       });
     })();
   }, [allSellers]);

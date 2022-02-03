@@ -67,20 +67,20 @@ const SortFilter: React.FC<SortFilterProps> = ({
       }
     } else if (evt.target.value === "Newest") {
       if (sellersRef.current) {
-        let sortedSellers = bubbleSortObjUp(sellersRef.current, "date");
-        setAllSellers(sortedSellers);
-      }
-      if (mySellersRef.current) {
-        let sortedMySellers = bubbleSortObjUp(mySellersRef.current, "date");
-        setMySellers(sortedMySellers);
-      }
-    } else if (evt.target.value === "Oldest") {
-      if (sellersRef.current) {
         let sortedSellers = bubbleSortObjDown(sellersRef.current, "date");
         setAllSellers(sortedSellers);
       }
       if (mySellersRef.current) {
         let sortedMySellers = bubbleSortObjDown(mySellersRef.current, "date");
+        setMySellers(sortedMySellers);
+      }
+    } else if (evt.target.value === "Oldest") {
+      if (sellersRef.current) {
+        let sortedSellers = bubbleSortObjUp(sellersRef.current, "date");
+        setAllSellers(sortedSellers);
+      }
+      if (mySellersRef.current) {
+        let sortedMySellers = bubbleSortObjUp(mySellersRef.current, "date");
         setMySellers(sortedMySellers);
       }
     }

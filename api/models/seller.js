@@ -11,6 +11,11 @@ var sellerSchema = new mongoose.Schema({
       unique: true,
       required: "Email cannot be blank!"
     },
+    phoneNumber:{
+      type: Number,
+      unique: true,
+      // required: "Phone number cannot be blank!"
+    },
     password:{
       type: String,
       required: "Password cannot be blank!"
@@ -37,6 +42,7 @@ var sellerSchema = new mongoose.Schema({
       }
     ],
     sells:[String],
+    tags:[String],
     limit: {
       type: Number,
       maximum : 100

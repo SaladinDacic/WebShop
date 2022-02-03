@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import { increasePopularity, intitialDataSetDetailedCard } from "../api/api";
 import { ProfileDetailContext } from "../context/MainContext";
 interface CardDetailInterface {
@@ -28,6 +29,8 @@ const CardDetails: React.FC = () => {
     setCustomerBasketToBuy,
     chatWithMe,
     setChatWithMe,
+    basketNotification,
+    setBasketNotification,
   } = useContext(ProfileDetailContext);
   const [mainImg, setMainImg] = useState(0);
   const [ad, setAd] = useState<CardDetailInterface>();
@@ -51,6 +54,7 @@ const CardDetails: React.FC = () => {
   const handleChat = () => {
     setHideChat(false);
     setChatWithMe(detailCard.sellerId);
+    toast.info(`You can now chat with ${detailCard.sellerName}`);
   };
 
   const handleAddToCart = () => {
@@ -80,6 +84,8 @@ const CardDetails: React.FC = () => {
           ];
         }
       );
+      setBasketNotification(basketNotification + 1);
+      toast.info("1 item added");
     }
   };
   let renderImages;

@@ -32,6 +32,8 @@ const Navbar: React.FC<NavbarProps> = ({
     closeWindow,
     setRerender,
     rerender,
+    basketNotification,
+    setBasketNotification,
   } = useContext(ProfileDetailContext);
   const navigate = useNavigate();
   const [toggleShowBasket, setToggleShowBasket] = useState(false);
@@ -84,9 +86,14 @@ const Navbar: React.FC<NavbarProps> = ({
           <i
             onClick={() => {
               setToggleShowBasket(!toggleShowBasket);
+              setBasketNotification(0);
             }}
             className="fas fa-shopping-cart"
-          ></i>
+          >
+            {basketNotification !== 0 && (
+              <span id={"cart-notification"}>{basketNotification}</span>
+            )}
+          </i>
           <i
             onClick={() => {
               handleLogInData();

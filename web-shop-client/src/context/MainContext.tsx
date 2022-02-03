@@ -84,6 +84,8 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
     | undefined
   >(undefined);
 
+  const [basketNotification, setBasketNotification] = useState<number>(0);
+
   const closeWindow = () => {
     setDetailCard((preVal) => {
       return { ...preVal, show: false };
@@ -218,6 +220,8 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
         setCustomerBasketToBuy,
         chatWithMe,
         setChatWithMe,
+        basketNotification,
+        setBasketNotification,
       }}
     >
       {children}

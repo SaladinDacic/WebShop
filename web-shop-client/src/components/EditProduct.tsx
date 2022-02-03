@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import {
   deleteProduct,
@@ -259,9 +260,11 @@ const EditProduct: React.FC = () => {
       updateProduct(updateObj);
       setRerender(!rerender);
       setEditProduct({ ...editProduct, show: false });
+      toast.success("Item updated !");
     } catch (err) {
       console.log(rerender);
       console.log("can't update product");
+      toast.error("Can't update product!");
     }
   };
 
@@ -269,6 +272,7 @@ const EditProduct: React.FC = () => {
     if (imgLinkInput !== "") {
       let newArr = [...imageArr, imgLinkInput];
       setImageArr(newArr);
+      toast.success("Image added !");
     }
   };
 
@@ -284,6 +288,7 @@ const EditProduct: React.FC = () => {
       ];
     }
     setImageArr(newArr);
+    toast.info("Image removed !");
   };
 
   const handleDeletion = (evt: React.MouseEvent<HTMLButtonElement>) => {
@@ -305,8 +310,10 @@ const EditProduct: React.FC = () => {
       // setAllSellers(newAllSellers);
       // setMySellers(newMySellers);
       setEditProduct({ ...editProduct, show: false });
+      toast.info("Item deleted !");
     } catch (err) {
       console.log("can't delete product");
+      toast.error("Can't delete item!");
     }
   };
 

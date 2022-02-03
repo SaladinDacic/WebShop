@@ -58,8 +58,27 @@
         // color: $color-grey-dark;
         color: $color-gray-light;
         font-size: $default-font-site;
+        position: relative;
+        overflow: visible;
         cursor: pointer;
+        #cart-notification {
+          background-color: orange;
+          position: absolute;
+          top: -6px;
+          right: -6px;
+          display: block;
+          height: 1.5rem;
+          width: 1.5rem;
+          line-height: 1.5rem;
 
+          -moz-border-radius: 30px; /* or 50% */
+          border-radius: 30px; /* or 50% */
+
+          // background-color: black;
+          color: white;
+          text-align: center;
+          font-size: 1rem;
+        }
         &:hover {
           color: $color-grey-dark-2;
         }
