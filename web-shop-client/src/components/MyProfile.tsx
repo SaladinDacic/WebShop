@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { getRatingOfSeller } from "../api/api";
+import { getRatingOfSeller, getSellerById, updateSellerData } from "../api/api";
 import { ProfileDetailContext } from "../context/MainContext";
 
 import SellerDetailProducts from "./SellerDetailProducts";
@@ -10,7 +10,7 @@ const MyProfile: React.FC<{
 }> = ({ handleLogOut, closeAllComponents }) => {
   const { loggedSellerInfo, profileDetail, setProfileDetail } =
     useContext(ProfileDetailContext);
-  const [currentSeller, setCurrentSeller] = useState<any[]>();
+  const [currentSeller, setCurrentSeller] = useState<any>();
   const [soldAndHold, setSoldAndHold] =
     useState<{ sold: number; hold: number }>();
   const [fromMyProfile, setFromMyProfile] = useState(true);
@@ -18,27 +18,44 @@ const MyProfile: React.FC<{
 
   useEffect(() => {
     if (loggedSellerInfo) {
-      console.log(loggedSellerInfo);
+      // console.log(loggedSellerInfo);
       getRatingOfSeller(loggedSellerInfo.sellerId).then((response) => {
         let value = response.data.rating;
         const stars = [1, 2, 3, 4, 5].map((val, i) => {
           let newVal = Math.floor(value);
           if (i < newVal) {
-            return <i key={i} className="fas fa-star"></i>;
+            return (
+              <i onClick={handleStarClick} key={i} className="fas fa-star"></i>
+            );
           } else if (Math.floor(value) < value) {
             value = Math.floor(value);
-            return <i key={i} className="fas fa-star-half-alt"></i>;
+            return (
+              <i
+                onClick={handleStarClick}
+                key={i}
+                className="fas fa-star-half-alt"
+              ></i>
+            );
           } else {
-            return <i key={i} className="far fa-star"></i>;
+            return (
+              <i onClick={handleStarClick} key={i} className="far fa-star"></i>
+            );
           }
         });
         setRenderStarsElement(stars);
       });
+      (async function fillCurrentSeller() {
+        getSellerById(loggedSellerInfo.sellerId).then((res) => {
+          setCurrentSeller(res.data);
+
+          console.log(res.data);
+        });
+      })();
     }
   }, []);
 
   const handleClick = async (evt: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(loggedSellerInfo && loggedSellerInfo.sellerId);
+    // console.log(loggedSellerInfo && loggedSellerInfo.sellerId);
     closeAllComponents();
     setProfileDetail(
       (oldVal: {
@@ -49,23 +66,28 @@ const MyProfile: React.FC<{
       }
     );
   };
-  let renderStars = () => {
-    if (loggedSellerInfo) {
-      let value = loggedSellerInfo.rating;
-      const stars = [1, 2, 3, 4, 5].map((val, i) => {
-        let newVal = Math.floor(value);
-        if (i < newVal) {
-          return <i key={i} className="fas fa-star"></i>;
-        } else if (Math.floor(value) < value) {
-          value = Math.floor(value);
-          return <i key={i} className="fas fa-star-half-alt"></i>;
-        } else {
-          return <i key={i} className="far fa-star"></i>;
-        }
-      });
-      return stars;
-    }
+  const handleStarClick = async () => {
+    // console.log(loggedSellerInfo);
+    console.log(loggedSellerInfo.date.split("T")[0].split("-"));
+    // updateSellerData(loggedSellerInfo.sellerId, { desc: `` });
   };
+  // let renderStars = () => {
+  //   if (loggedSellerInfo) {
+  //     let value = loggedSellerInfo.rating;
+  //     const stars = [1, 2, 3, 4, 5].map((val, i) => {
+  //       let newVal = Math.floor(value);
+  //       if (i < newVal) {
+  //         return <i key={i} className="fas fa-star"></i>;
+  //       } else if (Math.floor(value) < value) {
+  //         value = Math.floor(value);
+  //         return <i key={i} className="fas fa-star-half-alt"></i>;
+  //       } else {
+  //         return <i key={i} className="far fa-star"></i>;
+  //       }
+  //     });
+  //     return stars;
+  //   }
+  // };
   let renderLikes = () => {
     let likesString = "";
     loggedSellerInfo.likes.forEach((val: { name: string }) => {
@@ -131,30 +153,39 @@ const MyProfile: React.FC<{
           <br />
           <h3>{loggedSellerInfo && loggedSellerInfo.sellerName}</h3>
           {
-            <div>
+            <div className="SpecContainer">
+              <p>
+                Phone number:
+                <input
+                  name="phoneNumber"
+                  type="number"
+                  defaultValue={currentSeller && currentSeller.phoneNumber}
+                />
+              </p>
               <p>
                 Profil created:{" "}
                 {loggedSellerInfo &&
-                  arrayRotate(loggedSellerInfo.date.split("-")).join(" ")}
+                  arrayRotate(
+                    loggedSellerInfo.date.split("T")[0].split("-")
+                  ).join("-")}
               </p>
-              <h4>Likes:</h4>
-              {renderLikes()}
-              <h4>Sells:</h4>
-              {renderSells()}
+              <div className="SpecContainer__likes">
+                <h4>Likes:</h4>
+                <input name="likes" type="text" defaultValue={renderLikes()} />
+              </div>
+              <div className="SpecContainer__sells">
+                <h4>Sells:</h4>
+                <input name="sells" type="text" defaultValue={renderSells()} />
+              </div>
             </div>
           }
         </div>
         <br />
         <p>About me:</p>
         <div className="MyProfile__text--desc">
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni
-            omnis eaque quis possimus placeat architecto eum harum expedita
-            pariatur numquam? Hic rerum autem nostrum optio sed cum veritatis
-            fugit beatae.
-          </p>
+          <p>{currentSeller && currentSeller.desc}</p>
         </div>
-        <br />
+
         <br />
         <h2 className="h2__tag">LogOut</h2>
         <p className="p__tag">

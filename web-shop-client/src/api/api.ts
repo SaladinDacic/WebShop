@@ -18,7 +18,7 @@ interface updateProductInterfaceProp {
   sellerId: string,
   imgSrc: string[]
 }
-const updateSellerData = async (sellerId: string, obj: { rating?: number, sells?: string[], likes?: {}[] }) => {
+const updateSellerData = async (sellerId: string, obj: { rating?: number, sells?: string[], likes?: {}[], phoneNumber?: string, desc?: string, profileImg?: string, email?: string }) => {
   let response = await axios.put(
     `http://localhost:3001/api/seller/updateSellerData/${sellerId}`, obj,
     { withCredentials: true }
@@ -123,6 +123,13 @@ const getProduct = async (sellerId: string, productId: string) => {
     { withCredentials: true }
   );
   // console.log(response)
+  return response;
+}
+const getCategories = async () => {
+  let response = await axios.get(
+    `http://localhost:3001/api/categories`,
+    { withCredentials: true }
+  );
   return response;
 }
 
@@ -230,4 +237,4 @@ const deleteImages = async (arrayOfLinks: string[]) => {
     .then((data) => data);
 }
 
-export { addRatingToSeller, getRatingOfSeller, updateSellerData, deleteImages, upload, increasePopularity, getAllPopular, addProductToBasket, unAcceptProductSell, acceptProductSell, updateProductShipping, getProduct, getSellerBasketById, getCustomerBasketById, getSellerById, deleteProduct, getSellers, getLoggedUserName, intitialDataSetDetailedCard, logIn, logOut, updateProduct };
+export { getCategories, addRatingToSeller, getRatingOfSeller, updateSellerData, deleteImages, upload, increasePopularity, getAllPopular, addProductToBasket, unAcceptProductSell, acceptProductSell, updateProductShipping, getProduct, getSellerBasketById, getCustomerBasketById, getSellerById, deleteProduct, getSellers, getLoggedUserName, intitialDataSetDetailedCard, logIn, logOut, updateProduct };

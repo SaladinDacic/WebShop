@@ -12,7 +12,7 @@ var sellerSchema = new mongoose.Schema({
       required: "Email cannot be blank!"
     },
     phoneNumber:{
-      type: Number,
+      type: String,
       unique: true,
       // required: "Phone number cannot be blank!"
     },
@@ -42,11 +42,12 @@ var sellerSchema = new mongoose.Schema({
       }
     ],
     sells:[String],
-    tags:[String],
     limit: {
       type: Number,
       maximum : 100
     },
+    desc:String,
+    profileImg:String,
     products:[{ 
       date:{
         type:Date,
@@ -56,6 +57,7 @@ var sellerSchema = new mongoose.Schema({
         type: String,
         enum:["sell", "demand"]
       },
+      tags:[String],
       job:String,
       service:String,
       productName:String,

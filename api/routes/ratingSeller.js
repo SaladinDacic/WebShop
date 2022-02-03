@@ -15,16 +15,7 @@ router.get('/', (req, res) => {
 	db.ratingSeller.find().then(ratingSeller=>{res.json(ratingSeller)})
 });
 router.get('/getRatingOfSeller/:sellerId', getRatingOfSeller);
-
-// router.get("/customer/:customerId", getProductsOfCustomer)
-// router.get("/seller/:sellerId", getProductsOfSeller)
-
 router.post('/addRatingToSeller',authenticateToken, addRatingToSeller);
-
-
-// router.delete('/:id', (req, res) => {
-//   res.send(req.body)
-// });
 
 
 

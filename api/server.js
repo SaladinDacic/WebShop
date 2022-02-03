@@ -11,6 +11,7 @@ const seller = require("./routes/seller")
 const popular = require("./routes/popular")
 const basket = require("./routes/basket");
 const ratingSeller = require("./routes/ratingSeller");
+const categories = require("./routes/categories");
 
 
 // ___________________________________________________________
@@ -58,6 +59,7 @@ app.use("/api/seller", seller);
 app.use("/api/popular", popular);
 app.use("/api/basket", basket);
 app.use("/api/ratingSeller", ratingSeller);
+app.use("/api/categories", categories);
 
 
 // ___________________________________________________________

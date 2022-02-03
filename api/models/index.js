@@ -17,3 +17,4 @@ module.exports.popular = require("./popular");
 
 module.exports.basket = require("./basket");
 module.exports.ratingSeller = require("./ratingSeller");
+module.exports.categories = require("./categories");
