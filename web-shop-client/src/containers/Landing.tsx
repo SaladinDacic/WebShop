@@ -3,7 +3,7 @@ import { useDeepCompareEffectNoCheck } from "use-deep-compare-effect";
 import Footer from "./Footer";
 import ListCards from "./ListCards";
 import Navbar from "./Navbar";
-import { getLoggedUserName, getSellers } from "../api/api";
+import { getCategories, getLoggedUserName, getSellers } from "../api/api";
 import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
 import Product from "./Product";
 import Category from "../components/Product-routes/Category";
@@ -22,8 +22,19 @@ const Landing: React.FC = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [sellerId, setSellerId] = useState("");
   const [rerender, setRerender] = useState(false);
-  // useEffect(() => {
-  // }, [loggedIn]);
+  const [categories, setCategories] = useState<string[]>([]);
+  useEffect(() => {
+    (async function () {
+      await getCategories().then((res) => {
+        setCategories(
+          res.data.map((obj: any) => {
+            let typedObj = obj as { productCategories: string };
+            return typedObj.productCategories;
+          })
+        );
+      });
+    })();
+  }, []);
   useDeepCompareEffectNoCheck(() => {
     let getAllApis = async () => {
       let response1 = await getSellers();
@@ -52,6 +63,8 @@ const Landing: React.FC = () => {
       setLoggedIn={setLoggedIn}
       rerender={rerender}
       setRerender={setRerender}
+      categories={categories}
+      setCategories={setCategories}
     >
       <div className="Landing">
         <BrowserRouter>

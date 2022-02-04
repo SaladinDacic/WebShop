@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { ProfileDetailContext } from "../context/MainContext";
 
 interface SortFilterProps {
   allSellers: {}[] | undefined;
@@ -15,6 +16,12 @@ const SortFilter: React.FC<SortFilterProps> = ({
 }) => {
   const sellersRef = useRef(allSellers);
   const mySellersRef = useRef(mySellers);
+  const { categories, setCategories } = useContext(ProfileDetailContext);
+
+  useEffect(() => {
+    categoryRef.current = categoryRef.current.slice().concat(categories);
+  }, [categories]);
+
   useEffect(() => {
     if (sellersRef.current === undefined) sellersRef.current = allSellers;
   }, [allSellers]);
@@ -86,24 +93,7 @@ const SortFilter: React.FC<SortFilterProps> = ({
     }
   };
 
-  const categoryRef = useRef<string[]>([
-    "Category",
-    "fruit",
-    "vegetable",
-    "dairy",
-    "meat",
-    "vehicle",
-    "console",
-    "game",
-    "house",
-    "apartment",
-    "smartphone",
-    "pc",
-    "work",
-    "pool",
-    "tools",
-    "forHouse",
-  ]);
+  const categoryRef = useRef<string[]>(["Category"]);
   const categoryEnums = categoryRef.current.map((oneOption, i) => {
     return (
       <option className="options" key={i} value={oneOption}>

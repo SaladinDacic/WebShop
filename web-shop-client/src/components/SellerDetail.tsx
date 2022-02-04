@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import {
   addRatingToSeller,
   getRatingOfSeller,
@@ -16,6 +17,7 @@ const SellerDetail: React.FC = () => {
     thisSellerIsLoggedIn,
     createClickedSellerInfo,
     clickedSellerInfo,
+    setChatWithMe,
   } = useContext(ProfileDetailContext);
   const [currentSeller, setCurrentSeller] = useState<any[]>();
   const [soldAndHold, setSoldAndHold] =
@@ -125,6 +127,9 @@ const SellerDetail: React.FC = () => {
   };
   const handleChat = () => {
     setHideChat(false);
+    // console.log(clickedSellerInfo);
+    setChatWithMe(clickedSellerInfo.sellerId);
+    toast.info(`You can now chat with  ${clickedSellerInfo.sellerName}`);
   };
 
   let renderSells = () => {

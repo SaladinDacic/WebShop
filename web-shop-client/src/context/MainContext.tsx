@@ -13,6 +13,8 @@ export interface ProfileDetailContextProps {
   setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
   rerender: boolean;
   setRerender: React.Dispatch<React.SetStateAction<boolean>>;
+  categories: string[];
+  setCategories: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
@@ -26,6 +28,8 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
   setRerender,
   loggedIn,
   setLoggedIn,
+  categories,
+  setCategories,
 }) => {
   const [sellerDetail, setSellerDetail] = useState<{
     show: boolean;
@@ -222,6 +226,8 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
         setChatWithMe,
         basketNotification,
         setBasketNotification,
+        categories,
+        setCategories,
       }}
     >
       {children}

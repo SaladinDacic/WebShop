@@ -148,6 +148,7 @@ const Chat: React.FC = () => {
   }, [loggedIn]);
 
   useEffect(() => {
+    console.log("chatWithMe");
     if (chatWithMe !== undefined) {
       socket.emit("join-room", chatWithMe);
     }

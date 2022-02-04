@@ -24,8 +24,14 @@ interface EditProductInterface {
   desc: string;
 }
 const EditProduct: React.FC = () => {
-  const { editProduct, closeWindow, setEditProduct, rerender, setRerender } =
-    useContext(ProfileDetailContext);
+  const {
+    editProduct,
+    closeWindow,
+    setEditProduct,
+    rerender,
+    setRerender,
+    categories,
+  } = useContext(ProfileDetailContext);
   const [ad, setAd] = useState<EditProductInterface>();
   const [mainImg, setMainImg] = useState(0);
   const [imageArr, setImageArr] = useState<string[]>([]);
@@ -45,6 +51,9 @@ const EditProduct: React.FC = () => {
       setImageArr(ad.imgSrc);
     }
   }, [ad]);
+  useEffect(() => {
+    categoryRef.current = categoryRef.current.slice().concat(categories);
+  }, [categories]);
 
   const citiesRef = useRef<string[]>([
     "Sarajevo",
@@ -193,25 +202,7 @@ const EditProduct: React.FC = () => {
     );
   });
 
-  const categoryRef = useRef<string[]>([
-    "",
-    "fruit",
-    "vegetable",
-    "dairy",
-    "meat",
-    "vehicle",
-    "console",
-    "game",
-    "house",
-    "apartment",
-    "smartphone",
-    "pc",
-    "work",
-    "category",
-    "pool",
-    "tools",
-    "forHouse",
-  ]);
+  const categoryRef = useRef<string[]>([]);
   const categoryEnums = categoryRef.current.map((oneOption, i) => {
     return (
       <option key={i} value={oneOption}>

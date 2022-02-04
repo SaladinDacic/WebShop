@@ -1,9 +1,11 @@
 import React, { useEffect, useContext, useRef, useState } from "react";
 import { ProductContext } from "../../context/ProductContext";
 import { useNavigate } from "react-router-dom";
+import { ProfileDetailContext } from "../../context/MainContext";
 
 const BasicInformation = () => {
   const { basicInfoTab, setBasicInfoTab } = useContext(ProductContext);
+  const { categories, setCategories } = useContext(ProfileDetailContext);
   const formRef = useRef() as React.MutableRefObject<HTMLFormElement>;
   const navigate = useNavigate();
 
@@ -13,6 +15,9 @@ const BasicInformation = () => {
       setBasicObj(basicInfoTab);
     }
   }, []);
+  useEffect(() => {
+    categoryRef.current = categoryRef.current.slice().concat(categories);
+  }, [categories]);
 
   const radio1 = useRef<HTMLInputElement | null>(null);
   const radio2 = useRef<HTMLInputElement | null>(null);
@@ -86,25 +91,7 @@ const BasicInformation = () => {
     setRadio(evt.target.name);
   };
 
-  const categoryRef = useRef<string[]>([
-    "",
-    "fruit",
-    "vegetable",
-    "dairy",
-    "meat",
-    "vehicle",
-    "console",
-    "game",
-    "house",
-    "apartment",
-    "smartphone",
-    "pc",
-    "work",
-    "category",
-    "pool",
-    "tools",
-    "forHouse",
-  ]);
+  const categoryRef = useRef<string[]>([""]);
   const citiesRef = useRef<string[]>([
     "Sarajevo",
     "Čajniče",

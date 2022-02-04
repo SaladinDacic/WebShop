@@ -12,7 +12,7 @@
       z-index: 100;
       position: absolute;
       left: -7.5rem;
-      bottom: -3rem;
+      bottom: -5rem;
       content: "Search anything: category, product, detail, number, seller etc";
       display: flex;
       text-align: center;
@@ -21,7 +21,7 @@
       padding: auto;
       background-color: rgba($color: $color-white, $alpha: 0.6);
       border-radius: 1rem;
-      height: 7rem;
+      height: 8rem;
       width: 7rem;
       cursor: default;
       pointer-events: none;
