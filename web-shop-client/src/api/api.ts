@@ -18,7 +18,10 @@ interface updateProductInterfaceProp {
   sellerId: string,
   imgSrc: string[]
 }
-const updateSellerData = async (sellerId: string, obj: { rating?: number, sells?: string[], likes?: {}[], phoneNumber?: string, desc?: string, profileImg?: string, email?: string }) => {
+const updateSellerData = async (sellerId: string, obj: {
+  rating?: number, sells?: string[], likes?: {}[],
+  phoneNumber?: string, desc?: string, profileImg?: string, email?: string
+}) => {
   let response = await axios.put(
     `http://localhost:3001/api/seller/updateSellerData/${sellerId}`, obj,
     { withCredentials: true }

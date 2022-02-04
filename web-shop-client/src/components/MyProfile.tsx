@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { getRatingOfSeller, getSellerById, updateSellerData } from "../api/api";
 import { ProfileDetailContext } from "../context/MainContext";
 
@@ -8,51 +8,66 @@ const MyProfile: React.FC<{
   handleLogOut: (evt: React.MouseEvent<HTMLButtonElement>) => void;
   closeAllComponents: (message?: string) => void;
 }> = ({ handleLogOut, closeAllComponents }) => {
-  const { loggedSellerInfo, profileDetail, setProfileDetail } =
+  const { loggedSellerInfo, profileDetail, setProfileDetail, categories } =
     useContext(ProfileDetailContext);
   const [currentSeller, setCurrentSeller] = useState<any>();
-  const [soldAndHold, setSoldAndHold] =
-    useState<{ sold: number; hold: number }>();
   const [fromMyProfile, setFromMyProfile] = useState(true);
   const [renderStarsElement, setRenderStarsElement] = useState<Element | any>();
-
+  const [phoneNumber, setPhoneNumber] = useState<string>();
+  const [likes, setLikes] = useState<{}[]>();
+  const [sells, setSells] = useState<string[]>();
   useEffect(() => {
     if (loggedSellerInfo) {
-      // console.log(loggedSellerInfo);
       getRatingOfSeller(loggedSellerInfo.sellerId).then((response) => {
-        let value = response.data.rating;
-        const stars = [1, 2, 3, 4, 5].map((val, i) => {
-          let newVal = Math.floor(value);
-          if (i < newVal) {
-            return (
-              <i onClick={handleStarClick} key={i} className="fas fa-star"></i>
-            );
-          } else if (Math.floor(value) < value) {
-            value = Math.floor(value);
-            return (
-              <i
-                onClick={handleStarClick}
-                key={i}
-                className="fas fa-star-half-alt"
-              ></i>
-            );
-          } else {
-            return (
-              <i onClick={handleStarClick} key={i} className="far fa-star"></i>
-            );
-          }
-        });
-        setRenderStarsElement(stars);
-      });
-      (async function fillCurrentSeller() {
         getSellerById(loggedSellerInfo.sellerId).then((res) => {
+          let value = response.data.rating;
+          const stars = [1, 2, 3, 4, 5].map((val, i) => {
+            let newVal = Math.floor(value);
+            if (i < newVal) {
+              return (
+                <i
+                  onClick={() => {
+                    handleStarClick(res.data);
+                  }}
+                  key={i}
+                  className="fas fa-star"
+                ></i>
+              );
+            } else if (Math.floor(value) < value) {
+              value = Math.floor(value);
+              return (
+                <i
+                  onClick={() => {
+                    handleStarClick(res.data);
+                  }}
+                  key={i}
+                  className="fas fa-star-half-alt"
+                ></i>
+              );
+            } else {
+              return (
+                <i
+                  onClick={() => {
+                    handleStarClick(res.data);
+                  }}
+                  key={i}
+                  className="far fa-star"
+                ></i>
+              );
+            }
+          });
+          setRenderStarsElement(stars);
           setCurrentSeller(res.data);
-
-          console.log(res.data);
+          setPhoneNumber(res.data.phoneNumber);
+          setLikes(res.data.likes);
+          setSells(res.data.sells);
         });
-      })();
+      });
     }
   }, []);
+  useEffect(() => {
+    categoryRef.current = categoryRef.current.slice().concat(categories);
+  }, [categories]);
 
   const handleClick = async (evt: React.MouseEvent<HTMLButtonElement>) => {
     // console.log(loggedSellerInfo && loggedSellerInfo.sellerId);
@@ -66,10 +81,13 @@ const MyProfile: React.FC<{
       }
     );
   };
-  const handleStarClick = async () => {
-    // console.log(loggedSellerInfo);
-    console.log(loggedSellerInfo.date.split("T")[0].split("-"));
-    // updateSellerData(loggedSellerInfo.sellerId, { desc: `` });
+  const handleStarClick = async (userDataObj: any) => {
+    console.log(userDataObj);
+    // console.log(await phoneNumber);
+
+    // await updateSellerData(loggedSellerInfo.sellerId, {
+    //   profileImg: `https://amko.ba/wp-content/themes/amko-komerc/images/menu-icons/o-nama-icon.png`,
+    // });
   };
   // let renderStars = () => {
   //   if (loggedSellerInfo) {
@@ -136,6 +154,8 @@ const MyProfile: React.FC<{
     }
     return newArr;
   };
+
+  const categoryRef = useRef<string[]>([]);
   return (
     <div className="MyProfile">
       <div className="MyProfile__images">
@@ -171,19 +191,66 @@ const MyProfile: React.FC<{
               </p>
               <div className="SpecContainer__likes">
                 <h4>Likes:</h4>
-                <input name="likes" type="text" defaultValue={renderLikes()} />
+                {renderLikes()
+                  .split(", ")
+                  .map((likeOpt: string, i: any) => {
+                    // console.log(renderLikes().split(", "));
+                    return (
+                      <select
+                        key={i}
+                        name={`likeOpt${i}`}
+                        defaultValue={likeOpt}
+                      >
+                        {categories.map((categorySrt: string, idx: number) => {
+                          return (
+                            <option key={idx} value={categorySrt}>
+                              {categorySrt}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    );
+                  })}
+                {/* <input name="likes" type="text" defaultValue={renderLikes()} /> */}
               </div>
               <div className="SpecContainer__sells">
                 <h4>Sells:</h4>
-                <input name="sells" type="text" defaultValue={renderSells()} />
+                {renderSells()
+                  .split(", ")
+                  .map((likeOpt: string, i: any) => {
+                    // console.log(renderSells().split(", "));
+                    return (
+                      <select
+                        key={i}
+                        name={`likeOpt${i}`}
+                        defaultValue={likeOpt}
+                      >
+                        {categories.map((categorySrt: string, idx: number) => {
+                          return (
+                            <option key={idx} value={categorySrt}>
+                              {categorySrt}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    );
+                  })}
+                {/* <input name="sells" type="text" defaultValue={renderSells()} /> */}
               </div>
             </div>
           }
+          <img
+            className="profileImg"
+            src={currentSeller && currentSeller.profileImg}
+            alt="profileImg"
+          />
         </div>
         <br />
         <p>About me:</p>
         <div className="MyProfile__text--desc">
-          <p>{currentSeller && currentSeller.desc}</p>
+          <textarea
+            defaultValue={currentSeller && currentSeller.desc}
+          ></textarea>
         </div>
 
         <br />
