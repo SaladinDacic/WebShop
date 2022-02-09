@@ -1,3 +1,5 @@
+// import emailjs from "emailjs-com";
+import { init as emailInit, send as emailSend } from "@emailjs/browser";
 import React, { useContext, useEffect, useState } from "react";
 import {
   getCustomerBasketById,
@@ -52,6 +54,9 @@ const Basket: React.FC<BasketProps> = ({
 
     customerBasketToBuy,
     setCustomerBasketToBuy,
+    userID,
+    serviceID,
+    templateID,
   } = useContext(ProfileDetailContext);
 
   const [renderPurchasedItems, setRenderPurchasedItems] =
@@ -269,34 +274,56 @@ const Basket: React.FC<BasketProps> = ({
       productName: string;
       imgSrc: string;
     };
-    // console.log(typedObj);
-    addProductToBasket(typedObj.sellerId, typedObj.productId, typedObj.pieces);
-    setCustomerBasketToBuy((oldArrOfObj: {}[]) => {
-      return oldArrOfObj.filter((obj: any) => {
-        return obj.productId !== typedObj.productId;
-      });
-    });
 
-    setBoughtDetailArrExpended((oldArrOfObj) => {
-      var newDateArr = [];
-      newDateArr.push(new Date().toLocaleDateString().split("/")[2]);
-      newDateArr.push(new Date().toLocaleDateString().split("/")[0]);
-      newDateArr.push(new Date().toLocaleDateString().split("/")[1]);
-      if (oldArrOfObj !== undefined)
-        return [
-          ...oldArrOfObj,
-          {
-            imgSrc: [typedObj.imgSrc],
-            accepted: false,
-            price: typedObj.price,
-            pieces: typedObj.pieces,
-            productName: typedObj.productName,
-            moddedDate: newDateArr.join("-"),
-            productId: typedObj.productId,
-            _id: typedObj.productId,
-          },
-        ];
-    });
+    // console.log(userID, serviceID, templateID);
+    let userId = JSON.stringify(userID);
+    let serviceId = JSON.stringify(serviceID);
+    let templateId = JSON.stringify(templateID);
+    if (userID && serviceID && templateID) {
+      let templateParams = {
+        seller_name: typedObj.sellerId,
+        customer_name: "customerName",
+        item_name: "itemName",
+        phone_number: "phone",
+        my_email: "customer_email",
+        email_to_send: "saladindacic@gmail.com",
+      };
+      await emailInit(userId);
+      await emailSend(
+        serviceId,
+        templateId,
+        templateParams
+        // "user_ba8JZ0m5YOZkVPLpkjFHo"
+      );
+    }
+
+    // addProductToBasket(typedObj.sellerId, typedObj.productId, typedObj.pieces);
+    // setCustomerBasketToBuy((oldArrOfObj: {}[]) => {
+    //   return oldArrOfObj.filter((obj: any) => {
+    //     return obj.productId !== typedObj.productId;
+    //   });
+    // });
+
+    // setBoughtDetailArrExpended((oldArrOfObj) => {
+    //   var newDateArr = [];
+    //   newDateArr.push(new Date().toLocaleDateString().split("/")[2]);
+    //   newDateArr.push(new Date().toLocaleDateString().split("/")[0]);
+    //   newDateArr.push(new Date().toLocaleDateString().split("/")[1]);
+    //   if (oldArrOfObj !== undefined)
+    //     return [
+    //       ...oldArrOfObj,
+    //       {
+    //         imgSrc: [typedObj.imgSrc],
+    //         accepted: false,
+    //         price: typedObj.price,
+    //         pieces: typedObj.pieces,
+    //         productName: typedObj.productName,
+    //         moddedDate: newDateArr.join("-"),
+    //         productId: typedObj.productId,
+    //         _id: typedObj.productId,
+    //       },
+    //     ];
+    // });
   };
 
   const renderCustomerBasketToBuy = customerBasketToBuy.map(

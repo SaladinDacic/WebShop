@@ -18,6 +18,7 @@ interface updateProductInterfaceProp {
   sellerId: string,
   imgSrc: string[]
 }
+
 const updateSellerData = async (sellerId: string, obj: {
   rating?: number, sells?: string[], likes?: {}[],
   phoneNumber?: string, desc?: string, profileImg?: string, email?: string

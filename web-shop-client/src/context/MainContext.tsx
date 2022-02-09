@@ -72,6 +72,8 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
         date: string;
         likes: {}[];
         sells: string[];
+        email: string;
+        phoneNumber: string;
       }
     | undefined
   >(undefined);
@@ -176,6 +178,8 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
             date: string;
             likes: {}[];
             sells: string[];
+            email: string;
+            phoneNumber: string;
           };
           setLoggedSellerInfo({
             sellerId,
@@ -184,6 +188,8 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
             sellerName: info.name,
             likes: info.likes.slice(0, 4),
             sells: info.sells.slice(0, 4),
+            email: info.email,
+            phoneNumber: info.phoneNumber,
           });
         } catch (err) {
           console.log(err);
@@ -192,6 +198,9 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
     }
   }, [sellerId]);
 
+  const userID = process.env.REACT_APP_USER_ID_SECRET;
+  const serviceID = process.env.REACT_APP_SERVICE_ID_SECRET;
+  const templateID = process.env.REACT_APP_TEMPLATE_ID_SECRET;
   return (
     <ProfileDetailContext.Provider
       value={{
@@ -228,6 +237,9 @@ export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({
         setBasketNotification,
         categories,
         setCategories,
+        userID,
+        serviceID,
+        templateID,
       }}
     >
       {children}
