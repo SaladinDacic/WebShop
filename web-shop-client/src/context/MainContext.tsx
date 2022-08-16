@@ -15,6 +15,7 @@ export interface ProfileDetailContextProps {
   setRerender: React.Dispatch<React.SetStateAction<boolean>>;
   categories: string[];
   setCategories: React.Dispatch<React.SetStateAction<string[]>>;
+  children?: any;
 }
 
 export const ProfileDetailProvider: React.FC<ProfileDetailContextProps> = ({

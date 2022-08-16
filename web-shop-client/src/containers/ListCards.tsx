@@ -1,4 +1,4 @@
-import Masonry from "react-masonry-component";
+import div from "react-masonry-component";
 import React, { useState, useEffect, useContext } from "react";
 import Card from "../components/Card";
 import EditProduct from "../components/EditProduct";
@@ -12,16 +12,8 @@ interface ListCardsProps {
 }
 
 const ListCards: React.FC<ListCardsProps> = ({ allSellers, setAllSellers }) => {
-  const {
-    sellerDetail,
-    setSellerDetail,
-    detailCard,
-    setDetailCard,
-    editProduct,
-    loggedSellerInfo,
-    setEditProduct,
-    closeWindow,
-  } = useContext(ProfileDetailContext);
+  const { sellerDetail, setSellerDetail, detailCard, setDetailCard, editProduct, loggedSellerInfo, setEditProduct, closeWindow } =
+    useContext(ProfileDetailContext);
   const [productList, setProductList] = useState<{}[] | null>();
 
   useEffect(() => {
@@ -48,16 +40,8 @@ const ListCards: React.FC<ListCardsProps> = ({ allSellers, setAllSellers }) => {
     );
   });
 
-  const handleClick = (obj: {
-    sellerName: string;
-    show: boolean;
-    sellerId: string;
-    productId: string;
-  }) => {
-    if (
-      loggedSellerInfo !== undefined &&
-      obj.sellerId === loggedSellerInfo.sellerId
-    ) {
+  const handleClick = (obj: { sellerName: string; show: boolean; sellerId: string; productId: string }) => {
+    if (loggedSellerInfo !== undefined && obj.sellerId === loggedSellerInfo.sellerId) {
       setEditProduct({
         sellerName: obj.sellerName,
         sellerId: obj.sellerId,
@@ -75,23 +59,17 @@ const ListCards: React.FC<ListCardsProps> = ({ allSellers, setAllSellers }) => {
   };
   return (
     <div className="ListCards">
-      <div className="ListCards__detail">
-        {detailCard.show && <CardDetails />}
-      </div>
-      <div className="ListCards__detail">
-        {sellerDetail.show && <SellerDetail />}
-      </div>
-      <div className="ListCards__detail">
-        {editProduct.show && <EditProduct />}
-      </div>
-      <Masonry elementType="ul" className="ListCards__list">
+      <div className="ListCards__detail">{detailCard.show && <CardDetails />}</div>
+      <div className="ListCards__detail">{sellerDetail.show && <SellerDetail />}</div>
+      <div className="ListCards__detail">{editProduct.show && <EditProduct />}</div>
+      <div key="lala" className="ListCards__list">
         {renderProductList}
         {/* {renderProductList}
         {renderProductList}
         {renderProductList}
         {renderProductList}
         {renderProductList} */}
-      </Masonry>
+      </div>
     </div>
   );
 };

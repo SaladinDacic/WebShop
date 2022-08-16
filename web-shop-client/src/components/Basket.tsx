@@ -1,5 +1,5 @@
 // import emailjs from "emailjs-com";
-import { init as emailInit, send as emailSend } from "@emailjs/browser";
+// import { init as emailInit, send as emailSend } from "@emailjs/browser";
 import React, { useContext, useEffect, useState } from "react";
 import {
   getCustomerBasketById,
@@ -288,13 +288,13 @@ const Basket: React.FC<BasketProps> = ({
         my_email: "customer_email",
         email_to_send: "saladindacic@gmail.com",
       };
-      await emailInit(userId);
-      await emailSend(
-        serviceId,
-        templateId,
-        templateParams
-        // "user_ba8JZ0m5YOZkVPLpkjFHo"
-      );
+      // await emailInit(userId);
+      // await emailSend(
+      //   serviceId,
+      //   templateId,
+      //   templateParams
+      //   // "user_ba8JZ0m5YOZkVPLpkjFHo"
+      // );
     }
 
     // addProductToBasket(typedObj.sellerId, typedObj.productId, typedObj.pieces);

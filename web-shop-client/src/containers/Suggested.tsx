@@ -4,7 +4,7 @@ import EditProduct from "../components/EditProduct";
 import SellerDetail from "../components/SellerDetail";
 import { ProfileDetailContext } from "../context/MainContext";
 import CardDetails from "../components/CardDetails";
-import Masonry from "react-masonry-component";
+import div from "react-masonry-component";
 
 interface SuggestedProps {
   allSellers: {}[] | undefined;
@@ -12,15 +12,8 @@ interface SuggestedProps {
 }
 
 const Suggested: React.FC<SuggestedProps> = ({ allSellers, setAllSellers }) => {
-  const {
-    sellerDetail,
-    setSellerDetail,
-    detailCard,
-    setDetailCard,
-    editProduct,
-    loggedSellerInfo,
-    setEditProduct,
-  } = useContext(ProfileDetailContext);
+  const { sellerDetail, setSellerDetail, detailCard, setDetailCard, editProduct, loggedSellerInfo, setEditProduct } =
+    useContext(ProfileDetailContext);
   const [productList, setProductList] = useState<{}[] | null>();
   const sellersRef = useRef(allSellers);
 
@@ -39,11 +32,9 @@ const Suggested: React.FC<SuggestedProps> = ({ allSellers, setAllSellers }) => {
         }
       });
       let compressedString = strArr.join("");
-      const categoriesArr = compressedString
-        .split(",")
-        .filter((str: string) => {
-          if (str !== "") return true;
-        });
+      const categoriesArr = compressedString.split(",").filter((str: string) => {
+        if (str !== "") return true;
+      });
 
       var categorizedSellers: {}[] = [];
 
@@ -87,12 +78,7 @@ const Suggested: React.FC<SuggestedProps> = ({ allSellers, setAllSellers }) => {
     );
   });
 
-  const handleClick = (obj: {
-    sellerName: string;
-    show: boolean;
-    sellerId: string;
-    productId: string;
-  }) => {
+  const handleClick = (obj: { sellerName: string; show: boolean; sellerId: string; productId: string }) => {
     if (obj.sellerId === loggedSellerInfo.sellerId) {
       setEditProduct({
         sellerName: obj.sellerName,
@@ -112,23 +98,17 @@ const Suggested: React.FC<SuggestedProps> = ({ allSellers, setAllSellers }) => {
 
   return (
     <div className="Suggested">
-      <div className="Suggested__detail">
-        {detailCard.show && <CardDetails />}
-      </div>
-      <div className="Suggested__detail">
-        {sellerDetail.show && <SellerDetail />}
-      </div>
-      <div className="Suggested__detail">
-        {editProduct.show && <EditProduct />}
-      </div>
-      <Masonry className="Suggested__list">
+      <div className="Suggested__detail">{detailCard.show && <CardDetails />}</div>
+      <div className="Suggested__detail">{sellerDetail.show && <SellerDetail />}</div>
+      <div className="Suggested__detail">{editProduct.show && <EditProduct />}</div>
+      <div className="Suggested__list">
         {renderProductList}
         {/* {renderProductList}
         {renderProductList}
         {renderProductList}
         {renderProductList}
         {renderProductList} */}
-      </Masonry>
+      </div>
     </div>
   );
 };

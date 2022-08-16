@@ -1,8 +1,11 @@
 import React, { useState, createContext, useEffect } from "react";
+type ContainerProps = {
+  children: React.ReactNode; //👈 children prop typr
+};
 
 export const ProductContext = createContext<any | null>(null);
 
-export const ProductProvider: React.FC = (props: any) => {
+export const ProductProvider = (props: ContainerProps) => {
   const [ad, setAd] = useState<
     | {
         sellOrRent: string;

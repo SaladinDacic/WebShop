@@ -5,7 +5,7 @@ import SellerDetail from "../components/SellerDetail";
 import { ProfileDetailContext } from "../context/MainContext";
 import CardDetails from "../components/CardDetails";
 import { getAllPopular } from "../api/api";
-import Masonry from "react-masonry-component";
+import div from "react-masonry-component";
 
 interface PopularProps {
   allSellers: {}[] | undefined;
@@ -13,15 +13,8 @@ interface PopularProps {
 }
 
 const Popular: React.FC<PopularProps> = ({ allSellers, setAllSellers }) => {
-  const {
-    sellerDetail,
-    setSellerDetail,
-    detailCard,
-    setDetailCard,
-    editProduct,
-    loggedSellerInfo,
-    setEditProduct,
-  } = useContext(ProfileDetailContext);
+  const { sellerDetail, setSellerDetail, detailCard, setDetailCard, editProduct, loggedSellerInfo, setEditProduct } =
+    useContext(ProfileDetailContext);
   const [productList, setProductList] = useState<{}[] | null>();
   const sellersRef = useRef(allSellers);
 
@@ -81,12 +74,7 @@ const Popular: React.FC<PopularProps> = ({ allSellers, setAllSellers }) => {
     );
   });
 
-  const handleClick = (obj: {
-    sellerName: string;
-    show: boolean;
-    sellerId: string;
-    productId: string;
-  }) => {
+  const handleClick = (obj: { sellerName: string; show: boolean; sellerId: string; productId: string }) => {
     if (obj.sellerId === loggedSellerInfo.sellerId) {
       setEditProduct({
         sellerName: obj.sellerName,
@@ -106,23 +94,17 @@ const Popular: React.FC<PopularProps> = ({ allSellers, setAllSellers }) => {
 
   return (
     <div className="Popular">
-      <div className="Popular__detail">
-        {detailCard.show && <CardDetails />}
-      </div>
-      <div className="Popular__detail">
-        {sellerDetail.show && <SellerDetail />}
-      </div>
-      <div className="Popular__detail">
-        {editProduct.show && <EditProduct />}
-      </div>
-      <Masonry className="Popular__list">
+      <div className="Popular__detail">{detailCard.show && <CardDetails />}</div>
+      <div className="Popular__detail">{sellerDetail.show && <SellerDetail />}</div>
+      <div className="Popular__detail">{editProduct.show && <EditProduct />}</div>
+      <div className="Popular__list">
         {renderProductList}
         {/* {renderProductList}
         {renderProductList}
         {renderProductList}
         {renderProductList}
         {renderProductList} */}
-      </Masonry>
+      </div>
     </div>
   );
 };

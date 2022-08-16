@@ -88,14 +88,8 @@ const Landing: React.FC = () => {
                 }
               >
                 <Route path="/addProduct/category" element={<Category />} />
-                <Route
-                  path="/addProduct/basic-information"
-                  element={<BasicInformation />}
-                />
-                <Route
-                  path="/addProduct/price-image-desc"
-                  element={<PriceImageDesc />}
-                />
+                <Route path="/addProduct/basic-information" element={<BasicInformation />} />
+                <Route path="/addProduct/price-image-desc" element={<PriceImageDesc />} />
                 <Route path="/addProduct/publish" element={<Publish />} />
               </Route>
 
@@ -103,10 +97,7 @@ const Landing: React.FC = () => {
                 path="/"
                 element={
                   <ProductProvider>
-                    <ListCards
-                      setAllSellers={setAllSellers}
-                      allSellers={allSellers}
-                    />
+                    <ListCards setAllSellers={setAllSellers} allSellers={allSellers} />
                   </ProductProvider>
                 }
               />
@@ -115,11 +106,7 @@ const Landing: React.FC = () => {
                 path="/myArticles"
                 element={
                   <ProductProvider>
-                    <MyShop
-                      loggedIn={loggedIn}
-                      setMySellers={setMySellers}
-                      mySellers={mySellers}
-                    />
+                    <MyShop loggedIn={loggedIn} setMySellers={setMySellers} mySellers={mySellers} />
                   </ProductProvider>
                 }
               />
@@ -127,10 +114,7 @@ const Landing: React.FC = () => {
                 path="/suggested"
                 element={
                   <ProductProvider>
-                    <Suggested
-                      setAllSellers={setAllSellers}
-                      allSellers={allSellers}
-                    />
+                    <Suggested setAllSellers={setAllSellers} allSellers={allSellers} />
                   </ProductProvider>
                 }
               />
@@ -138,10 +122,7 @@ const Landing: React.FC = () => {
                 path="/popular"
                 element={
                   <ProductProvider>
-                    <Popular
-                      setAllSellers={setAllSellers}
-                      allSellers={allSellers}
-                    />
+                    <Popular setAllSellers={setAllSellers} allSellers={allSellers} />
                   </ProductProvider>
                 }
               />

@@ -1,4 +1,4 @@
-import Masonry from "react-masonry-component";
+import div from "react-masonry-component";
 import React, { useState, useEffect, useContext } from "react";
 import Card from "./Card";
 import CardDetails from "./CardDetails";
@@ -11,18 +11,8 @@ interface ListCardsProps {
   loggedIn?: boolean;
 }
 
-const MyShop: React.FC<ListCardsProps> = ({
-  mySellers,
-  setMySellers,
-  loggedIn,
-}) => {
-  const {
-    detailCard,
-    closeWindow,
-    setDetailCard,
-    editProduct,
-    setEditProduct,
-  } = useContext(ProfileDetailContext);
+const MyShop: React.FC<ListCardsProps> = ({ mySellers, setMySellers, loggedIn }) => {
+  const { detailCard, closeWindow, setDetailCard, editProduct, setEditProduct } = useContext(ProfileDetailContext);
   const [productList, setProductList] = useState<{}[] | null>();
 
   useEffect(() => {
@@ -46,12 +36,7 @@ const MyShop: React.FC<ListCardsProps> = ({
     );
   });
 
-  const handleClick = (obj: {
-    show: boolean;
-    sellerId: string;
-    productId: string;
-    sellerName: string;
-  }) => {
+  const handleClick = (obj: { show: boolean; sellerId: string; productId: string; sellerName: string }) => {
     setEditProduct({
       sellerId: obj.sellerId,
       productId: obj.productId,
@@ -63,14 +48,12 @@ const MyShop: React.FC<ListCardsProps> = ({
   return (
     <div className="MyShop">
       <div className="MyShop__detail">{detailCard.show && <CardDetails />}</div>
-      <div className="ListCards__detail">
-        {editProduct.show && <EditProduct />}
-      </div>
-      <Masonry className="MyShop__list">
+      <div className="ListCards__detail">{editProduct.show && <EditProduct />}</div>
+      <div className="MyShop__list">
         {renderProductList}
         {/* {renderProductList}
         {renderProductList} */}
-      </Masonry>
+      </div>
     </div>
   );
 };
